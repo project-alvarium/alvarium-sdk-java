@@ -1,5 +1,7 @@
 #Ignore working directories used by IDEs, etc
+.idea/
 .vscode/
+alvarium-sdk-java.iml
 
 # Compiled class file
 *.class
