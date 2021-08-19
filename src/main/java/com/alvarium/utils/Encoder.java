@@ -1,7 +1,12 @@
 package com.alvarium.utils;
 
 public class Encoder {
-  // Converts an array of bytes to the corresponding string hexadecimal representation
+  /**
+   * Converts an array of bytes to the corresponding
+   * string hexadecimal representation
+   * @param data byte array of data
+   * @return string hexadecimal representation
+   */
   public static String bytesToHex(byte[] data) {
     StringBuilder hexString = new StringBuilder(2 * data.length);
     for (int i = 0; i < data.length; i++) {

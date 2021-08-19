@@ -4,6 +4,8 @@ public class HashProviderFactory {
 
   public HashProvider getProvider(HashType type) throws HashTypeException {
     switch (type) {
+      case SHA256Hash:
+        return new Sha256Provider();
       case NoHash:
         return new NoneProvider();
       default:
