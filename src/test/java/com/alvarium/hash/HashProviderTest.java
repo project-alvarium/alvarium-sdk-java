@@ -10,6 +10,8 @@ public class HashProviderTest {
   private final String[] sha256Hashes = {
       "DD22AA6A8CF771E812349DA134CB266471DEBB549B0E2908091C61B1C47FA853",
       "FBC1A9F858EA9E177916964BD88C3D37B91A1E84412765E29950777F265C4B75"};
+  private final String[] md5Hashes = { "8F907CCF83C58F0D8E84BABA9DF0DBB7", 
+      "327B6F07435811239BC47E1544353273" };
 
   @Test
   public void noneProviderShouldReturnTheSameString() throws HashTypeException {
@@ -26,11 +28,22 @@ public class HashProviderTest {
   @Test
   public void sha256ProviderShouldGenerateAppropriateHashes() throws HashTypeException {
     HashProviderFactory hashProviderFactory = new HashProviderFactory();
-    HashProvider sut = hashProviderFactory.getProvider(HashType.SHA256Hash); 
+    HashProvider sut = hashProviderFactory.getProvider(HashType.SHA256Hash);
+
+    for (int i = 0; i < testCases.length; i++) {
+      final String resultedHash = sut.derive(testCases[i].getBytes());
+      assertEquals(sha256Hashes[i], resultedHash);
+    }
+  }
+
+  @Test
+  public void md5ProviderShouldGenerateAppropriateHashes() throws HashTypeException {
+    HashProviderFactory hashProviderFactory = new HashProviderFactory();
+    HashProvider sut = hashProviderFactory.getProvider(HashType.MD5Hash);
     
     for (int i = 0; i < testCases.length; i++) {
-      final String resultedHash = sut.derive(testCases[i].getBytes()); 
-      assertEquals(sha256Hashes[i], resultedHash);
+      final String result = sut.derive(testCases[i].getBytes()); 
+      assertEquals(md5Hashes[i], result);
     }
   }
 
