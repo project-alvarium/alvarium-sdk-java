@@ -6,6 +6,8 @@ public class HashProviderFactory {
     switch (type) {
       case SHA256Hash:
         return new Sha256Provider();
+      case MD5Hash:
+        return new Md5Provider();
       case NoHash:
         return new NoneProvider();
       default:
