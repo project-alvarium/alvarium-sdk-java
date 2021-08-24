@@ -19,4 +19,27 @@ public class Encoder {
 
     return hexString.toString();
   }
+  
+  /**
+   * Converts a hex string to a byte array
+   * and will return the conversion of complete bytes (i.e.
+   * last value in odd-sized input will be ignored
+   * @param hex Hexadecimal value in string format
+   * @return byte array from the hex input
+   */
+  public static byte[] hexToBytes(String hex) {
+    // Remove incomplete bytes if odd length
+    int len = hex.length();
+    if (len % 2 != 0) {
+      hex = hex.substring(0, len-1); // Remove last element
+    }
+
+    len = hex.length();
+    byte[] data = new byte[len / 2];
+    for (int i = 0; i < len; i += 2) {
+        data[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4)
+            + Character.digit(hex.charAt(i+1), 16));
+    }
+    return data;
+}
 }
