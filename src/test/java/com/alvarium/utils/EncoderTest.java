@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 public class EncoderTest {
@@ -27,5 +28,21 @@ public class EncoderTest {
       final String hexResult = Encoder.bytesToHex(bytes[i]);
       assertEquals(hex[i], hexResult);
     }
+  }
+
+  @Test
+  public void hexToBytesShouldRemoveIncompleteByte() {
+    final String data = "11F";
+    final byte[] expectedBytes = {0x11};
+    final byte[] bytesResult = Encoder.hexToBytes(data);
+    assertEquals(new String(expectedBytes), new String(bytesResult));
+  }
+
+  @Test
+  public void hexToBytesShouldConvertToByte() {
+    final String data = "111F";
+    final byte[] expectedBytes = {0x11, 0x1F};
+    final byte[] bytesResult = Encoder.hexToBytes(data);    
+    assertEquals(new String(expectedBytes), new String(bytesResult));
   }
 }

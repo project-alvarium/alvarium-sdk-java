@@ -1,13 +1,13 @@
 package com.alvarium.sign;
-import com.alvarium.sign.SignTypeException;
-import com.alvarium.sign.SignType;
 
 public class SignProviderFactory {
 
-  public SignProvider getProvider(SignType type) throws SignTypeException {
+  public SignProvider getProvider(SignType type) throws SignException {
     switch(type) {
+      case Ed25519: 
+        return new Ed25519Provider();
       default:
-        throw new SignTypeException("Concrete type not found: " + type.toString());
+        throw new SignException("Concrete type not found: " + type.toString(), null);
     }
   }
 
