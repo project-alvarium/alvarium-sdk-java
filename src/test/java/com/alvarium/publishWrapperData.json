@@ -1,0 +1,5 @@
+{
+  "action": "CREATE",
+  "messageType": "test type",
+  "content": "test content" 
+}
