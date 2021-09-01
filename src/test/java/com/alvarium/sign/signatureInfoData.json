@@ -1,0 +1,4 @@
+{
+  "public": { "path": "./key.json", "type": "Ed25519" },
+  "private": { "path": "./key.json", "type": "Ed25519" }
+}
