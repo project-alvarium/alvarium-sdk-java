@@ -6,8 +6,13 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import com.alvarium.contracts.Annotation;
+import com.alvarium.contracts.AnnotationType;
+import com.alvarium.hash.HashType;
 
 import org.junit.Test;
 
@@ -22,6 +27,18 @@ public class PublishWrapperTest {
     final PublishWrapper wrapper = new PublishWrapper(action,messageType, content);
     System.out.println(wrapper.toJson());
   }  
+
+  @Test
+  public void toJsonShouldParseAnnotationCorrectly() {
+    final SdkAction action = SdkAction.CREATE;
+    final String messageType = "test type";
+    final Annotation annotation = new Annotation("key", HashType.MD5Hash, "host", AnnotationType.TPM
+        , "signature", true, Instant.now());
+
+    final Annotation[] annotationList = {annotation, annotation};    
+    final PublishWrapper wrapper = new PublishWrapper(action, messageType, annotationList);
+    System.out.println(wrapper.toJson());
+  }
 
   @Test
   public void fromJsonShouldReturnAppropriateObject() throws IOException {

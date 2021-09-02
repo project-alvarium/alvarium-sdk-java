@@ -2,7 +2,10 @@ package com.alvarium;
 
 import java.io.Serializable;
 
+import com.alvarium.contracts.Annotation;
+import com.alvarium.serializers.AnnotationConverter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * A java bean that encapsulates the content sent through the stream providers
@@ -32,12 +35,14 @@ public class PublishWrapper implements Serializable {
   }
 
   public static PublishWrapper fromJson(String json) {
-    Gson gson = new Gson();
+    Gson gson = new GsonBuilder().registerTypeAdapter(Annotation.class, new AnnotationConverter())
+        .create();
     return gson.fromJson(json, PublishWrapper.class);
   }
 
   public String toJson() {
-    Gson gson = new Gson();
+    Gson gson = new GsonBuilder().registerTypeAdapter(Annotation.class, new AnnotationConverter())
+        .create();
     return gson.toJson(this);
   }
 }
