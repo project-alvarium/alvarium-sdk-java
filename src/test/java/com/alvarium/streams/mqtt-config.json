@@ -1,0 +1,16 @@
+{
+  "type": "MQTT",
+  "config": {
+    "clientId": "alvarium-test",
+    "qos": 0,
+    "user": "",
+    "password": "",
+    "provider": {
+      "host": "test.mosquitto.org",
+      "protocol": "tcp",
+      "port": 1883
+    },
+    "cleanness": false,
+    "topics": ["alvarium-test-topic"]
+  }
+}
