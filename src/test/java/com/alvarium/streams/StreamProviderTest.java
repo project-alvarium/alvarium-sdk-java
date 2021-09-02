@@ -9,7 +9,8 @@ public class StreamProviderTest {
   @Test
   public void mockStreamProviderShouldNotThrow() throws StreamException {
     final StreamProviderFactory factory = new StreamProviderFactory();
-    final StreamProvider provider = factory.getProvider(StreamType.MOCK);
+    final StreamInfo info = new StreamInfo(StreamType.MOCK, null);
+    final StreamProvider provider = factory.getProvider(info);
     final PublishWrapper wrapper = new PublishWrapper(SdkAction.CREATE, "test type",
         "test content");
 
