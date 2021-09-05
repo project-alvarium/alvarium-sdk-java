@@ -28,7 +28,6 @@
             <groupId>com.google.crypto.tink</groupId>
             <artifactId>tink</artifactId>
             <version>1.6.1</version>
-            <scope>ed25519 implementation</scope>
         </dependency>
 
         <dependency>
