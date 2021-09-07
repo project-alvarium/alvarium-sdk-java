@@ -4,6 +4,10 @@ package com.alvarium.sign;
 import org.junit.Test;  
 import static org.junit.Assert.*;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import com.alvarium.utils.Encoder;
 import com.google.crypto.tink.subtle.Ed25519Sign;
 
@@ -53,6 +57,29 @@ public class SignProviderTest {
     final String signedString = signProvider.sign(privateKey, content);
     final byte[] signed = Encoder.hexToBytes(signedString);
     signProvider.verify(wrongPublicKey, content, signed);    
+  }
+
+  @Test
+  public void signWithProvidedKeyFilesShouldVerifyTrue() throws Exception {
+    
+    // Load keys from files
+    String pirvateKeyPath = "./src/test/java/com/alvarium/sign/private.key";
+    String publicKeyPath = "./src/test/java/com/alvarium/sign/public.key";
+    final String privateKey = Files.readString(Paths.get(pirvateKeyPath), StandardCharsets.US_ASCII);
+    final String publicKey = Files.readString(Paths.get(publicKeyPath), StandardCharsets.US_ASCII);
+
+    // Decode keys into bytes
+    final byte[] privateKeyDecoded = Encoder.hexToBytes(privateKey);
+    final byte[] publicKeyDecoded = Encoder.hexToBytes(publicKey);
+
+    byte[] content = "foo".getBytes();
+
+    final SignProviderFactory factory = new SignProviderFactory();
+    final SignProvider signProvider = factory.getProvider(SignType.Ed25519);
+
+    final String signedString = signProvider.sign(privateKeyDecoded, content);
+    final byte[] signed = Encoder.hexToBytes(signedString);
+    signProvider.verify(publicKeyDecoded, content, signed);
   }
 
 }
