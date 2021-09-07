@@ -1,6 +1,7 @@
 package com.alvarium.sign;
 
 import java.security.GeneralSecurityException;
+import java.util.Arrays;
 
 import com.alvarium.utils.Encoder;
 import com.google.crypto.tink.subtle.Ed25519Sign;
@@ -13,10 +14,14 @@ public class Ed25519Provider implements SignProvider {
 
   public String sign(byte[] key, byte[] content) throws SignException {
     
+    // Private key passed as private key and public key appended to it
+    // so the private key of size 32-bytes is extracted 
+    final byte[] privateKey = Arrays.copyOfRange(key, 0, 32);
+
     final Ed25519Sign signer;
 
     try {
-      signer = new Ed25519Sign(key);
+      signer = new Ed25519Sign(privateKey);
     } catch(GeneralSecurityException e) {
       throw new SignException("SHA-512 not defined in EngineFactory.MESSAGE_DIGEST", e);
     } catch(IllegalArgumentException e) {
