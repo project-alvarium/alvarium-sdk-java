@@ -6,5 +6,7 @@ public enum AnnotationType {
   @SerializedName(value = "tpm")
   TPM, 
   @SerializedName(value = "mock")
-  MOCK;
+  MOCK,
+  @SerializedName(value = "tls")
+  TLS;
 }

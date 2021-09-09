@@ -21,7 +21,7 @@ public class Annotation implements Serializable {
   private final HashType hash;
   private final String host;
   private final AnnotationType kind;
-  private final String signature;
+  private String signature;
   private final Boolean isSatisfied;
   private final Instant timestamp;
 
@@ -38,6 +38,12 @@ public class Annotation implements Serializable {
     this.timestamp = timestamp;  
     }
 
+    //setters
+    
+    public void setSignature(String signature) {
+      this.signature = signature;
+    }
+    
     // getters
 
     public String getId() {
