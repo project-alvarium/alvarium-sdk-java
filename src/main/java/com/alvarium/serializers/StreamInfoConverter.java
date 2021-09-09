@@ -26,7 +26,7 @@ public class StreamInfoConverter implements JsonDeserializer<StreamInfo> {
         JsonDeserializationContext context
     ) {
     JsonObject obj = json.getAsJsonObject();
-    StreamType type = StreamType.valueOf(obj.get("type").getAsString());
+    StreamType type = StreamType.valueOf(obj.get("type").getAsString().toUpperCase());
     switch(type){
       case MQTT: 
         MqttConfig config = MqttConfig.fromJson(obj.get("config").toString());

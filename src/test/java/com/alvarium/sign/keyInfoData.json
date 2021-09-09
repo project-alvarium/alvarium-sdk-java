@@ -1,4 +1,4 @@
 {
   "path": "./key.json",
-  "type": "Ed25519"  
+  "type": "ed25519"  
 }
