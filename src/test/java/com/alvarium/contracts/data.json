@@ -1,9 +1,9 @@
 {
   "id": "01FE0RFFJY94R1ER2AM9BG63E2",
   "key": "320",
-  "hash": "MD5Hash",
+  "hash": "md5",
   "host": "host",
-  "kind": "TPM",
+  "kind": "tpm",
   "signature": "test sign",
   "isSatisfied": true,
   "timestamp": "2021-08-24T12:22:33.334070489-05:00"

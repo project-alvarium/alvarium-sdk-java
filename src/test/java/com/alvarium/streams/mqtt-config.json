@@ -1,5 +1,5 @@
 {
-  "type": "MQTT",
+  "type": "mqtt",
   "config": {
     "clientId": "alvarium-test",
     "qos": 0,
