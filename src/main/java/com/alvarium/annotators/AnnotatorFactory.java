@@ -11,6 +11,8 @@ public class AnnotatorFactory {
     switch (kind) {
       case MOCK:
         return new MockAnnotator(hash, kind, signature);
+      case TLS:
+        return new TlsAnnotator(hash, signature);
       default:
         throw new AnnotatorException("Annotator type is not supported"); 
     }
