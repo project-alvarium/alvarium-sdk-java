@@ -1,10 +1,22 @@
 package com.alvarium;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 import com.alvarium.utils.PropertyBag;
+import com.alvarium.annotators.Annotator;
+import com.alvarium.annotators.AnnotatorException;
+import com.alvarium.annotators.AnnotatorFactory;
+import com.alvarium.streams.StreamException;
 import com.alvarium.utils.ImmutablePropertyBag;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.Test;
 
 class MockSdk implements Sdk {
@@ -19,10 +31,32 @@ class MockSdk implements Sdk {
   } 
 }
 public class SdkTest {
+  private final String testJson;
+
+  public SdkTest() throws IOException {
+    String path = "./src/test/java/com/alvarium/mock-info.json";
+    this.testJson = Files.readString(Paths.get(path), StandardCharsets.US_ASCII);
+  }
+
   @Test
-  @SuppressWarnings("unused")
-  public void instantiateSdkShouldNotThrow() {
-    final Sdk sdk = new DefaultSdk();
+  public void instantiateSdkShouldNotThrow() throws AnnotatorException, StreamException {
+    final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
+
+    // init annotators
+    final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length]; 
+    final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
+
+    for (int i = 0; i < annotators.length; i++) {
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo.getHash()
+          .getType(), sdkInfo.getSignature());
+    }
+
+    // init logger
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
+
+    final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
+    sdk.close();
   }
 
   @Test
