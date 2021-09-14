@@ -17,7 +17,7 @@ import org.junit.Test;
 
 public class SdkInfoTest {
   private final String testJson;
-  private final AnnotationType[] annotators = {AnnotationType.TPM,AnnotationType.MOCK};
+  private final AnnotationType[] annotators = {AnnotationType.TLS,AnnotationType.MOCK};
 
   public SdkInfoTest() throws IOException {
     String path = "./src/test/java/com/alvarium/sdk-info.json";
