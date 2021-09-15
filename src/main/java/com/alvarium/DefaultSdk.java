@@ -12,16 +12,18 @@ public class DefaultSdk implements Sdk {
   private final Annotator[] annotators;
   private final SdkInfo config;
   private final StreamProvider stream;
+  private final Logger logger;
 
   DefaultSdk(Annotator[] annotators, SdkInfo config, Logger logger) throws StreamException {
     this.annotators = annotators;
     this.config = config;
+    this.logger = logger;
 
     // init stream
     final StreamProviderFactory streamFactory = new StreamProviderFactory();
     this.stream = streamFactory.getProvider(this.config.getStream());
     this.stream.connect();
-    logger.debug("stream provider connected successfully.");
+    this.logger.debug("stream provider connected successfully.");
   }
 
   public void create(PropertyBag properties, byte[] data) {
