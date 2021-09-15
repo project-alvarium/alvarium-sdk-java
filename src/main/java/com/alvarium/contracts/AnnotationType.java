@@ -8,5 +8,7 @@ public enum AnnotationType {
   @SerializedName(value = "mock")
   MOCK,
   @SerializedName(value = "tls")
-  TLS;
+  TLS,
+  @SerializedName(value = "pki")
+  PKI;
 }
