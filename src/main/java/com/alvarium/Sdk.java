@@ -15,6 +15,15 @@ public interface Sdk {
    */
   public void create(PropertyBag properties, byte[] data) throws AnnotatorException, StreamException;
   public void mutate(PropertyBag properties, byte[] oldData, byte[] newData);
-  public void transit(PropertyBag properties, byte[] data);
+  
+  /**
+   * Used when the recieved piece of data is originated by a separate application.
+   * The data is being transitioned from one application to another.
+   * @param properties : property bag for potential use by the annotators
+   * @param data : data being annotated
+   * @throws AnnotatorException
+   * @throws StreamException
+   */
+  public void transit(PropertyBag properties, byte[] data) throws AnnotatorException, StreamException;
   public void close() throws StreamException;
 }

@@ -50,7 +50,21 @@ public class DefaultSdk implements Sdk {
   public void mutate(PropertyBag properties, byte[] oldData, byte[] newData) {
   }
 
-  public void transit(PropertyBag properties, byte[] data) {
+  public void transit(PropertyBag properties, byte[] data) throws AnnotatorException,
+      StreamException {
+    final List<Annotation> annotations = new ArrayList<Annotation>();
+    final String contentType = "AnnotationList";
+
+    // Annotate incoming data
+    for (Annotator annotator: this.annotators) {
+      final Annotation annotation = annotator.execute(properties, data);
+      annotations.add(annotation);
+    }
+
+    // publish list of annotations to the StreamProvider
+    final PublishWrapper wrapper = new PublishWrapper(SdkAction.TRANSIT, contentType, annotations);
+    this.stream.publish(wrapper);
+    this.logger.debug("data annotated and published successfully.");
   }
 
   public void close() throws StreamException {
