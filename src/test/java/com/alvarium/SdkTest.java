@@ -75,7 +75,7 @@ public class SdkTest {
     final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
 
     // init annotators
-    final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length]; 
+    final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length];
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
 
     for (int i = 0; i < annotators.length; i++) {
@@ -93,6 +93,32 @@ public class SdkTest {
     final byte[] data = "test data".getBytes();
 
     sdk.create(properties, data);
+    sdk.close();
+  }
+
+  @Test
+  public void defaultSdkShouldCreateTransitionAnnotations() throws AnnotatorException,
+      StreamException {
+    final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
+
+    // init annotators
+    final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length];
+    final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
+
+    for (int i = 0; i < annotators.length; i++) {
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo.getHash()
+          .getType(), sdkInfo.getSignature());
+    }
+
+    // init logger and sdk
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
+    final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
+
+    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
+    final byte[] data = "test data".getBytes();
+
+    sdk.transit(properties, data);
     sdk.close();
   }
 }
