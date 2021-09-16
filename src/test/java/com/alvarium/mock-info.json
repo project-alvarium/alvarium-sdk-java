@@ -1,6 +1,6 @@
 
 {
-  "annotators": ["tls", "mock"],
+  "annotators": ["mock", "mock"],
   "hash": {
     "type": "sha256"
   },
