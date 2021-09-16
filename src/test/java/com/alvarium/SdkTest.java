@@ -60,7 +60,7 @@ public class SdkTest {
   }
 
   @Test
-  public void createShouldReturnSameData() {
+  public void createShouldReturnSameData() throws AnnotatorException, StreamException {
     final Sdk sdk = new MockSdk();
     final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String,Object>());
     byte[] oldData = {0xA, 0x1};
@@ -68,5 +68,31 @@ public class SdkTest {
     sdk.create(properties, oldData);
     sdk.mutate(properties, oldData, newData);
     sdk.transit(properties, oldData);
+  }
+
+  @Test
+  public void defaultSdkShouldCreateAnnotations() throws AnnotatorException, StreamException {
+    final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
+
+    // init annotators
+    final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length]; 
+    final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
+
+    for (int i = 0; i < annotators.length; i++) {
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo.getHash()
+          .getType(), sdkInfo.getSignature());
+    }
+
+    // init logger and sdk
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
+    final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
+
+    // init property bag and data
+    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
+    final byte[] data = "test data".getBytes();
+
+    sdk.create(properties, data);
+    sdk.close();
   }
 }
