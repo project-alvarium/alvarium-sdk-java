@@ -19,7 +19,7 @@ import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.Encoder;
 import com.alvarium.utils.PropertyBag;
 
-public class PkiAnnotator extends AnnotatorUtils implements Annotator{
+class PkiAnnotator extends AnnotatorUtils implements Annotator {
   private final HashType hash;
   private final SignatureInfo signature;
   private final AnnotationType kind;
