@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.alvarium.annotators.Annotator;
 import com.alvarium.annotators.AnnotatorException;
+import com.alvarium.annotators.AnnotatorFactory;
 import com.alvarium.contracts.Annotation;
+import com.alvarium.contracts.AnnotationType;
 import com.alvarium.streams.StreamException;
 import com.alvarium.streams.StreamProvider;
 import com.alvarium.streams.StreamProviderFactory;
@@ -47,7 +49,26 @@ public class DefaultSdk implements Sdk {
     this.logger.debug("data annotated and published successfully.");
   }
 
-  public void mutate(PropertyBag properties, byte[] oldData, byte[] newData) {
+  public void mutate(PropertyBag properties, byte[] oldData, byte[] newData) throws 
+  AnnotatorException, StreamException {
+    // source annotate the old data
+    final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
+    final Annotator sourceAnnotator = annotatorFactory.getAnnotator(AnnotationType.SOURCE,
+        this.config.getHash().getType(), this.config.getSignature());
+    final Annotation sourceAnnotation = sourceAnnotator.execute(properties, oldData);
+
+    final List<Annotation> annotations = new ArrayList<Annotation>();
+    annotations.add(sourceAnnotation);
+    final String contentType = "AnnotationList";
+
+    for (Annotator annotator: this.annotators) {
+      final Annotation annotation = annotator.execute(properties, newData);
+      annotations.add(annotation);
+    }
+
+    final PublishWrapper wrapper = new PublishWrapper(SdkAction.MUTATE, contentType, annotations);
+    this.stream.publish(wrapper);
+    this.logger.debug("data annotated and published successfully.");
   }
 
   public void transit(PropertyBag properties, byte[] data) throws AnnotatorException,

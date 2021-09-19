@@ -17,6 +17,8 @@ public class AnnotatorFactory {
         return new PkiAnnotator(hash, signature);
       case TPM:
         return new TpmAnnotator(hash, signature);
+      case SOURCE:
+        return new SourceAnnotator(hash, signature);
       default:
         throw new AnnotatorException("Annotator type is not supported"); 
     }

@@ -121,4 +121,31 @@ public class SdkTest {
     sdk.transit(properties, data);
     sdk.close();
   }
+
+  @Test
+  public void defaultSdkShouldMutateData() throws AnnotatorException, StreamException {
+    final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
+
+    // init annotators
+    final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length];
+    final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
+
+    for (int i = 0; i < annotators.length; i++) {
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo.getHash()
+      .getType(), sdkInfo.getSignature());
+    }
+
+    // init logger and sdk
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
+    final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
+
+    // init property bag and data
+    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
+    final byte[] oldData = "old data".getBytes();
+    final byte[] newData = "new data".getBytes();
+
+    sdk.mutate(properties, oldData, newData);
+    sdk.close();
+  }
 }
