@@ -10,5 +10,7 @@ public enum AnnotationType {
   @SerializedName(value = "tls")
   TLS,
   @SerializedName(value = "pki")
-  PKI;
+  PKI,
+  @SerializedName(value = "source")
+  SOURCE;
 }
