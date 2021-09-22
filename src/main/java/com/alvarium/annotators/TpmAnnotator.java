@@ -14,7 +14,7 @@ import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
 
-class TpmAnnotator extends AnnotatorUtils implements Annotator {
+class TpmAnnotator extends AbstractAnnotator implements Annotator {
   private final HashType hash;
   private final AnnotationType kind;
   private final SignatureInfo signature;

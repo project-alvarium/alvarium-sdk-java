@@ -11,7 +11,7 @@ import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
 
-class TlsAnnotator extends AnnotatorUtils implements Annotator {
+class TlsAnnotator extends AbstractAnnotator implements Annotator {
   private final HashType hash;
   private final AnnotationType kind;
   private final SignatureInfo signatureInfo;
