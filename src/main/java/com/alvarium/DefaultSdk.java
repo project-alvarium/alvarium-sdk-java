@@ -1,6 +1,7 @@
 package com.alvarium;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.alvarium.annotators.Annotator;
@@ -11,6 +12,7 @@ import com.alvarium.contracts.AnnotationType;
 import com.alvarium.streams.StreamException;
 import com.alvarium.streams.StreamProvider;
 import com.alvarium.streams.StreamProviderFactory;
+import com.alvarium.utils.ImmutablePropertyBag;
 import com.alvarium.utils.PropertyBag;
 
 import org.apache.logging.log4j.Logger;
@@ -48,6 +50,11 @@ public class DefaultSdk implements Sdk {
     this.stream.publish(wrapper);
     this.logger.debug("data annotated and published successfully.");
   }
+  
+  public void create(byte[] data) throws AnnotatorException, StreamException {
+    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
+    this.create(properties, data);
+  }
 
   public void mutate(PropertyBag properties, byte[] oldData, byte[] newData) throws 
   AnnotatorException, StreamException {
@@ -71,6 +78,11 @@ public class DefaultSdk implements Sdk {
     this.logger.debug("data annotated and published successfully.");
   }
 
+  public void mutate(byte[] oldData, byte[] newData) throws AnnotatorException, StreamException {
+    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
+    this.mutate(properties, oldData, newData);
+  }
+
   public void transit(PropertyBag properties, byte[] data) throws AnnotatorException,
       StreamException {
     final List<Annotation> annotations = new ArrayList<Annotation>();
@@ -86,6 +98,11 @@ public class DefaultSdk implements Sdk {
     final PublishWrapper wrapper = new PublishWrapper(SdkAction.TRANSIT, contentType, annotations);
     this.stream.publish(wrapper);
     this.logger.debug("data annotated and published successfully.");
+  }
+
+  public void transit(byte[] data) throws AnnotatorException, StreamException {
+    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
+    this.transit(properties, data);
   }
 
   public void close() throws StreamException {
