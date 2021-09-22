@@ -14,7 +14,7 @@ import com.alvarium.utils.PropertyBag;
  * A unit used to provide lineage from one version of data to another as a result of
  * change or transformation
  */
-class SourceAnnotator extends AnnotatorUtils implements Annotator {
+class SourceAnnotator extends AbstractAnnotator implements Annotator {
   private final HashType hash;
   private final AnnotationType kind;
   private final SignatureInfo signatureInfo;

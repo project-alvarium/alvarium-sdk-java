@@ -19,7 +19,7 @@ import com.alvarium.utils.Encoder;
 /**
  * A Util class responsible for carrying out common operations done by the annotators
  */
-abstract class AnnotatorUtils {
+abstract class AbstractAnnotator {
 
   /**
    * returns hash of the provided data depending on the given hash type
