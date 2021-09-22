@@ -20,11 +20,20 @@ import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.Test;
 
 class MockSdk implements Sdk {
-  public void create(PropertyBag properties, byte[] data) {
+  public void create(PropertyBag properties, byte[] data) {}
+  public void create(byte[] data) {
+    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
+    this.create(properties, data);
   }
-  public void mutate(PropertyBag properties, byte[] oldData, byte[] newData) {
+  public void mutate(PropertyBag properties, byte[] oldData, byte[] newData) {}
+  public void mutate(byte[] oldData, byte[] newData) {
+    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
+    this.mutate(properties, oldData, newData);
   }
-  public void transit(PropertyBag properties, byte[] data) {
+  public void transit(PropertyBag properties, byte[] data) {}
+  public void transit(byte[] data) {
+    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
+    this.transit(properties, data);
   }
   public void close() {
     System.out.println("Connections closed");
@@ -62,12 +71,11 @@ public class SdkTest {
   @Test
   public void createShouldReturnSameData() throws AnnotatorException, StreamException {
     final Sdk sdk = new MockSdk();
-    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String,Object>());
     byte[] oldData = {0xA, 0x1};
     byte[] newData = {0x1, 0xA};
-    sdk.create(properties, oldData);
-    sdk.mutate(properties, oldData, newData);
-    sdk.transit(properties, oldData);
+    sdk.create(oldData);
+    sdk.mutate(oldData, newData);
+    sdk.transit(oldData);
   }
 
   @Test
@@ -88,11 +96,9 @@ public class SdkTest {
     Configurator.setRootLevel(Level.DEBUG);
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
 
-    // init property bag and data
-    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
     final byte[] data = "test data".getBytes();
 
-    sdk.create(properties, data);
+    sdk.create(data);
     sdk.close();
   }
 
@@ -115,10 +121,9 @@ public class SdkTest {
     Configurator.setRootLevel(Level.DEBUG);
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
 
-    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
     final byte[] data = "test data".getBytes();
 
-    sdk.transit(properties, data);
+    sdk.transit(data);
     sdk.close();
   }
 
@@ -140,12 +145,11 @@ public class SdkTest {
     Configurator.setRootLevel(Level.DEBUG);
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
 
-    // init property bag and data
-    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
+
     final byte[] oldData = "old data".getBytes();
     final byte[] newData = "new data".getBytes();
 
-    sdk.mutate(properties, oldData, newData);
+    sdk.mutate(oldData, newData);
     sdk.close();
   }
 }
