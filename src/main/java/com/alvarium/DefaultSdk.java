@@ -37,17 +37,8 @@ public class DefaultSdk implements Sdk {
 
   public void create(PropertyBag properties, byte[] data) throws AnnotatorException, 
       StreamException {
-    final List<Annotation> annotations = new ArrayList<Annotation>();
-    final String contentType = "AnnotationList";
-
-    // annotate incoming data with the given list of annotators
-    for (Annotator annotator: this.annotators) {
-      final Annotation annotation = annotator.execute(properties, data);
-      annotations.add(annotation);
-    }
-
-    final PublishWrapper wrapper = new PublishWrapper(SdkAction.CREATE, contentType, annotations);
-    this.stream.publish(wrapper);
+    final List<Annotation> annotations = this.createAnnotations(properties, data);
+    this.publishAnnotations(SdkAction.CREATE, annotations);
     this.logger.debug("data annotated and published successfully.");
   }
   
@@ -58,23 +49,20 @@ public class DefaultSdk implements Sdk {
 
   public void mutate(PropertyBag properties, byte[] oldData, byte[] newData) throws 
   AnnotatorException, StreamException {
+    final List<Annotation> annotations = new ArrayList<Annotation>();
+
     // source annotate the old data
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
     final Annotator sourceAnnotator = annotatorFactory.getAnnotator(AnnotationType.SOURCE,
         this.config.getHash().getType(), this.config.getSignature());
     final Annotation sourceAnnotation = sourceAnnotator.execute(properties, oldData);
-
-    final List<Annotation> annotations = new ArrayList<Annotation>();
     annotations.add(sourceAnnotation);
-    final String contentType = "AnnotationList";
 
-    for (Annotator annotator: this.annotators) {
-      final Annotation annotation = annotator.execute(properties, newData);
-      annotations.add(annotation);
-    }
+    // Add annotations for new data
+    annotations.addAll(this.createAnnotations(properties, newData));
 
-    final PublishWrapper wrapper = new PublishWrapper(SdkAction.MUTATE, contentType, annotations);
-    this.stream.publish(wrapper);
+    // publish to the stream provider
+    this.publishAnnotations(SdkAction.MUTATE, annotations);
     this.logger.debug("data annotated and published successfully.");
   }
 
@@ -85,18 +73,8 @@ public class DefaultSdk implements Sdk {
 
   public void transit(PropertyBag properties, byte[] data) throws AnnotatorException,
       StreamException {
-    final List<Annotation> annotations = new ArrayList<Annotation>();
-    final String contentType = "AnnotationList";
-
-    // Annotate incoming data
-    for (Annotator annotator: this.annotators) {
-      final Annotation annotation = annotator.execute(properties, data);
-      annotations.add(annotation);
-    }
-
-    // publish list of annotations to the StreamProvider
-    final PublishWrapper wrapper = new PublishWrapper(SdkAction.TRANSIT, contentType, annotations);
-    this.stream.publish(wrapper);
+    final List<Annotation> annotations = this.createAnnotations(properties, data);
+    this.publishAnnotations(SdkAction.TRANSIT, annotations);
     this.logger.debug("data annotated and published successfully.");
   }
 
@@ -108,5 +86,41 @@ public class DefaultSdk implements Sdk {
   public void close() throws StreamException {
     this.stream.close();
     this.logger.debug("stream provider connection terminated successfully.");
+  }
+
+  /**
+   * Executes all the specified annotators and returns a list of all the created annotations
+   * @param properties
+   * @param data
+   * @return
+   * @throws AnnotatorException
+   */
+  private List<Annotation> createAnnotations(PropertyBag properties, byte[] data) 
+      throws AnnotatorException {
+    final List<Annotation> annotations = new ArrayList<Annotation>();
+
+    // Annotate incoming data
+    for (Annotator annotator: this.annotators) {
+      final Annotation annotation = annotator.execute(properties, data);
+      annotations.add(annotation);
+    }
+
+    return annotations;
+  }
+
+  /**
+   * Wraps the annotation list with a publish wrapper that specifies the SDK action and the 
+   * content type
+   * @param action
+   * @param annotations
+   * @throws StreamException
+   */
+  private void publishAnnotations(SdkAction action, List<Annotation> annotations) 
+      throws StreamException {
+    final String contentType = "AnnotationList";
+
+    // publish list of annotations to the StreamProvider
+    final PublishWrapper wrapper = new PublishWrapper(action, contentType, annotations);
+    this.stream.publish(wrapper);
   }
 }
