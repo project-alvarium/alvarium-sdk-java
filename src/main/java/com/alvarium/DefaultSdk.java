@@ -23,7 +23,7 @@ public class DefaultSdk implements Sdk {
   private final StreamProvider stream;
   private final Logger logger;
 
-  DefaultSdk(Annotator[] annotators, SdkInfo config, Logger logger) throws StreamException {
+  public DefaultSdk(Annotator[] annotators, SdkInfo config, Logger logger) throws StreamException {
     this.annotators = annotators;
     this.config = config;
     this.logger = logger;
