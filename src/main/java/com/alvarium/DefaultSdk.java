@@ -59,7 +59,13 @@ public class DefaultSdk implements Sdk {
     annotations.add(sourceAnnotation);
 
     // Add annotations for new data
-    annotations.addAll(this.createAnnotations(properties, newData));
+    for (Annotation annotation: this.createAnnotations(properties, newData)) {
+      // TLS is ignored in mutate to prevent needless penalization
+      // See https://github.com/project-alvarium/alvarium-sdk-go/issues/19
+      if(annotation.getKind() != AnnotationType.TLS) {
+        annotations.add(annotation);
+      }
+    }
 
     // publish to the stream provider
     this.publishAnnotations(SdkAction.MUTATE, annotations);
