@@ -1,13 +1,15 @@
 package com.alvarium.annotators;
 
+import com.alvarium.SdkInfo;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 
 public class AnnotatorFactory {
 
-  public Annotator getAnnotator(AnnotationType kind, HashType hash, SignatureInfo signature) 
-      throws AnnotatorException {
+  public Annotator getAnnotator(AnnotationType kind, SdkInfo config) throws AnnotatorException {
+    final HashType hash = config.getHash().getType();
+    final SignatureInfo signature = config.getSignature();
     switch (kind) {
       case MOCK:
         return new MockAnnotator(hash, kind, signature);
