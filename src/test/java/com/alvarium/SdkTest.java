@@ -56,8 +56,7 @@ public class SdkTest {
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo.getHash()
-          .getType(), sdkInfo.getSignature());
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo);
     }
 
     // init logger
@@ -87,8 +86,7 @@ public class SdkTest {
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo.getHash()
-          .getType(), sdkInfo.getSignature());
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo); 
     }
 
     // init logger and sdk
@@ -112,8 +110,7 @@ public class SdkTest {
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo.getHash()
-          .getType(), sdkInfo.getSignature());
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo); 
     }
 
     // init logger and sdk
@@ -136,8 +133,7 @@ public class SdkTest {
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo.getHash()
-      .getType(), sdkInfo.getSignature());
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo); 
     }
 
     // init logger and sdk

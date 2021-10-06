@@ -54,7 +54,7 @@ public class DefaultSdk implements Sdk {
     // source annotate the old data
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
     final Annotator sourceAnnotator = annotatorFactory.getAnnotator(AnnotationType.SOURCE,
-        this.config.getHash().getType(), this.config.getSignature());
+        this.config);
     final Annotation sourceAnnotation = sourceAnnotator.execute(properties, oldData);
     annotations.add(sourceAnnotation);
 

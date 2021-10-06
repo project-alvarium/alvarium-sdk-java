@@ -2,8 +2,10 @@ package com.alvarium.annotators;
 
 import java.util.HashMap;
 
+import com.alvarium.SdkInfo;
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.KeyInfo;
 import com.alvarium.sign.SignType;
@@ -34,10 +36,9 @@ public class PkiAnnotatorTest {
     final byte[] data = String.format("{seed: \"helloo\", signature: \"%s\"}", signature)
         .getBytes();
 
-    final Annotator annotator = annotatorFactory.getAnnotator(
-        AnnotationType.PKI, 
-        HashType.SHA256Hash,
-        sigInfo);
+    final AnnotationType[] annotators = {AnnotationType.PKI};
+    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
+    final Annotator annotator = annotatorFactory.getAnnotator(AnnotationType.PKI, config);
     final Annotation annotation = annotator.execute(ctx, data);
     assertTrue("isSatisfied should be true", annotation.getIsSatisfied());
   }
@@ -59,10 +60,10 @@ public class PkiAnnotatorTest {
     final byte[] data = String.format("{seed: \"helloo\", signature: \"%s\"}", signature)
         .getBytes();
 
-    final Annotator annotator = annotatorFactory.getAnnotator(
-        AnnotationType.PKI, 
-        HashType.SHA256Hash,
-        sigInfo);
+    final AnnotationType[] annotators = {AnnotationType.PKI};
+    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
+    final Annotator annotator = annotatorFactory.getAnnotator(AnnotationType.PKI, config);
+
     final Annotation annotation = annotator.execute(ctx, data);
     assertFalse("isSatisfied should be false", annotation.getIsSatisfied());
   }

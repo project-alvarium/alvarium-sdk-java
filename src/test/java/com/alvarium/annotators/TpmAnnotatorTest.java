@@ -2,8 +2,10 @@ package com.alvarium.annotators;
 
 import java.util.HashMap;
 
+import com.alvarium.SdkInfo;
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.KeyInfo;
 import com.alvarium.sign.SignType;
@@ -26,7 +28,9 @@ public class TpmAnnotatorTest {
         SignType.Ed25519);
 
     SignatureInfo sign = new SignatureInfo(publicKey, privateKey);
-    Annotator tpm = factory.getAnnotator(AnnotationType.TPM, HashType.MD5Hash, sign);
+    final AnnotationType[] annotators = { AnnotationType.TPM };
+    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null);
+    Annotator tpm = factory.getAnnotator(AnnotationType.TPM, config);
     
     PropertyBag ctx = new ImmutablePropertyBag(new HashMap<String, Object>());
     
