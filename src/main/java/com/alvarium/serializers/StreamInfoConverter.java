@@ -3,6 +3,7 @@ package com.alvarium.serializers;
 import java.lang.reflect.Type;
 
 import com.alvarium.streams.MqttConfig;
+import com.alvarium.streams.PravegaConfig;
 import com.alvarium.streams.StreamInfo;
 import com.alvarium.streams.StreamType;
 import com.google.gson.JsonDeserializer;
@@ -29,8 +30,11 @@ public class StreamInfoConverter implements JsonDeserializer<StreamInfo> {
     StreamType type = StreamType.valueOf(obj.get("type").getAsString().toUpperCase());
     switch(type){
       case MQTT: 
-        MqttConfig config = MqttConfig.fromJson(obj.get("config").toString());
-        return new StreamInfo(type,config);
+        MqttConfig mqttConfig = MqttConfig.fromJson(obj.get("config").toString());
+        return new StreamInfo(type,mqttConfig);
+      case PRAVEGA:
+        PravegaConfig pravegaConfig = PravegaConfig.fromJson(obj.get("config").toString());
+        return new StreamInfo(type, pravegaConfig);
       default: 
         Gson gson = new Gson();
         return gson.fromJson(json, StreamInfo.class);

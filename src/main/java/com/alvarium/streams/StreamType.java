@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName;
 public enum StreamType {
   @SerializedName(value = "mqtt")
   MQTT,
+  @SerializedName(value = "pravega")
+  PRAVEGA,
   @SerializedName(value = "mock")
   MOCK;
 }
