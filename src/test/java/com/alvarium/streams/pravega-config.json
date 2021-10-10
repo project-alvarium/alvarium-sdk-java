@@ -1,0 +1,19 @@
+{
+  "type": "pravega",
+  "config": {
+    "scalingPolicy": 1,
+    "scope": "alvarium",
+    "stream": "test",
+    "routingKey": "alvarium",
+    "retention": {
+      "type": "time",
+      "min": 10000,
+      "max": 20000
+    },
+    "provider": {
+      "host": "localhost",
+      "protocol": "tcp",
+      "port": 9090 
+    }
+  }
+}

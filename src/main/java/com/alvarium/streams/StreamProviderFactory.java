@@ -14,10 +14,15 @@ public class StreamProviderFactory {
         } catch(ClassCastException e) {
           throw new StreamException("Invalid stream config", e);
         }
-
+      case PRAVEGA:
+        try {
+          PravegaConfig config = PravegaConfig.class.cast(info.getConfig());
+          return new PravegaStreamProvider(config);
+        } catch (ClassCastException e) {
+          throw new StreamException("Invalid stream config", e);
+        }
       case MOCK:
         return new MockStreamProvider();
-    
       default:
         throw new StreamException(String.format("%s is not supported", info.getType()));
     }  

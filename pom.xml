@@ -48,6 +48,12 @@
           <version>1.2.5</version>
         </dependency>
 
+        <dependency>
+          <groupId>io.pravega</groupId>
+          <artifactId>pravega-client</artifactId>
+          <version>0.10.0</version>
+        </dependency>
+
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-api</artifactId>
