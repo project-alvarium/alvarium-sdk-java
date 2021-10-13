@@ -22,6 +22,7 @@ import com.alvarium.annotators.Annotator;
 import com.alvarium.annotators.AnnotatorException;
 import com.alvarium.annotators.AnnotatorFactory;
 import com.alvarium.contracts.Annotation;
+import com.alvarium.contracts.AnnotationList;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.streams.StreamException;
 import com.alvarium.streams.StreamProvider;
@@ -137,10 +138,14 @@ public class DefaultSdk implements Sdk {
    */
   private void publishAnnotations(SdkAction action, List<Annotation> annotations) 
       throws StreamException {
-    final String contentType = "AnnotationList";
-
+    final AnnotationList annotationList = new AnnotationList(annotations);
+    
     // publish list of annotations to the StreamProvider
-    final PublishWrapper wrapper = new PublishWrapper(action, contentType, annotations);
+    final PublishWrapper wrapper = new PublishWrapper(
+        action, 
+        annotationList.getClass().getName(), 
+        annotationList
+    );
     this.stream.publish(wrapper);
   }
 }

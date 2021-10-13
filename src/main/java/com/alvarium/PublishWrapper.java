@@ -15,11 +15,13 @@
 package com.alvarium;
 
 import java.io.Serializable;
+import java.util.Base64;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.serializers.AnnotationConverter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 
 /**
  * A java bean that encapsulates the content sent through the stream providers
@@ -48,15 +50,33 @@ public class PublishWrapper implements Serializable {
     return content;
   }
 
-  public static PublishWrapper fromJson(String json) {
-    Gson gson = new GsonBuilder().registerTypeAdapter(Annotation.class, new AnnotationConverter())
-        .create();
-    return gson.fromJson(json, PublishWrapper.class);
-  }
-
+  /**
+   * The content field in the returned JSON will be Base64 string encoded 
+   * @return String representation of the PublishWrapper JSON
+   */
   public String toJson() {
-    Gson gson = new GsonBuilder().registerTypeAdapter(Annotation.class, new AnnotationConverter())
+    Gson gson = new GsonBuilder()
+        .registerTypeAdapter(Annotation.class, new AnnotationConverter())
+        .disableHtmlEscaping()
         .create();
-    return gson.toJson(this);
+    
+    // Change the content field to a base64 encoded string before serializing to json
+    final JsonElement decodedContent = gson.toJsonTree(this.content);
+    final String encodedContent;
+    
+    // `toString()` will work if the content is a primitive type, but will add additional 
+    // quotes (e.g. "foo" will be "\"foo\"") but `getAsString()` will produce correct behavior but
+    // using `getAsString()` on a non-primitive type will throw an exception.
+    // This condition ensures that the correct method is called on the correct type
+    if (decodedContent.isJsonPrimitive()) {
+      encodedContent = Base64.getEncoder().encodeToString(decodedContent.getAsString().getBytes());
+    } else {
+      encodedContent = Base64.getEncoder().encodeToString(decodedContent.toString().getBytes());
+    }
+
+    // new publish wrapper returned as JSON string with encoded content 
+    // to prevent setting the object content value
+    final PublishWrapper wrapper = new PublishWrapper(action, messageType, encodedContent);
+    return gson.toJson(wrapper);
   }
 }
