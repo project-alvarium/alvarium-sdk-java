@@ -32,6 +32,6 @@ public class AnnotationConverter implements JsonSerializer<Annotation>, JsonDese
   }
 
   public Annotation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
-    return Annotation.fromJson(json.getAsString());
+    return Annotation.fromJson(json.toString());
   }
 }
