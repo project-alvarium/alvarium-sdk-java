@@ -16,7 +16,8 @@ public class EncoderTest {
   public void bytesToHexShouldReturnDoubleLength() throws NoSuchAlgorithmException{
     for (int i = 0; i < 20; i++) {
       byte[] data = new byte[i];
-      SecureRandom.getInstanceStrong().nextBytes(data);
+      // "NativePRNG" uses `/dev/urandom` for for `nextBytes()`
+      SecureRandom.getInstance("NativePRNG").nextBytes(data); 
       String hexResult = Encoder.bytesToHex(data);
       assertEquals(data.length * 2, hexResult.length());
     }
