@@ -25,5 +25,7 @@ public enum SdkAction {
   @SerializedName(value = "mutate")
   MUTATE,
   @SerializedName(value = "transit")
-  TRANSIT;
+  TRANSIT,
+  @SerializedName(value = "publish")
+  PUBLISH;
 }

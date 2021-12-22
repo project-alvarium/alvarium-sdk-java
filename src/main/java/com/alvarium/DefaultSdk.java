@@ -104,6 +104,18 @@ public class DefaultSdk implements Sdk {
     this.transit(properties, data);
   }
 
+  public void publish(PropertyBag properties, byte[] data) throws AnnotatorException,
+      StreamException {
+    final List<Annotation> annotations = this.createAnnotations(properties, data);
+    this.publishAnnotations(SdkAction.PUBLISH, annotations);
+    this.logger.debug("data annotated and published successfully.");
+  }
+  
+  public void publish(byte[] data) throws AnnotatorException, StreamException {
+    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
+    this.publish(properties, data);
+  }
+
   public void close() throws StreamException {
     this.stream.close();
     this.logger.debug("stream provider connection terminated successfully.");

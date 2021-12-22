@@ -89,6 +89,35 @@ public interface Sdk {
   public void mutate(byte[] oldData, byte[] newData) throws AnnotatorException, StreamException;
 
   /**
+   * Publish is proposed to provide extensibility for annotators that may need
+   * to attest to the state of data before it is sent over the wire. Publish could 
+   * also be useful in cases where the downstream host receiving the data isn't r
+   * running Alvarium-enabled applications.
+   * @param properties : A property bag that may be used by specific (or custom)
+   *                   annotators to pass custom values to them. The built-in 
+   *                   annotators that requires custom values are
+   *                   <ul>
+   *                   <li>TLS: Takes a key-value pair of "TLS": Socket</li>
+   *                   </ul>
+   * @param data       : data being annotated
+   * @throws AnnotatorException
+   * @throws StreamException
+   */
+  public void publish(PropertyBag properties, byte[] data) 
+      throws AnnotatorException, StreamException;
+
+  /**
+   * Publish is proposed to provide extensibility for annotators that may need
+   * to attest to the state of data before it is sent over the wire. Publish could 
+   * also be useful in cases where the downstream host receiving the data isn't
+   * running Alvarium-enabled applications.
+   * @param data
+   * @throws AnnotatorException
+   * @throws StreamException
+   */
+  public void publish(byte[] data) throws AnnotatorException, StreamException;
+
+  /**
    * Closes any open connections 
    * @throws StreamException
    */
