@@ -49,6 +49,11 @@ class MockSdk implements Sdk {
     final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
     this.transit(properties, data);
   }
+  public void publish(PropertyBag properties, byte[] data) {}
+  public void publish(byte[] data) {
+    final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
+    this.publish(properties, data);
+  }
   public void close() {
     System.out.println("Connections closed");
   } 
@@ -160,6 +165,30 @@ public class SdkTest {
     final byte[] newData = "new data".getBytes();
 
     sdk.mutate(oldData, newData);
+    sdk.close();
+  }
+
+  @Test
+  public void defaultSdkShouldCreatePublishedAnnotations() throws AnnotatorException,
+      StreamException {
+    final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
+
+    // init annotators
+    final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length];
+    final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
+
+    for (int i = 0; i < annotators.length; i++) {
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo); 
+    }
+
+    // init logger and sdk
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
+    final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
+
+    final byte[] data = "test data".getBytes();
+
+    sdk.publish(data);
     sdk.close();
   }
 }
