@@ -14,11 +14,39 @@
  *******************************************************************************/
 package com.alvarium.sign;
 
+import java.util.Map;
+import java.util.HashMap;
+
 import com.google.gson.annotations.SerializedName;
 
 public enum SignType {
   @SerializedName(value = "ed25519")
-  Ed25519,
+  Ed25519("ed25519"),
   @SerializedName(value = "none")
-  none;
- }
+  none("none");
+
+  private static final Map<String, SignType> signTypeMap = new HashMap<>();
+  private final String value;
+
+  private SignType(String value) {
+    this.value = value;
+  }
+
+  public String getValue() {
+    return this.value;
+  }
+
+  static {
+    for (SignType signType : SignType.values()) {
+      signTypeMap.put(signType.value, signType);
+    }
+  }
+
+  public static SignType fromString(String value) throws EnumConstantNotPresentException {
+    SignType signType = signTypeMap.get(value);
+    if (signType != null) {
+      return signType;
+    }
+    throw new EnumConstantNotPresentException(SignType.class, value);
+  }
+}
