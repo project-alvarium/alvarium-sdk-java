@@ -27,6 +27,7 @@ public interface Sdk {
    * custom values to them. The built-in annotators that require custom values are
    * <ul>
    * <li>TLS: Takes a key-value pair of "TLS": Socket</li>
+   * <li>PKIHttp: Takes a key-value pair of "PKIHttp": Http Request</li>
    * </ul>
    * @param data : data being annotated
    * @throws AnnotatorException

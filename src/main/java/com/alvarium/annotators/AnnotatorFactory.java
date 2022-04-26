@@ -31,6 +31,8 @@ public class AnnotatorFactory {
         return new TlsAnnotator(hash, signature);
       case PKI:
         return new PkiAnnotator(hash, signature);
+      case PKIHttp:
+        return new PkiHttpAnnotator(hash, signature);
       case TPM:
         return new TpmAnnotator(hash, signature);
       case SOURCE:
