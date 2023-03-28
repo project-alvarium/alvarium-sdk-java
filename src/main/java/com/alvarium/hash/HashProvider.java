@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -25,4 +25,18 @@ public interface HashProvider {
    * @return hashed value of the given data
    */
   String derive(byte[] data);
+
+  /**
+   * Updates the hash with new input data
+   * @param data byte array of data
+   * @return new hashed value of the given data
+   */
+  void update(byte[] data);
+
+  /**
+   * Gets the current hash, resets any saved values from previous <code>update()</code>
+   * calls
+   * @return the final hashing result of previous <code>update()</code> calls 
+   */
+  String getValue();
 }

@@ -1,4 +1,4 @@
-
+// 
 /*******************************************************************************
  * Copyright 2021 Dell Inc.
  *
@@ -59,6 +59,32 @@ public class HashProviderTest {
       final String result = sut.derive(testCases[i].getBytes()); 
       assertEquals(md5Hashes[i], result);
     }
+  }
+
+  @Test
+  public void md5ProviderUpdateReturnsSameAsDerive() throws Exception {
+    HashProviderFactory hashProviderFactory = new HashProviderFactory();
+    HashProvider provider = hashProviderFactory.getProvider(HashType.MD5Hash);
+    
+    final String exampleString = "foo";
+    provider.update(exampleString.getBytes());
+    String hash1 = provider.getValue();
+    String hash2 = provider.derive(exampleString.getBytes());
+
+    assert hash1.equals(hash2);
+  }
+
+  @Test
+  public void sha256ProviderUpdateReturnsSameAsDerive() throws Exception {
+    HashProviderFactory hashProviderFactory = new HashProviderFactory();
+    HashProvider provider = hashProviderFactory.getProvider(HashType.SHA256Hash);
+
+    final String exampleString = "foo";
+    provider.update(exampleString.getBytes());
+    String hash1 = provider.getValue();
+    String hash2 = provider.derive(exampleString.getBytes());
+
+    assert hash1.equals(hash2);
   }
 
   String generateRandomString(int length) {

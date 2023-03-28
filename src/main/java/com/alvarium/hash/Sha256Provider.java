@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -32,9 +32,21 @@ class Sha256Provider implements HashProvider {
   }
 
   // returns the hexadecimal sha256 hash representation of the given data
+  @Override
   public String derive(byte[] data) {
     final byte[] hashedBytes = this.sha256.digest(data);
     final String hashedString = Encoder.bytesToHex(hashedBytes);
     return hashedString; 
+  }
+
+  @Override
+  public void update(byte[] data) {
+    this.sha256.update(data);
+  }
+
+  @Override
+  public String getValue() {
+    final String hashedString = Encoder.bytesToHex(this.sha256.digest());
+    return hashedString;
   }
 }

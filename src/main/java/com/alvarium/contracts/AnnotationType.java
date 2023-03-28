@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 
 public enum AnnotationType {
   @SerializedName(value = "tpm")
-  TPM, 
+  TPM,
   @SerializedName(value = "mock")
   MOCK,
   @SerializedName(value = "tls")
@@ -27,6 +27,8 @@ public enum AnnotationType {
   PKI,
   @SerializedName(value = "pki-http")
   PKIHttp,
+  @SerializedName(value = "source-code")
+  SourceCode,
   @SerializedName(value = "src")
   SOURCE;
 }
