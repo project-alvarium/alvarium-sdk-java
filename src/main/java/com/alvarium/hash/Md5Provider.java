@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -30,9 +30,20 @@ class Md5Provider implements HashProvider{
     }
   }
 
+  @Override
   public String derive(byte[] data) {
-    final byte[] hashedBytes = md5.digest(data);
-    final String hashedString = Encoder.bytesToHex(hashedBytes);
+    final byte[] hashedBytes = this.md5.digest(data);
+    return Encoder.bytesToHex(hashedBytes);
+  }
+
+  @Override
+  public void update(byte[] data) {
+    this.md5.update(data);
+  }
+
+  @Override
+  public String getValue() {
+    final String hashedString = Encoder.bytesToHex(this.md5.digest());
     return hashedString;
   }
 }
