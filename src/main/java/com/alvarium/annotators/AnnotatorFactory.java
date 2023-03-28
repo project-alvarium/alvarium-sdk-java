@@ -35,10 +35,12 @@ public class AnnotatorFactory {
         return new PkiHttpAnnotator(hash, signature);
       case TPM:
         return new TpmAnnotator(hash, signature);
+      case GIT:
+        return new GitAnnotator(hash, signature);
       case SOURCE:
         return new SourceAnnotator(hash, signature);
       default:
-        throw new AnnotatorException("Annotator type is not supported"); 
+        throw new AnnotatorException("Annotator type is not supported");
     }
-  }  
+  }
 }
