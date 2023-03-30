@@ -29,6 +29,8 @@ public enum AnnotationType {
   PKIHttp,
   @SerializedName(value = "git")
   GIT,
+  @SerializedName(value = "artifact")
+  ARTIFACT,
   @SerializedName(value = "src")
   SOURCE;
 }

@@ -37,6 +37,8 @@ public class AnnotatorFactory {
         return new TpmAnnotator(hash, signature);
       case GIT:
         return new GitAnnotator(hash, signature);
+      case ARTIFACT:
+        return new ArtifactAnnotator(hash, signature);
       case SOURCE:
         return new SourceAnnotator(hash, signature);
       default:
