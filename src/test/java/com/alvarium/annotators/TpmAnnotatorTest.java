@@ -14,7 +14,7 @@
  *******************************************************************************/
 package com.alvarium.annotators;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.alvarium.SdkInfo;
 import com.alvarium.contracts.Annotation;
@@ -30,7 +30,7 @@ import com.alvarium.utils.PropertyBag;
 import org.junit.Test;
 
 public class TpmAnnotatorTest {
-  
+
   @Test
   public void executeShouldCreateAnnotation() throws AnnotatorException {
     AnnotatorFactory factory = new AnnotatorFactory();
@@ -38,19 +38,19 @@ public class TpmAnnotatorTest {
         "./src/test/java/com/alvarium/annotators/public.key",
         SignType.Ed25519);
     KeyInfo publicKey = new KeyInfo(
-        "./src/test/java/com/alvarium/annotators/public.key", 
+        "./src/test/java/com/alvarium/annotators/public.key",
         SignType.Ed25519);
 
     SignatureInfo sign = new SignatureInfo(publicKey, privateKey);
     final AnnotationType[] annotators = { AnnotationType.TPM };
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null);
     Annotator tpm = factory.getAnnotator(AnnotationType.TPM, config);
-    
-    PropertyBag ctx = new ImmutablePropertyBag(new HashMap<String, Object>());
-    
-    byte[] data = {0x1, 0x2};
+
+    PropertyBag ctx = new ImmutablePropertyBag(Map.of("pipelineId", "pipelineId/1"));
+
+    byte[] data = { 0x1, 0x2 };
     Annotation annotation = tpm.execute(ctx, data);
     System.out.println(annotation.toJson());
   }
-  
+
 }

@@ -24,6 +24,7 @@ import java.time.Instant;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.contracts.PipelineAnnotation;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
@@ -41,8 +42,9 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
     this.kind = AnnotationType.TPM;
   }
 
+  // expects pipelineId from ctx
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
-    
+
     final String key = super.deriveHash(hash, data);
     String host;
     try {
@@ -51,28 +53,32 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
       throw new AnnotatorException("Cannot get host name.", e);
     }
 
-    // Checks whether the TPM driver is accessible through the kernel resource manager, and if that 
+    // Checks whether the TPM driver is accessible through the kernel resource
+    // manager, and if that
     // failes, checks if the TPM driver can be accessed directly
     final Boolean isSatisfied = checkTpmExists(this.tpmKernelManagedPath) ||
-       checkTpmExists(this.directTpmPath);
+        checkTpmExists(this.directTpmPath);
+    final String pipelineId = ctx.getProperty("pipelineId", String.class);
 
-    final Annotation annotation = new Annotation(
-          key,
-          hash,
-          host,
-          kind,
-          null,
-          isSatisfied,
-          Instant.now());
-    
+    final Annotation annotation = new PipelineAnnotation(
+        key,
+        hash,
+        host,
+        kind,
+        null,
+        isSatisfied,
+        Instant.now(),
+        pipelineId);
+
     final String annotationSignature = super.signAnnotation(signature.getPrivateKey(), annotation);
     annotation.setSignature(annotationSignature);
     return annotation;
   }
 
   /**
-   * Checks whether the TPM driver exists (can be accessed) or not, this check was found on the 
-   * Microsoft TSS.MSR repository found here 
+   * Checks whether the TPM driver exists (can be accessed) or not, this check was
+   * found on the
+   * Microsoft TSS.MSR repository found here
    * https://github.com/microsoft/TSS.MSR/blob/d715b/TSS.Java/src/tss/TpmDeviceLinux.java
    * 
    * @param devName the tpm path
@@ -86,11 +92,11 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
       return false;
     }
     try {
-        devTpm = new RandomAccessFile(devName, "rwd");
-        devTpm.close();
-        return true;
+      devTpm = new RandomAccessFile(devName, "rwd");
+      devTpm.close();
+      return true;
     } catch (FileNotFoundException e) {
-        return false;
+      return false;
     } catch (IOException e) {
       throw new AnnotatorException("Could not close tpm file", e);
     }
