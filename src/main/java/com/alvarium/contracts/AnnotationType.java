@@ -31,6 +31,8 @@ public enum AnnotationType {
   GIT,
   @SerializedName(value = "artifact")
   ARTIFACT,
+  @SerializedName(value = "manifest")
+  MANIFEST,
   @SerializedName(value = "src")
   SOURCE;
 }

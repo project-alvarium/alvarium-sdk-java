@@ -14,6 +14,7 @@ pipeline {
             steps {
                 step([$class: 'AlvariumBuilder', annotationType: 'GIT'])
                 sh 'mvn package'
+                step([$class: 'AlvariumBuilder', annotationType: 'MANIFEST'])
             }
         }
     }

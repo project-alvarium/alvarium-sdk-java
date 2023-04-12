@@ -39,6 +39,8 @@ public class AnnotatorFactory {
         return new GitAnnotator(hash, signature);
       case ARTIFACT:
         return new ArtifactAnnotator(hash, signature);
+      case MANIFEST:
+        return new ManifestAnnotator(hash, signature);
       case SOURCE:
         return new SourceAnnotator(hash, signature);
       default:
