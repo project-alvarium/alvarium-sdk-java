@@ -35,9 +35,9 @@ public class GitAnnotatorTest {
                 Annotator tpm = factory.getAnnotator(AnnotationType.GIT, config);
 
                 PropertyBag ctx = new ImmutablePropertyBag(
-                                Map.of("directory", new File(System.getProperty("user.dir")), "pipelineId",
-                                                "pipelineId/1"));
-                byte[] data = "04bae059747f700858ef46c28abbd7fa6efc7036".getBytes();
+                                Map.of("directory", new File(System.getProperty("user.dir")), "commitHash",
+                                                "04bae059747f700858ef46c28abbd7fa6efc7036"));
+                byte[] data = "pipeline1/1".getBytes();
                 Annotation annotation = tpm.execute(ctx, data);
                 System.out.println(annotation.toJson());
         }

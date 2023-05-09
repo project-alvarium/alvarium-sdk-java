@@ -6,7 +6,6 @@ import java.time.Instant;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
-import com.alvarium.contracts.PipelineAnnotation;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
@@ -41,17 +40,14 @@ class ManifestAnnotator extends AbstractAnnotator implements Annotator {
 
         final Boolean isSatisfied = true;
 
-        final String pipelineId = ctx.getProperty("pipelineId", String.class);
-
-        final Annotation annotation = new PipelineAnnotation(
+        final Annotation annotation = new Annotation(
             key, 
             hash, 
             host, 
             kind, 
             null, 
             isSatisfied, 
-            Instant.now(), 
-            pipelineId
+            Instant.now()
         );
 
         final String annotationSignature = super.signAnnotation(

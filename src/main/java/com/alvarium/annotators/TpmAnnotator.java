@@ -24,7 +24,6 @@ import java.time.Instant;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
-import com.alvarium.contracts.PipelineAnnotation;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
@@ -42,7 +41,6 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
     this.kind = AnnotationType.TPM;
   }
 
-  // expects pipelineId from ctx
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
 
     final String key = super.deriveHash(hash, data);
@@ -58,17 +56,16 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
     // failes, checks if the TPM driver can be accessed directly
     final Boolean isSatisfied = checkTpmExists(this.tpmKernelManagedPath) ||
         checkTpmExists(this.directTpmPath);
-    final String pipelineId = ctx.getProperty("pipelineId", String.class);
 
-    final Annotation annotation = new PipelineAnnotation(
+    final Annotation annotation = new Annotation(
         key,
         hash,
         host,
         kind,
         null,
         isSatisfied,
-        Instant.now(),
-        pipelineId);
+        Instant.now()
+    );
 
     final String annotationSignature = super.signAnnotation(signature.getPrivateKey(), annotation);
     annotation.setSignature(annotationSignature);

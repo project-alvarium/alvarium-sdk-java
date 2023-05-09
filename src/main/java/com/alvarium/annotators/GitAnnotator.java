@@ -10,7 +10,6 @@ import java.time.Instant;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
-import com.alvarium.contracts.PipelineAnnotation;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
@@ -28,7 +27,7 @@ class GitAnnotator extends AbstractAnnotator implements Annotator {
     }
 
     // File (git working directory) is to be passed in the ctx bag
-    // expects pipelineId from ctx
+    // expects commitHash and directory from ctx
     @Override
     public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
         final String key = super.deriveHash(hash, data);
@@ -47,19 +46,18 @@ class GitAnnotator extends AbstractAnnotator implements Annotator {
         } catch (IOException e) {
             throw new AnnotatorException("could not run git command", e);
         }
-        final Boolean isSatisfied = commitHash.contentEquals(new String(data));
+        final String incomingCommitHash = ctx.getProperty("commitHash", String.class);
+        final Boolean isSatisfied = commitHash.contentEquals(incomingCommitHash);
 
-        final String pipelineId = ctx.getProperty("pipelineId", String.class);
-
-        final Annotation annotation = new PipelineAnnotation(
+        final Annotation annotation = new Annotation(
                 key,
                 hash,
                 host,
                 kind,
                 null,
                 isSatisfied,
-                Instant.now(),
-                pipelineId);
+                Instant.now()
+        );
 
         final String annotationSignature = super.signAnnotation(signature.getPrivateKey(), annotation);
         annotation.setSignature(annotationSignature);

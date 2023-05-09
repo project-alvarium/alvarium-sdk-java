@@ -15,6 +15,7 @@
 package com.alvarium.annotators;
 
 import java.util.Map;
+import java.util.HashMap;
 
 import com.alvarium.SdkInfo;
 import com.alvarium.contracts.Annotation;
@@ -46,8 +47,8 @@ public class TpmAnnotatorTest {
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null);
     Annotator tpm = factory.getAnnotator(AnnotationType.TPM, config);
 
-    PropertyBag ctx = new ImmutablePropertyBag(Map.of("pipelineId", "pipelineId/1"));
 
+    final PropertyBag ctx = new ImmutablePropertyBag(new HashMap<String, Object>());
     byte[] data = { 0x1, 0x2 };
     Annotation annotation = tpm.execute(ctx, data);
     System.out.println(annotation.toJson());
