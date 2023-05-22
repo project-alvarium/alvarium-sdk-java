@@ -42,6 +42,7 @@ class GitAnnotator extends AbstractAnnotator implements Annotator {
 
         // check if git commit hash is equal to the provided data
         String commitHash;
+
         final Map<String, Object> annotatorProperties = ctx.getProperty(
             AnnotationType.GIT.name(),
             Map.class
@@ -53,8 +54,8 @@ class GitAnnotator extends AbstractAnnotator implements Annotator {
         } catch (IOException e) {
             throw new AnnotatorException("could not run git command", e);
         }
-        final String incomingCommitHash = (String) annotatorProperties.get("commitHash");
-        final Boolean isSatisfied = commitHash.contentEquals(incomingCommitHash);
+        final byte[] incomingCommitHash = (byte[]) annotatorProperties.get("commitHash");
+        final Boolean isSatisfied = commitHash.contentEquals(new String(incomingCommitHash));
 
         final Annotation annotation = new Annotation(
                 key,
