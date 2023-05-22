@@ -38,6 +38,12 @@ class ManifestAnnotator extends AbstractAnnotator implements Annotator {
             throw new AnnotatorException("Cannot get host name", e);
         }
 
+        final byte[] manifestFile = ctx.getProperty(
+            AnnotationType.MANIFEST.name(),
+            byte[].class
+        );
+
+        // TODO(Ali Amin): Add some logic depending on the manifest file
         final Boolean isSatisfied = true;
 
         final Annotation annotation = new Annotation(

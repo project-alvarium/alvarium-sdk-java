@@ -2,6 +2,7 @@ package com.alvarium.annotators;
 
 import java.io.File;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.junit.Test;
 
@@ -34,9 +35,18 @@ public class GitAnnotatorTest {
                 final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null);
                 Annotator tpm = factory.getAnnotator(AnnotationType.GIT, config);
 
-                PropertyBag ctx = new ImmutablePropertyBag(
-                                Map.of("directory", new File(System.getProperty("user.dir")), "commitHash",
-                                                "04bae059747f700858ef46c28abbd7fa6efc7036"));
+                final Map<String, Object> annotatorProperties = new HashMap<>();
+
+                annotatorProperties.put(
+                        "directory", 
+                        new File(System.getProperty("user.dir"))
+                );
+                annotatorProperties.put(
+                        "commitHash", 
+                        "04bae059747f700858ef46c28abbd7fa6efc7036"
+                );
+                
+                PropertyBag ctx = new ImmutablePropertyBag(Map.of(AnnotationType.GIT.name(), annotatorProperties));
                 byte[] data = "pipeline1/1".getBytes();
                 Annotation annotation = tpm.execute(ctx, data);
                 System.out.println(annotation.toJson());

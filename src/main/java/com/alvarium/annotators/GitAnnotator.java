@@ -1,5 +1,7 @@
 package com.alvarium.annotators;
 
+import java.util.Map;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -40,13 +42,18 @@ class GitAnnotator extends AbstractAnnotator implements Annotator {
 
         // check if git commit hash is equal to the provided data
         String commitHash;
+        final Map<String, Object> annotatorProperties = ctx.getProperty(
+            AnnotationType.GIT.name(),
+            Map.class
+        );
+
         try {
-            final File gitDirectory = ctx.getProperty("directory", File.class);
+            final File gitDirectory = (File) annotatorProperties.get("directory");
             commitHash = getGitCommitHash(gitDirectory);
         } catch (IOException e) {
             throw new AnnotatorException("could not run git command", e);
         }
-        final String incomingCommitHash = ctx.getProperty("commitHash", String.class);
+        final String incomingCommitHash = (String) annotatorProperties.get("commitHash");
         final Boolean isSatisfied = commitHash.contentEquals(incomingCommitHash);
 
         final Annotation annotation = new Annotation(
