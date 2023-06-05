@@ -1,6 +1,5 @@
 package com.alvarium.utils;
 
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import static org.junit.Assert.assertEquals;
@@ -13,11 +12,11 @@ public class EncoderTest {
   private final String[] hex = {"AAFF01", "0B00114F"};
 
   @Test
-  public void bytesToHexShouldReturnDoubleLength() throws NoSuchAlgorithmException{
+  public void bytesToHexShouldReturnDoubleLength() {
     for (int i = 0; i < 20; i++) {
       byte[] data = new byte[i];
-      // "NativePRNG" uses `/dev/urandom` for for `nextBytes()`
-      SecureRandom.getInstance("NativePRNG").nextBytes(data); 
+
+      new SecureRandom().nextBytes(data); 
       String hexResult = Encoder.bytesToHex(data);
       assertEquals(data.length * 2, hexResult.length());
     }
