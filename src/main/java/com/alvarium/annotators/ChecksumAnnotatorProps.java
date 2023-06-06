@@ -11,30 +11,22 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package com.alvarium.hash;
+package com.alvarium.annotators;
 
-import java.util.Arrays;
+public class ArtifactAnnotatorProps {
+    final private String checksumPath;
+    final private String artifactPath;
+    
+    public ArtifactAnnotatorProps(String artifactPath, String checksumPath) {
+        this.artifactPath = artifactPath;
+        this.checksumPath = checksumPath;
+    }
 
-class NoneProvider implements HashProvider {
-  private byte[] hashValue;
+    public String getChecksumPath() {
+        return this.checksumPath;
+    }
 
-  @Override
-  public String derive(byte[] data) {
-    this.hashValue = data;
-    return new String(data);
-  }
-
-  @Override
-  public void update(byte[] data) {
-    this.hashValue = data;
-  }
-
-  public void update(byte[] data, int offset, int size) {
-    this.hashValue = Arrays.copyOfRange(data, offset, size);
-  }
-
-  @Override
-  public String getValue() {
-    return new String(this.hashValue);
-  }
+    public String getArtifactPath() {
+        return this.artifactPath;
+    }
 }

@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * Copyright 2023 Dell Inc.
  *
@@ -39,6 +38,11 @@ class Md5Provider implements HashProvider{
   @Override
   public void update(byte[] data) {
     this.md5.update(data);
+  }
+
+  @Override
+  public void update(byte[] data, int offset, int size) {
+    this.md5.update(data, offset, size);
   }
 
   @Override
