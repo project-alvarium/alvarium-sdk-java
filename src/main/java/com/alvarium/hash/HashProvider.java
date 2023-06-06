@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * Copyright 2023 Dell Inc.
  *
@@ -32,6 +31,17 @@ public interface HashProvider {
    * @return new hashed value of the given data
    */
   void update(byte[] data);
+  
+  /**
+   * Updates the hash with new input data. Useful when hashing large byte arrays in chunks 
+   * where the <code>offset</code> and <code>length</code> parameters can prevent alloting
+   * padded 0's to the digest when the input buffer is partially filled
+   * @param data byte array of data
+   * @param offset offset into the output buffer to begin storing the digest
+   * @param length number of bytes within buffer allotted for the digest
+   * @return new hashed value of the given data
+   */
+  public void update(byte[] buffer, int offset, int length);
 
   /**
    * Gets the current hash, resets any saved values from previous <code>update()</code>

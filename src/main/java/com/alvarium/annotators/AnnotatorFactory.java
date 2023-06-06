@@ -1,6 +1,5 @@
-
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -37,6 +36,8 @@ public class AnnotatorFactory {
         return new TpmAnnotator(hash, signature);
       case SourceCode:
         return new SourceCodeAnnotator(hash, signature);
+      case CHECKSUM:
+        return new ChecksumAnnotator(hash, signature);
       case SOURCE:
         return new SourceAnnotator(hash, signature);
       default:
