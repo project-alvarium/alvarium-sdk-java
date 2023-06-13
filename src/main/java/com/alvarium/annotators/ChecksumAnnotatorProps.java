@@ -13,11 +13,11 @@
  *******************************************************************************/
 package com.alvarium.annotators;
 
-public class ArtifactAnnotatorProps {
+public class ChecksumAnnotatorProps {
     final private String checksumPath;
     final private String artifactPath;
     
-    public ArtifactAnnotatorProps(String artifactPath, String checksumPath) {
+    public ChecksumAnnotatorProps(String artifactPath, String checksumPath) {
         this.artifactPath = artifactPath;
         this.checksumPath = checksumPath;
     }
