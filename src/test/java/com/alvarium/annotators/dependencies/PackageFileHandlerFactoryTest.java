@@ -11,27 +11,24 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package com.alvarium.contracts;
 
-import com.google.gson.annotations.SerializedName;
+package com.alvarium.annotators.sca;
 
-public enum AnnotationType {
-  @SerializedName(value = "tpm")
-  TPM,
-  @SerializedName(value = "mock")
-  MOCK,
-  @SerializedName(value = "tls")
-  TLS,
-  @SerializedName(value = "pki")
-  PKI,
-  @SerializedName(value = "pki-http")
-  PKIHttp,
-  @SerializedName(value = "source-code")
-  SourceCode,
-  @SerializedName(value = "checksum")
-  CHECKSUM,
-  @SerializedName(value = "dependencies")
-  DEPENDENCIES,
-  @SerializedName(value = "src")
-  SOURCE;
+import java.io.File;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+public class PackageFileHandlerFactoryTest {
+    @Rule
+    public TemporaryFolder dir = new TemporaryFolder();
+
+    @Test
+    public void shouldReturnMavenHandler() throws Exception {
+        File pom = dir.newFile("pom.xml");
+        PackageFileHandlerFactory factory = new PackageFileHandlerFactory();
+        PackageFileHandler handler = factory.getHandler(pom.toPath().getParent().toString());
+        assert handler instanceof MavenHandler;
+    }
 }
