@@ -30,8 +30,8 @@ public enum AnnotationType {
   SourceCode,
   @SerializedName(value = "checksum")
   CHECKSUM,
-  @SerializedName(value = "dependencies")
-  DEPENDENCIES,
+  @SerializedName(value = "vulnerability")
+  VULNERABILITY,
   @SerializedName(value = "src")
   SOURCE;
 }
