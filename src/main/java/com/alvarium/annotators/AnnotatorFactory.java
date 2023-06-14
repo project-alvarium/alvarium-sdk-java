@@ -38,8 +38,8 @@ public class AnnotatorFactory {
         return new SourceCodeAnnotator(hash, signature);
       case CHECKSUM:
         return new ChecksumAnnotator(hash, signature);
-      case DEPENDENCIES:
-        return new DependenciesAnnotator(hash, signature);
+      case VULNERABILITY:
+        return new VulnerabilityAnnotator(hash, signature);
       case SOURCE:
         return new SourceAnnotator(hash, signature);
       default:
