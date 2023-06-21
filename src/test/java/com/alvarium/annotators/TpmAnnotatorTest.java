@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -18,14 +18,16 @@ import java.util.HashMap;
 
 import com.alvarium.SdkInfo;
 import com.alvarium.contracts.Annotation;
-import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashType;
+import com.alvarium.serializers.AnnotatorConfigConverter;
 import com.alvarium.sign.KeyInfo;
 import com.alvarium.sign.SignType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.ImmutablePropertyBag;
 import com.alvarium.utils.PropertyBag;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.junit.Test;
 
@@ -42,9 +44,18 @@ public class TpmAnnotatorTest {
         SignType.Ed25519);
 
     SignatureInfo sign = new SignatureInfo(publicKey, privateKey);
-    final AnnotationType[] annotators = { AnnotationType.TPM };
+    final Gson gson = new GsonBuilder()
+      .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+      .create();
+    
+    final String json = "{\"kind\": \"tpm\"}";
+    final AnnotatorConfig annotatorInfo = gson.fromJson(
+                json, 
+                AnnotatorConfig.class
+    );       
+    final AnnotatorConfig[] annotators = {annotatorInfo};  
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null);
-    Annotator tpm = factory.getAnnotator(AnnotationType.TPM, config);
+    Annotator tpm = factory.getAnnotator(annotatorInfo, config);
     
     PropertyBag ctx = new ImmutablePropertyBag(new HashMap<String, Object>());
     

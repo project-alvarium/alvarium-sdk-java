@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -16,8 +16,9 @@ package com.alvarium;
 
 import java.io.Serializable;
 
-import com.alvarium.contracts.AnnotationType;
+import com.alvarium.annotators.AnnotatorConfig;
 import com.alvarium.hash.HashInfo;
+import com.alvarium.serializers.AnnotatorConfigConverter;
 import com.alvarium.serializers.StreamInfoConverter;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.streams.StreamInfo;
@@ -28,12 +29,12 @@ import com.google.gson.GsonBuilder;
  * A java bean that encapsulates sdk related configuration
  */
 public class SdkInfo implements Serializable {
-  private final AnnotationType[] annotators;
+  private final AnnotatorConfig[] annotators;
   private final HashInfo hash;
   private final SignatureInfo signature;
   private final StreamInfo stream;
 
-  public SdkInfo(AnnotationType[] annotators, HashInfo hash, SignatureInfo signature,
+  public SdkInfo(AnnotatorConfig[] annotators, HashInfo hash, SignatureInfo signature,
       StreamInfo stream) {
     this.annotators = annotators;
     this.hash = hash;
@@ -41,7 +42,7 @@ public class SdkInfo implements Serializable {
     this.stream = stream;
   }
 
-  public AnnotationType[] getAnnotators() {
+  public AnnotatorConfig[] getAnnotators() {
     return this.annotators;
   }
 
@@ -58,13 +59,17 @@ public class SdkInfo implements Serializable {
   }
 
   public String toJson() {
-    Gson gson = new GsonBuilder().registerTypeAdapter(StreamInfo.class, new StreamInfoConverter())
+    Gson gson = new GsonBuilder()
+        .registerTypeAdapter(StreamInfo.class, new StreamInfoConverter())
+        .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
         .create();
     return gson.toJson(this);
   }
 
   public static SdkInfo fromJson(String json) {
-    Gson gson = new GsonBuilder().registerTypeAdapter(StreamInfo.class, new StreamInfoConverter())
+    Gson gson = new GsonBuilder()
+        .registerTypeAdapter(StreamInfo.class, new StreamInfoConverter())
+        .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
         .create();
     return gson.fromJson(json, SdkInfo.class);
   }

@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -14,14 +14,13 @@
  *******************************************************************************/
 package com.alvarium;
 
-import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
+import com.alvarium.annotators.MockAnnotatorConfig;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignType;
@@ -31,7 +30,6 @@ import org.junit.Test;
 
 public class SdkInfoTest {
   private final String testJson;
-  private final AnnotationType[] annotators = {AnnotationType.TLS,AnnotationType.MOCK};
 
   public SdkInfoTest() throws IOException {
     String path = "./src/test/java/com/alvarium/sdk-info.json";
@@ -42,9 +40,17 @@ public class SdkInfoTest {
   public void fromJsonShouldReturnSdkInfo(){
     SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
 
-    assertEquals(true, Arrays.equals(this.annotators, sdkInfo.getAnnotators()));
-    assertEquals(HashType.SHA256Hash, sdkInfo.getHash().getType());
-    assertEquals(SignType.Ed25519, sdkInfo.getSignature().getPrivateKey().getType());
-    assertEquals(MqttConfig.class, sdkInfo.getStream().getConfig().getClass());
+    assert sdkInfo.getAnnotators().length == 2;
+
+    assert sdkInfo.getAnnotators()[0].getKind() == AnnotationType.TPM;
+
+    assert sdkInfo.getAnnotators()[1].getKind() == AnnotationType.MOCK;
+    assert MockAnnotatorConfig.class.cast(sdkInfo.getAnnotators()[1]).getShouldSatisfy() == false;
+
+
+    assert sdkInfo.getHash().getType() == HashType.SHA256Hash;
+    assert sdkInfo.getSignature().getPrivateKey().getType() == SignType.Ed25519;
+    assert sdkInfo.getStream().getConfig().getClass() == MqttConfig.class;
+
   } 
 }

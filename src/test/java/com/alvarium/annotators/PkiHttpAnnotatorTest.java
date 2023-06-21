@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2022 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -28,11 +28,14 @@ import com.alvarium.contracts.AnnotationType;
 import com.alvarium.contracts.DerivedComponent;
 import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashType;
+import com.alvarium.serializers.AnnotatorConfigConverter;
 import com.alvarium.sign.KeyInfo;
 import com.alvarium.sign.SignType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.ImmutablePropertyBag;
 import com.alvarium.utils.PropertyBag;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -84,9 +87,10 @@ public class PkiHttpAnnotatorTest {
     map.put(AnnotationType.PKIHttp.name(), request);
     final PropertyBag ctx = new ImmutablePropertyBag(map);
 
-    final AnnotationType[] annotators = { AnnotationType.PKIHttp };
+    final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
+    final AnnotatorConfig[] annotators = {annotatorInfo};  
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
-    final Annotator annotator = annotatorFactory.getAnnotator(AnnotationType.PKIHttp, config);
+    final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config);
     final Annotation annotation = annotator.execute(ctx, data);
     assertTrue("isSatisfied should be true", annotation.getIsSatisfied());
   }
@@ -112,9 +116,10 @@ public class PkiHttpAnnotatorTest {
     exceptionRule.expect(AnnotatorException.class);
     exceptionRule.expectMessage("Invalid key type invalid");
 
-    final AnnotationType[] annotators = { AnnotationType.PKIHttp };
+    final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
+    final AnnotatorConfig[] annotators = {annotatorInfo};  
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
-    final Annotator annotator = annotatorFactory.getAnnotator(AnnotationType.PKIHttp, config);
+    final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config);
     annotator.execute(ctx, data);
   }
 
@@ -139,9 +144,10 @@ public class PkiHttpAnnotatorTest {
     exceptionRule.expect(AnnotatorException.class);
     exceptionRule.expectMessage("Failed to load public key");
 
-    final AnnotationType[] annotators = { AnnotationType.PKIHttp };
+    final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
+    final AnnotatorConfig[] annotators = {annotatorInfo};  
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
-    final Annotator annotator = annotatorFactory.getAnnotator(AnnotationType.PKIHttp, config);
+    final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config);
     annotator.execute(ctx, data);
   }
 
@@ -161,10 +167,11 @@ public class PkiHttpAnnotatorTest {
     HashMap<String, Object> map = new HashMap<>();
     map.put(AnnotationType.PKIHttp.name(), request);
     final PropertyBag ctx = new ImmutablePropertyBag(map);
-
-    final AnnotationType[] annotators = { AnnotationType.PKIHttp };
+    
+    final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
+    final AnnotatorConfig[] annotators = {annotatorInfo};  
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
-    final Annotator annotator = annotatorFactory.getAnnotator(AnnotationType.PKIHttp, config);
+    final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config);
     final Annotation annotation = annotator.execute(ctx, data);
     assertFalse("isSatisfied should be false", annotation.getIsSatisfied());
   }
@@ -186,10 +193,22 @@ public class PkiHttpAnnotatorTest {
     map.put(AnnotationType.PKIHttp.name(), request);
     final PropertyBag ctx = new ImmutablePropertyBag(map);
 
-    final AnnotationType[] annotators = { AnnotationType.PKIHttp };
+    final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
+    final AnnotatorConfig[] annotators = {annotatorInfo};  
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
-    final Annotator annotator = annotatorFactory.getAnnotator(AnnotationType.PKIHttp, config);
+    final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config);
     final Annotation annotation = annotator.execute(ctx, data);
     assertFalse("isSatisfied should be false", annotation.getIsSatisfied());
+  }
+
+  public AnnotatorConfig getAnnotatorCfg() {
+    final Gson gson = new GsonBuilder()
+      .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+      .create();        
+    final String json = "{\"kind\": \"pki-http\"}";
+    return gson.fromJson(
+                json, 
+                AnnotatorConfig.class
+    ); 
   }
 }

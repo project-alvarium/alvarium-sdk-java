@@ -1,6 +1,14 @@
 
 {
-  "annotators": ["mock", "mock"],
+  "annotators": [
+    {
+      "kind": "tpm"
+    },
+    {
+      "kind": "mock",
+      "shouldSatisfy": false
+    }    
+  ],
   "hash": {
     "type": "sha256"
   },

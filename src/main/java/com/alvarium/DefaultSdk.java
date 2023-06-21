@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.alvarium.annotators.Annotator;
+import com.alvarium.annotators.AnnotatorConfig;
 import com.alvarium.annotators.AnnotatorException;
 import com.alvarium.annotators.AnnotatorFactory;
 import com.alvarium.contracts.Annotation;
@@ -68,8 +69,10 @@ public class DefaultSdk implements Sdk {
 
     // source annotate the old data
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
-    final Annotator sourceAnnotator = annotatorFactory.getAnnotator(AnnotationType.SOURCE,
-        this.config);
+    final Annotator sourceAnnotator = annotatorFactory.getAnnotator(
+        new AnnotatorConfig(AnnotationType.SOURCE),
+        this.config
+    );
     final Annotation sourceAnnotation = sourceAnnotator.execute(properties, oldData);
     annotations.add(sourceAnnotation);
 
