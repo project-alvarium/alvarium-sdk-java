@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import com.alvarium.annotators.MockAnnotatorConfig;
+import com.alvarium.annotators.vulnerability.VulnerabilityAnnotatorConfig;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignType;
@@ -40,7 +41,7 @@ public class SdkInfoTest {
   public void fromJsonShouldReturnSdkInfo(){
     SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
 
-    assert sdkInfo.getAnnotators().length == 2;
+    assert sdkInfo.getAnnotators().length == 3;
 
     assert sdkInfo.getAnnotators()[0].getKind() == AnnotationType.TPM;
 
@@ -48,6 +49,22 @@ public class SdkInfoTest {
     assert MockAnnotatorConfig.class.cast(sdkInfo.getAnnotators()[1]).getShouldSatisfy() == false;
 
 
+    assert sdkInfo.getAnnotators()[2].getKind() == AnnotationType.VULNERABILITY;
+    assert VulnerabilityAnnotatorConfig.class.cast(sdkInfo.getAnnotators()[2])
+      .getProvider()
+      .uri()
+      .equals("https://example.com:80");
+
+    assert VulnerabilityAnnotatorConfig.class.cast(sdkInfo.getAnnotators()[2])
+      .getQueryBatchPath()
+      .equals("https://example.com:80/v1/querybatch");
+
+    assert VulnerabilityAnnotatorConfig.class.cast(sdkInfo.getAnnotators()[2])
+      .getQueryPath()
+      .equals("https://example.com:80/v1/query");
+
+
+    
     assert sdkInfo.getHash().getType() == HashType.SHA256Hash;
     assert sdkInfo.getSignature().getPrivateKey().getType() == SignType.Ed25519;
     assert sdkInfo.getStream().getConfig().getClass() == MqttConfig.class;

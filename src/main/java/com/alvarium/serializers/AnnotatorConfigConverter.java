@@ -20,6 +20,7 @@ import java.lang.reflect.Type;
 
 import com.alvarium.annotators.AnnotatorConfig;
 import com.alvarium.annotators.MockAnnotatorConfig;
+import com.alvarium.annotators.vulnerability.VulnerabilityAnnotatorConfig;
 import com.alvarium.contracts.AnnotationType;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
@@ -47,6 +48,12 @@ public class AnnotatorConfigConverter implements JsonDeserializer<AnnotatorConfi
             case MOCK:
                 MockAnnotatorConfig mockCfg = gson.fromJson(obj.toString(), MockAnnotatorConfig.class);
                 return mockCfg;
+            case VULNERABILITY:
+                VulnerabilityAnnotatorConfig vulnCfg = gson.fromJson(
+                    obj, 
+                    VulnerabilityAnnotatorConfig.class
+                );
+                return vulnCfg;
             default: 
                 return gson.fromJson(json, AnnotatorConfig.class);
         }

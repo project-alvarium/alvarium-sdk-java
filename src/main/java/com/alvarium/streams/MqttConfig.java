@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -16,6 +16,7 @@ package com.alvarium.streams;
 
 import java.io.Serializable;
 
+import com.alvarium.utils.ServiceInfo;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
