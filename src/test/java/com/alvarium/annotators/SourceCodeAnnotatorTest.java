@@ -37,11 +37,14 @@ import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashProvider;
 import com.alvarium.hash.HashProviderFactory;
 import com.alvarium.hash.HashType;
+import com.alvarium.serializers.AnnotatorConfigConverter;
 import com.alvarium.sign.KeyInfo;
 import com.alvarium.sign.SignType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.ImmutablePropertyBag;
 import com.alvarium.utils.PropertyBag;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class SourceCodeAnnotatorTest {
 
@@ -59,9 +62,18 @@ public class SourceCodeAnnotatorTest {
                                 SignType.Ed25519);
 
                 SignatureInfo sign = new SignatureInfo(publicKey, privateKey);
-                final AnnotationType[] annotators = { AnnotationType.SourceCode };
+                
+                final Gson gson = new GsonBuilder()
+                .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+                .create();
+                final String json = "{\"kind\": \"source-code\"}";
+                final AnnotatorConfig annotatorInfo = gson.fromJson(
+                            json, 
+                            AnnotatorConfig.class
+                );                 
+                final AnnotatorConfig[] annotators = {annotatorInfo};  
                 final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null);
-                Annotator annotator = factory.getAnnotator(AnnotationType.SourceCode, config);
+                Annotator annotator = factory.getAnnotator(annotatorInfo, config);
 
                 // Generate dummy source code directory and 
                 // generate checksum for dummy source code

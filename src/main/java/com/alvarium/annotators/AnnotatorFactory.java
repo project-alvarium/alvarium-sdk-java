@@ -14,18 +14,22 @@
 package com.alvarium.annotators;
 
 import com.alvarium.SdkInfo;
-import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 
 public class AnnotatorFactory {
 
-  public Annotator getAnnotator(AnnotationType kind, SdkInfo config) throws AnnotatorException {
+  public Annotator getAnnotator(AnnotatorConfig cfg, SdkInfo config) throws AnnotatorException {
     final HashType hash = config.getHash().getType();
     final SignatureInfo signature = config.getSignature();
-    switch (kind) {
+    switch (cfg.getKind()) {
       case MOCK:
-        return new MockAnnotator(hash, kind, signature);
+        try {
+            MockAnnotatorConfig mockCfg = MockAnnotatorConfig.class.cast(cfg);
+            return new MockAnnotator(mockCfg, hash, signature);
+        } catch(ClassCastException e) {
+            throw new AnnotatorException("Invalid annotator config", e);
+        }
       case TLS:
         return new TlsAnnotator(hash, signature);
       case PKI:

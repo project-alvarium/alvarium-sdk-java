@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -18,30 +18,72 @@ import java.util.HashMap;
 
 import com.alvarium.SdkInfo;
 import com.alvarium.contracts.Annotation;
-import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashType;
+import com.alvarium.serializers.AnnotatorConfigConverter;
 import com.alvarium.sign.KeyInfo;
 import com.alvarium.sign.SignType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.ImmutablePropertyBag;
 import com.alvarium.utils.PropertyBag;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.junit.Test;
 
 public class AnnotatorTest {
+
+
   @Test
-  public void mockAnnotatorShouldReturnAnnotation() throws AnnotatorException {
+  public void mockAnnotatorShouldReturnSatisfiedAnnotation() throws AnnotatorException {
     final KeyInfo keyInfo = new KeyInfo("path", SignType.none);
     final SignatureInfo signature = new SignatureInfo(keyInfo, keyInfo);
-    final AnnotationType[] annotators = {};
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.NoHash), signature, null);
+    final HashInfo hash = new HashInfo(HashType.NoHash);
+    
+    final Gson gson = new GsonBuilder()
+      .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+      .create();
+    
+    final String satisfiedMockConfig = "{\"kind\": \"mock\",\n\"shouldSatisfy\":true}";
+    final String unsatisfiedMockConfig = "{\"kind\": \"mock\",\n\"shouldSatisfy\":false}";
+    
+    
+    final String badConfig1 = "{\"kind\": \"invalid\",\n\"shouldSatisfy\":true}";
+    final String badConfig2 = "{\"invalid\": \"mock\",\n\"shouldSatisfy\":true}";
+
+    
+    final AnnotatorConfig satisfiedAnnotatorInfo = gson.fromJson(satisfiedMockConfig, AnnotatorConfig.class);
+    final AnnotatorConfig unsatisfiedAnnotatorInfo = gson.fromJson(unsatisfiedMockConfig, AnnotatorConfig.class);
+
+
+    try {
+      gson.fromJson(badConfig1, AnnotatorConfig.class);
+      assert false : "Expected IllegalArgumentException due to invalid kind";
+    } catch (IllegalArgumentException e) {
+      assert true;
+    }
+
+    try {
+      gson.fromJson(badConfig2, AnnotatorConfig.class);
+      assert false : "Expected IllegalArgumentException due to missing kind property";
+    } catch (IllegalArgumentException e) {
+      assert true;
+    }
+    
+    final AnnotatorConfig[] annotators = {satisfiedAnnotatorInfo, unsatisfiedAnnotatorInfo};
+    final SdkInfo config = new SdkInfo(annotators, hash, signature, null);
+
     final AnnotatorFactory factory = new AnnotatorFactory();
-    final Annotator annotator = factory.getAnnotator(AnnotationType.MOCK, config);
+    final Annotator satisfiedAnnotator = factory.getAnnotator(satisfiedAnnotatorInfo, config);
+    final Annotator unsatisfiedAnnotator = factory.getAnnotator(unsatisfiedAnnotatorInfo, config);
+
     final byte[] data = "test data".getBytes();
     final PropertyBag ctx = new ImmutablePropertyBag(new HashMap<>());
-    final Annotation annotation = annotator.execute(ctx, data);
+    final Annotation satisfiedAnnotation = satisfiedAnnotator.execute(ctx, data);
+    final Annotation unsatisfiedAnnotation = unsatisfiedAnnotator.execute(ctx, data);
 
-    System.out.println(annotation.toJson());
+    assert satisfiedAnnotation.getIsSatisfied();
+    assert !unsatisfiedAnnotation.getIsSatisfied();
+
   }  
 }

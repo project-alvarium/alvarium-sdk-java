@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -30,13 +30,15 @@ import com.alvarium.utils.PropertyBag;
  * a dummy annotator to be used in unit tests
  */
 class MockAnnotator implements Annotator {
+  private final MockAnnotatorConfig cfg;
   private final HashType hash;
   private final AnnotationType kind;
   private final SignatureInfo signature;
 
-  protected MockAnnotator(HashType hash, AnnotationType kind, SignatureInfo signature) {
+  protected MockAnnotator(MockAnnotatorConfig cfg, HashType hash, SignatureInfo signature) {
+    this.cfg = cfg;
     this.hash = hash;
-    this.kind = kind;
+    this.kind = AnnotationType.MOCK;
     this.signature = signature;
   }
 
@@ -47,7 +49,7 @@ class MockAnnotator implements Annotator {
       final String host = InetAddress.getLocalHost().getHostName();
       final String sig = signature.getPublicKey().getType().toString();
 
-      final Annotation annotation = new Annotation(key, hash, host, kind, sig, true, Instant.now());
+      final Annotation annotation = new Annotation(key, hash, host, kind, sig, cfg.getShouldSatisfy(), Instant.now());
       return annotation;
     } catch (HashTypeException e) {
       throw new AnnotatorException("failed to hash data", e);
