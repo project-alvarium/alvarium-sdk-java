@@ -6,6 +6,19 @@
     {
       "kind": "mock",
       "shouldSatisfy": false
+    },    
+    {
+      "kind": "vulnerability",
+      "type": "osv",
+      "paths": {
+        "queryBatch": "/v1/querybatch",
+        "query": "/v1/query"
+      },
+      "provider": {
+        "host": "example.com",
+        "port": 80,
+        "protocol": "https"
+      }
     }
   ],
   "hash": {

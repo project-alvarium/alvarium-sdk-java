@@ -14,6 +14,7 @@
 package com.alvarium.annotators;
 
 import com.alvarium.SdkInfo;
+import com.alvarium.annotators.vulnerability.VulnerabilityAnnotatorConfig;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 
@@ -43,7 +44,8 @@ public class AnnotatorFactory {
       case CHECKSUM:
         return new ChecksumAnnotator(hash, signature);
       case VULNERABILITY:
-        return new VulnerabilityAnnotator(hash, signature);
+        VulnerabilityAnnotatorConfig vulnCfg = VulnerabilityAnnotatorConfig.class.cast(cfg);
+        return new VulnerabilityAnnotator(vulnCfg, hash, signature);
       case SOURCE:
         return new SourceAnnotator(hash, signature);
       default:

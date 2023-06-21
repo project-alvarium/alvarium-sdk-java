@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package com.alvarium.streams;
+package com.alvarium.utils;
 
 import java.io.Serializable;
 
@@ -26,7 +26,7 @@ public class ServiceInfo implements Serializable {
   private final String protocol;
   private final int port;
 
-  protected ServiceInfo(String host, String protocol, int port) {
+  public ServiceInfo(String host, String protocol, int port) {
     this.host = host;
     this.protocol = protocol;
     this.port = port;
