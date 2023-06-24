@@ -18,6 +18,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.apache.logging.log4j.Logger;
+
 import com.alvarium.contracts.Annotation;
 import com.alvarium.hash.HashProvider;
 import com.alvarium.hash.HashProviderFactory;
@@ -34,6 +36,16 @@ import com.alvarium.utils.Encoder;
  */
 abstract class AbstractAnnotator {
 
+  protected  Logger logger;
+
+  AbstractAnnotator(Logger logger) {
+    this.logger = logger;
+  }
+
+  public Logger getLogger() {
+    return logger;
+  }
+  
   /**
    * returns hash of the provided data depending on the given hash type
    * @param type

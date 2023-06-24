@@ -17,6 +17,9 @@ package com.alvarium.annotators;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import javax.net.ssl.SSLSocket;
+
+import org.apache.logging.log4j.Logger;
+
 import java.time.Instant;
 
 import com.alvarium.contracts.Annotation;
@@ -30,7 +33,8 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
   private final AnnotationType kind;
   private final SignatureInfo signatureInfo;
   
-  protected TlsAnnotator(HashType hash, SignatureInfo signatureInfo) {
+  protected TlsAnnotator(HashType hash, SignatureInfo signatureInfo, Logger logger) {
+    super(logger);
     this.hash = hash;
     this.kind = AnnotationType.TLS;
     this.signatureInfo = signatureInfo;
@@ -51,11 +55,11 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
     final String key = super.deriveHash(hash, data);
 
     // get host name
-    String host;
+    String host = "";
     try {
       host = InetAddress.getLocalHost().getHostName();
     } catch (UnknownHostException e) {
-      throw new AnnotatorException("cannot get host name.", e);
+      this.logger.error("Error during TlsAnnotator execution: ",e);
     }
 
     // TLS check handshake

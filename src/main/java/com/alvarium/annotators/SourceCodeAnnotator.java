@@ -26,6 +26,8 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import org.apache.logging.log4j.Logger;
+
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashProvider;
@@ -43,7 +45,8 @@ class SourceCodeAnnotator extends AbstractAnnotator implements Annotator {
 
     private HashProvider hashProvider;
 
-    protected SourceCodeAnnotator(HashType hash, SignatureInfo signature) {
+    protected SourceCodeAnnotator(HashType hash, SignatureInfo signature, Logger logger) {
+        super(logger);
         this.hash = hash;
         this.kind = AnnotationType.SourceCode;
         this.signature = signature;
@@ -55,22 +58,23 @@ class SourceCodeAnnotator extends AbstractAnnotator implements Annotator {
     public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
         this.initHashProvider(this.hash);
         final String key = this.hashProvider.derive(data);
-        String host;
-        try {
-            host = InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
-            throw new AnnotatorException("Cannot get host name.", e);
-        }
 
         final SourceCodeAnnotatorProps props = ctx.getProperty(
             AnnotationType.SourceCode.name(),
             SourceCodeAnnotatorProps.class
         );
-        
-        final String checksum = this.readChecksum(props.getChecksumPath());
-        final String generatedChecksum = this.generateChecksum(props.getSourceCodePath());
 
-        final Boolean isSatisfied = generatedChecksum.equals(checksum);
+        String host = "";
+        boolean isSatisfied;
+        try{
+            host = InetAddress.getLocalHost().getHostName();
+            final String checksum = this.readChecksum(props.getChecksumPath());
+            final String generatedChecksum = this.generateChecksum(props.getSourceCodePath());
+            isSatisfied = generatedChecksum.equals(checksum);
+        } catch (UnknownHostException | AnnotatorException e) {
+            isSatisfied = false;
+            this.logger.error("Error during SourceCodeAnnotator execution: ",e);
+        }
 
         final Annotation annotation = new Annotation(
                 key,

@@ -29,6 +29,10 @@ import com.alvarium.utils.PropertyBag;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -47,6 +51,10 @@ public class PkiAnnotatorTest {
         SignType.Ed25519);
     final SignatureInfo sigInfo = new SignatureInfo(pubKey, privKey);
 
+        // init logger
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
+
     final PropertyBag ctx = new ImmutablePropertyBag(new HashMap<String, Object>());
 
     final String signature = "B9E41596541933DB7144CFBF72105E4E53F9493729CA66331A658B1B18AC6DF5DA991"
@@ -59,7 +67,7 @@ public class PkiAnnotatorTest {
     final AnnotatorConfig pkiCfg = this.getAnnotatorCfg();
     final AnnotatorConfig[] annotators = {pkiCfg};  
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
-    final Annotator annotator = annotatorFactory.getAnnotator(pkiCfg, config);
+    final Annotator annotator = annotatorFactory.getAnnotator(pkiCfg, config, logger);
     final Annotation annotation = annotator.execute(ctx, data);
     assertTrue("isSatisfied should be true", annotation.getIsSatisfied());
   }
@@ -73,6 +81,10 @@ public class PkiAnnotatorTest {
         SignType.Ed25519);
     final SignatureInfo sigInfo = new SignatureInfo(pubKey, privKey);
 
+            // init logger
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
+
     final PropertyBag ctx = new ImmutablePropertyBag(new HashMap<String, Object>());
 
     final String signature = "A9E41596541933DB7144CFBF72105E4E53F9493729CA66331A658B1B18AC6DF5DA991"
@@ -84,7 +96,7 @@ public class PkiAnnotatorTest {
     final AnnotatorConfig pkiCfg = this.getAnnotatorCfg();
     final AnnotatorConfig[] annotators = {pkiCfg};   
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
-    final Annotator annotator = annotatorFactory.getAnnotator(pkiCfg, config);
+    final Annotator annotator = annotatorFactory.getAnnotator(pkiCfg, config, logger);
 
     final Annotation annotation = annotator.execute(ctx, data);
     assertFalse("isSatisfied should be false", annotation.getIsSatisfied());

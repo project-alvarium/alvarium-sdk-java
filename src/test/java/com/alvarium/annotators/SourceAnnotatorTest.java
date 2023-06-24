@@ -30,6 +30,10 @@ import com.alvarium.utils.PropertyBag;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.Test;
 
 public class SourceAnnotatorTest {
@@ -55,7 +59,11 @@ public class SourceAnnotatorTest {
     final AnnotatorConfig[] annotators = {annotatorInfo};  
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
 
-    final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config);
+            // init logger
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
+
+    final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config, logger);
 
     // dummy data and empty prop bag
     final byte[] data = "test data".getBytes();

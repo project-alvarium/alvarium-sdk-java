@@ -71,7 +71,8 @@ public class DefaultSdk implements Sdk {
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
     final Annotator sourceAnnotator = annotatorFactory.getAnnotator(
         new AnnotatorConfig(AnnotationType.SOURCE),
-        this.config
+        this.config,
+        this.logger
     );
     final Annotation sourceAnnotation = sourceAnnotator.execute(properties, oldData);
     annotations.add(sourceAnnotation);

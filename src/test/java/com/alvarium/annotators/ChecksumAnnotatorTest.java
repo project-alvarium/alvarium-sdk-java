@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -66,7 +70,11 @@ public class ChecksumAnnotatorTest {
 
             final AnnotatorConfig[] annotators = {checksumCfg};  
             final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null);
-            Annotator annotator = factory.getAnnotator(checksumCfg, config);
+
+            // init logger
+            final Logger logger = LogManager.getRootLogger();
+            Configurator.setRootLevel(Level.DEBUG);
+            Annotator annotator = factory.getAnnotator(checksumCfg, config, logger);
             
             // Generate dummy artifact and generate checksum
             

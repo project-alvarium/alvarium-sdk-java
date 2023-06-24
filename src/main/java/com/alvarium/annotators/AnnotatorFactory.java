@@ -13,6 +13,8 @@
  *******************************************************************************/
 package com.alvarium.annotators;
 
+import org.apache.logging.log4j.Logger;
+
 import com.alvarium.SdkInfo;
 import com.alvarium.annotators.vulnerability.VulnerabilityAnnotatorConfig;
 import com.alvarium.hash.HashType;
@@ -20,7 +22,7 @@ import com.alvarium.sign.SignatureInfo;
 
 public class AnnotatorFactory {
 
-  public Annotator getAnnotator(AnnotatorConfig cfg, SdkInfo config) throws AnnotatorException {
+  public Annotator getAnnotator(AnnotatorConfig cfg, SdkInfo config, Logger logger) throws AnnotatorException {
     final HashType hash = config.getHash().getType();
     final SignatureInfo signature = config.getSignature();
     switch (cfg.getKind()) {
@@ -32,22 +34,22 @@ public class AnnotatorFactory {
             throw new AnnotatorException("Invalid annotator config", e);
         }
       case TLS:
-        return new TlsAnnotator(hash, signature);
+        return new TlsAnnotator(hash, signature, logger);
       case PKI:
-        return new PkiAnnotator(hash, signature);
+        return new PkiAnnotator(hash, signature, logger);
       case PKIHttp:
-        return new PkiHttpAnnotator(hash, signature);
+        return new PkiHttpAnnotator(hash, signature, logger);
       case TPM:
-        return new TpmAnnotator(hash, signature);
+        return new TpmAnnotator(hash, signature, logger);
       case SourceCode:
-        return new SourceCodeAnnotator(hash, signature);
+        return new SourceCodeAnnotator(hash, signature, logger);
       case CHECKSUM:
-        return new ChecksumAnnotator(hash, signature);
+        return new ChecksumAnnotator(hash, signature, logger);
       case VULNERABILITY:
         VulnerabilityAnnotatorConfig vulnCfg = VulnerabilityAnnotatorConfig.class.cast(cfg);
-        return new VulnerabilityAnnotator(vulnCfg, hash, signature);
+        return new VulnerabilityAnnotator(vulnCfg, hash, signature, logger);
       case SOURCE:
-        return new SourceAnnotator(hash, signature);
+        return new SourceAnnotator(hash, signature, logger);
       default:
         throw new AnnotatorException("Annotator type is not supported");
     }
