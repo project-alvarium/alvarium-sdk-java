@@ -29,12 +29,19 @@ import com.alvarium.utils.PropertyBag;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.Test;
 
 public class TpmAnnotatorTest {
   
   @Test
   public void executeShouldCreateAnnotation() throws AnnotatorException {
+            // init logger
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
     AnnotatorFactory factory = new AnnotatorFactory();
     KeyInfo privateKey = new KeyInfo(
         "./src/test/java/com/alvarium/annotators/public.key",
@@ -55,7 +62,7 @@ public class TpmAnnotatorTest {
     );       
     final AnnotatorConfig[] annotators = {annotatorInfo};  
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null);
-    Annotator tpm = factory.getAnnotator(annotatorInfo, config);
+    Annotator tpm = factory.getAnnotator(annotatorInfo, config, logger);
     
     PropertyBag ctx = new ImmutablePropertyBag(new HashMap<String, Object>());
     

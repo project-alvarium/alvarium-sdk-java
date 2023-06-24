@@ -74,13 +74,13 @@ public class SdkTest {
     final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length]; 
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
 
-    for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo);
-    }
-
     // init logger
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
+
+    for (int i = 0; i < annotators.length; i++) {
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger);
+    }
 
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
     sdk.close();
@@ -104,13 +104,14 @@ public class SdkTest {
     final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length];
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
 
-    for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo); 
-    }
-
-    // init logger and sdk
+    // init logger
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
+
+    for (int i = 0; i < annotators.length; i++) {
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger); 
+    }
+
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
 
     final byte[] data = "test data".getBytes();
@@ -127,14 +128,15 @@ public class SdkTest {
     // init annotators
     final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length];
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
-
-    for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo); 
-    }
-
-    // init logger and sdk
+    
+    // init logger
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
+
+    for (int i = 0; i < annotators.length; i++) {
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger); 
+    }
+
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
 
     final byte[] data = "test data".getBytes();
@@ -151,13 +153,14 @@ public class SdkTest {
     final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length];
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
 
-    for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo); 
-    }
-
-    // init logger and sdk
+    // init logger
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
+
+    for (int i = 0; i < annotators.length; i++) {
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger); 
+    }
+
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
 
 
@@ -177,13 +180,14 @@ public class SdkTest {
     final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length];
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
 
-    for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo); 
-    }
-
-    // init logger and sdk
+    // init logger
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
+
+    for (int i = 0; i < annotators.length; i++) {
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger); 
+    }
+
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
 
     final byte[] data = "test data".getBytes();

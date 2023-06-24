@@ -24,6 +24,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -73,7 +77,10 @@ public class SourceCodeAnnotatorTest {
                 );                 
                 final AnnotatorConfig[] annotators = {annotatorInfo};  
                 final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null);
-                Annotator annotator = factory.getAnnotator(annotatorInfo, config);
+                        // init logger
+                final Logger logger = LogManager.getRootLogger();
+                Configurator.setRootLevel(Level.DEBUG);
+                Annotator annotator = factory.getAnnotator(annotatorInfo, config, logger);
 
                 // Generate dummy source code directory and 
                 // generate checksum for dummy source code

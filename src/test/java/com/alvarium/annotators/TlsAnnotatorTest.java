@@ -35,13 +35,19 @@ import com.alvarium.utils.PropertyBag;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.Test;
 
 public class TlsAnnotatorTest {
   @Test
   public void executeShouldReturnAnnotation() throws AnnotatorException, IOException,
       UnknownHostException {
-
+                // init logger
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
     // construct annotator
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
     final KeyInfo pubKey = new KeyInfo("./src/test/java/com/alvarium/annotators/public.key", 
@@ -60,7 +66,7 @@ public class TlsAnnotatorTest {
     );      
     final AnnotatorConfig[] annotators = {annotatorInfo};  
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
-    final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config); 
+    final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config, logger); 
     
     // dummy data
     final byte[] data = "test data".getBytes();

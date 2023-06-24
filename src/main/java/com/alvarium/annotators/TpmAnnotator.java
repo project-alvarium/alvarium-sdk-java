@@ -22,6 +22,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Instant;
 
+import org.apache.logging.log4j.Logger;
+
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashType;
@@ -35,7 +37,8 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
   private final String directTpmPath = "/dev/tpm0";
   private final String tpmKernelManagedPath = "/dev/tpmrm0";
 
-  protected TpmAnnotator(HashType hash, SignatureInfo signature) {
+  protected TpmAnnotator(HashType hash, SignatureInfo signature, Logger logger) {
+    super(logger);
     this.hash = hash;
     this.signature = signature;
     this.kind = AnnotationType.TPM;
@@ -44,17 +47,19 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
     
     final String key = super.deriveHash(hash, data);
-    String host;
+
+    String host = "";
+    boolean isSatisfied;
     try {
       host = InetAddress.getLocalHost().getHostName();
-    } catch (UnknownHostException e) {
-      throw new AnnotatorException("Cannot get host name.", e);
+      // Checks whether the TPM driver is accessible through the kernel resource manager, and if that 
+      // failes, checks if the TPM driver can be accessed directly
+      isSatisfied = checkTpmExists(this.tpmKernelManagedPath) ||
+        checkTpmExists(this.directTpmPath);
+    } catch (UnknownHostException | AnnotatorException e) {
+      isSatisfied = false;
+      this.logger.error("Error during TpmAnnotator execution: ",e);
     }
-
-    // Checks whether the TPM driver is accessible through the kernel resource manager, and if that 
-    // failes, checks if the TPM driver can be accessed directly
-    final Boolean isSatisfied = checkTpmExists(this.tpmKernelManagedPath) ||
-       checkTpmExists(this.directTpmPath);
 
     final Annotation annotation = new Annotation(
           key,

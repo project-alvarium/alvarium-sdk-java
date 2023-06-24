@@ -5,6 +5,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.apache.logging.log4j.Logger;
+
 import com.alvarium.sign.KeyInfo;
 import com.alvarium.sign.SignException;
 import com.alvarium.sign.SignProvider;
@@ -12,6 +14,10 @@ import com.alvarium.sign.SignProviderFactory;
 import com.alvarium.utils.Encoder;
 
 abstract class AbstractPkiAnnotator extends AbstractAnnotator {
+  AbstractPkiAnnotator(Logger logger) {
+    super(logger);
+  }
+
   /**
    * Responsible for verifying the signature, returns true if the verification
    * passed, false otherwise.

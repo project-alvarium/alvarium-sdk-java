@@ -33,13 +33,15 @@ import com.alvarium.sign.SignType;
 import com.alvarium.utils.PropertyBag;
 
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.logging.log4j.Logger;
 
 class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
   private final HashType hash;
   private final SignatureInfo signature;
   private final AnnotationType kind;
 
-  protected PkiHttpAnnotator(HashType hash, SignatureInfo signature) {
+  protected PkiHttpAnnotator(HashType hash, SignatureInfo signature, Logger logger) {
+    super(logger);
     this.hash = hash;
     this.signature = signature;
     this.kind = AnnotationType.PKIHttp;
@@ -47,13 +49,6 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
 
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
     final String key = super.deriveHash(hash, data);
-
-    String host;
-    try {
-      host = InetAddress.getLocalHost().getHostName();
-    } catch (UnknownHostException e) {
-      throw new AnnotatorException("Cannot get host name", e);
-    }
 
     HttpUriRequest request;
     try {
@@ -86,8 +81,17 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
     KeyInfo publicKey = new KeyInfo(publicKeyPath, alg);
     SignatureInfo sig = new SignatureInfo(publicKey, signature.getPrivateKey());
 
-    Boolean isSatisfied = verifySignature(sig.getPublicKey(), signable);
+    String host = "";
+    boolean isSatisfied;
+    try{
+      host = InetAddress.getLocalHost().getHostName();
 
+      isSatisfied = verifySignature(sig.getPublicKey(), signable);
+    } catch (UnknownHostException | AnnotatorException e) {
+      isSatisfied = false;
+      this.logger.error("Error during PkiHttpAnnotator execution: ",e);
+    }
+ 
     final Annotation annotation = new Annotation(
         key,
         hash,

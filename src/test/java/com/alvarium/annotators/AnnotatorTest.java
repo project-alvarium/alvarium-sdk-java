@@ -29,6 +29,10 @@ import com.alvarium.utils.PropertyBag;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.Test;
 
 public class AnnotatorTest {
@@ -73,17 +77,20 @@ public class AnnotatorTest {
     final AnnotatorConfig[] annotators = {satisfiedAnnotatorInfo, unsatisfiedAnnotatorInfo};
     final SdkInfo config = new SdkInfo(annotators, hash, signature, null);
 
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
+
     final AnnotatorFactory factory = new AnnotatorFactory();
-    final Annotator satisfiedAnnotator = factory.getAnnotator(satisfiedAnnotatorInfo, config);
-    final Annotator unsatisfiedAnnotator = factory.getAnnotator(unsatisfiedAnnotatorInfo, config);
+    final Annotator satisfiedAnnotator = factory.getAnnotator(satisfiedAnnotatorInfo, config, logger);
+    final Annotator unsatisfiedAnnotator = factory.getAnnotator(unsatisfiedAnnotatorInfo, config, logger);
 
     final byte[] data = "test data".getBytes();
     final PropertyBag ctx = new ImmutablePropertyBag(new HashMap<>());
+
     final Annotation satisfiedAnnotation = satisfiedAnnotator.execute(ctx, data);
     final Annotation unsatisfiedAnnotation = unsatisfiedAnnotator.execute(ctx, data);
 
     assert satisfiedAnnotation.getIsSatisfied();
     assert !unsatisfiedAnnotation.getIsSatisfied();
-
   }  
 }

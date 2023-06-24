@@ -22,6 +22,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Instant;
 
+import org.apache.logging.log4j.Logger;
+
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashProvider;
@@ -39,7 +41,8 @@ public class ChecksumAnnotator extends AbstractAnnotator implements Annotator {
 
     private HashProvider hashProvider;
 
-    protected ChecksumAnnotator(HashType hash, SignatureInfo signature) {
+    protected ChecksumAnnotator(HashType hash, SignatureInfo signature, Logger logger) {
+        super(logger);
         this.hash = hash;
         this.signature = signature;
         this.kind = AnnotationType.CHECKSUM;
@@ -51,25 +54,27 @@ public class ChecksumAnnotator extends AbstractAnnotator implements Annotator {
         this.initHashProvider(this.hash);
         final String key = this.hashProvider.derive(data);
 
-        final String host;
-        try {
-            host = InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
-            throw new AnnotatorException("Cannot get host name", e);
-        }
-
         final ChecksumAnnotatorProps props = ctx.getProperty(
             AnnotationType.CHECKSUM.name(), 
             ChecksumAnnotatorProps.class
         );
 
-        // Get artifact checksum
-        final String checksum = this.readFile(props.getChecksumPath());
+        String host = "";
+        boolean isSatisfied;
+        try{
+            host = InetAddress.getLocalHost().getHostName();
+            // Get artifact checksum
+            final String checksum = this.readFile(props.getChecksumPath());
 
-        // Validate artifact checksum
-        final String artifactHash = this.hashFile(props.getArtifactPath());
+            // Validate artifact checksum
+            final String artifactHash = this.hashFile(props.getArtifactPath());
 
-        final boolean isSatisfied = checksum.equals(artifactHash);
+            isSatisfied = checksum.equals(artifactHash);
+        } catch (UnknownHostException | AnnotatorException e) {
+            isSatisfied = false;
+            //log the error using the logger 
+            this.logger.error("Error during ChecksumAnnotator execution: ",e);
+        }
 
         final Annotation annotation = new Annotation(
             key, 

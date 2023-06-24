@@ -18,6 +18,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Instant;
 
+import org.apache.logging.log4j.Logger;
+
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashType;
@@ -29,7 +31,8 @@ class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
   private final SignatureInfo signature;
   private final AnnotationType kind;
 
-  protected PkiAnnotator(HashType hash, SignatureInfo signature) {
+  protected PkiAnnotator(HashType hash, SignatureInfo signature, Logger logger) {
+    super(logger);
     this.hash = hash;
     this.signature = signature;
     this.kind = AnnotationType.PKI;
@@ -37,18 +40,20 @@ class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
 
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
     final String key = super.deriveHash(hash, data);
-    
-    String host;
-    try {
-      host = InetAddress.getLocalHost().getHostName();
-    } catch (UnknownHostException e) {
-      throw new AnnotatorException("Cannot get host name", e);
-    }  
 
     final Signable signable = Signable.fromJson(new String(data));
 
-    Boolean isSatisfied = verifySignature(signature.getPublicKey(), signable);
-    
+    String host = "";
+    boolean isSatisfied;
+    try {
+      host = InetAddress.getLocalHost().getHostName();
+
+      isSatisfied = verifySignature(signature.getPublicKey(), signable);
+    } catch (UnknownHostException | AnnotatorException e) {
+      isSatisfied = false;
+      this.logger.error("Error during PkiAnnotator execution: ",e);
+    } 
+
     final Annotation annotation = new Annotation(
         key, 
         hash, 
