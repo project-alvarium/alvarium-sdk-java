@@ -40,8 +40,9 @@ public class StreamInfoConverter implements JsonDeserializer<StreamInfo> {
         Type typeOfT, 
         JsonDeserializationContext context
     ) {
+    Gson gson = new Gson();
     JsonObject obj = json.getAsJsonObject();
-    StreamType type = StreamType.valueOf(obj.get("type").getAsString().toUpperCase());
+    StreamType type = gson.fromJson(obj.get("type"), StreamType.class);
     switch(type){
       case MQTT: 
         MqttConfig mqttConfig = MqttConfig.fromJson(obj.get("config").toString());
@@ -50,7 +51,6 @@ public class StreamInfoConverter implements JsonDeserializer<StreamInfo> {
         PravegaConfig pravegaConfig = PravegaConfig.fromJson(obj.get("config").toString());
         return new StreamInfo(type, pravegaConfig);
       default: 
-        Gson gson = new Gson();
         return gson.fromJson(json, StreamInfo.class);
     } 
   }
