@@ -15,17 +15,20 @@
 package com.alvarium.annotators;
 
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.text.Collator;
 import java.time.Instant;
-import java.util.Optional;
-import java.util.stream.Stream;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 import org.apache.logging.log4j.Logger;
 
 import com.alvarium.contracts.Annotation;
@@ -90,22 +93,6 @@ class SourceCodeAnnotator extends AbstractAnnotator implements Annotator {
         return annotation;
     }
 
-    private String generateChecksum(String sourceCodePath) throws AnnotatorException {
-        final Optional<AnnotatorException> exc = this.findFiles(sourceCodePath)
-            .sorted()  // ensures hash is detirministic
-            .flatMap(this::readAndHashFile) 
-            .reduce(this::exceptionReducer);
-
-            if(exc.isPresent()) {
-                final AnnotatorException exception = exc.get();
-                throw exception;
-            }
-
-            final String hashValue = this.hashProvider.getValue();
-            return hashValue;
-        
-    }
-
     private String readChecksum(String path) throws AnnotatorException {
         try {
             final Path p = Paths.get(path);
@@ -143,65 +130,89 @@ class SourceCodeAnnotator extends AbstractAnnotator implements Annotator {
     }
 
     /**
-     * @return Stream of file paths found
-     * @throws AnnotatorException - When bad or non-existant Path is provided
+     * Recursively gets all files in a directory as a list of absolute paths
+     * @param path
+     * @return List<String> of all files in directory
      */
-    private Stream<Path> findFiles(String directory) throws AnnotatorException {
-        try {
-            return Files.find(
-                Paths.get(directory), 
-                Integer.MAX_VALUE, 
-                (Path filePath, BasicFileAttributes fileAttr) -> !fileAttr.isDirectory() // read all files
-            );
-        } catch (IOException e) {
-            throw new AnnotatorException("Failed to read files, could not generate checksum", e);
-        } catch (Exception e) {
-            throw new AnnotatorException("Could not generate checksum", e);
+    private List<String> getAllFiles(String path) {
+        List<String> files = new ArrayList<>();
+        File directory = new File(path);
+
+        if (directory.isDirectory()) {
+            File[] directoryFiles = directory.listFiles();
+            if (directoryFiles != null) {
+                for (File file : directoryFiles) {
+                    if (file.isFile()) {
+                        files.add(file.getAbsolutePath());
+                    } else if (file.isDirectory()) {
+                        files.addAll(getAllFiles(file.getAbsolutePath()));
+                    }
+                }
+            }
+        } else if (directory.isFile()) {
+            files.add(directory.getAbsolutePath());
         }
+        return files;
     }
 
     /**
-     * Attempts to read file and update the MD5 hash with it.
-     * 
-     * @param file - path to file 
-     * @return Stream - steam of an exception if any were thrown, if none then returns null
-     *  
+     * Reads and hashes a file on the local file system in in chunks of 8KB 
+     * @param filePath
+     * @return hash of the file's contents in string format
+     * @throws AnnotatorException - When bad file path or corrupted file given
      */
-    private Stream<AnnotatorException> readAndHashFile(Path file) {
-        AnnotatorException excWrapper;
+    private final String readAndHashFile(String filePath) throws AnnotatorException {
         try {
-            this.hashProvider.update(Files.readAllBytes(file));
-            return null;
+            FileInputStream fs = new FileInputStream(filePath);
+            final byte[] buffer = new byte[8192];
+            int bytesRead = 0;
+            while (true) {
+                bytesRead = fs.read(buffer);
+                if (bytesRead == -1) { // indicates EOF
+                    break;
+                } else {
+                    this.hashProvider.update(buffer, 0, bytesRead);
+                }
+            }
+            fs.close();
         } catch (OutOfMemoryError e) {
-            excWrapper = new AnnotatorException(
+            throw new AnnotatorException(
                 "Failed to read file due to size larger than 2GB, could not validate checksum" + e
             );
         } catch (IOException e) {
-            excWrapper = new AnnotatorException(
+            throw new AnnotatorException(
                 "Failed to read file contents, could not generate checksum", 
                 e
             );
         } catch (SecurityException e) {
-            excWrapper = new AnnotatorException(
+            throw new AnnotatorException(
                 "Insufficient permission to access file, could not validate checksum",
                 e
             );
         } catch (Exception e) {
-            excWrapper = new AnnotatorException("Could not validate checksum", e);
+            throw new AnnotatorException("Could not validate checksum", e);
         }
-        return Stream.of(excWrapper);
+        return this.hashProvider.getValue();
     }
 
     /**
-     * Suppresses all exceptions in favor of the first exception thrown
-     * @param accumulator
-     * @param exc
-     * @return Exception - first exception thrown 
+     * Computes the hash of all files hashes and their corresponding paths in the specified directory and returns the
+     * hash value as a string.
+     * @param path the path of the directory to hash
+     * @return the hash value of the directory as a string
+     * @throws AnnotatorException if an error occurs while hashing the directory
      */
-    private AnnotatorException exceptionReducer(AnnotatorException accumulator, AnnotatorException exc) {
-        accumulator.addSuppressed(exc);
-        return accumulator;
-    }
+    private String generateChecksum(String path) throws AnnotatorException {
+        List<String> filePaths = getAllFiles(path);
+        for(int i = 0 ; i<filePaths.size();i++){
+            String hashThenPath = readAndHashFile(filePaths.get(i)) + "  " + filePaths.get(i);
+            filePaths.set(i, hashThenPath);
+        }
+        Collections.sort(filePaths, Collator.getInstance(Locale.US));
 
+        String hashesAndFiles = String.join("\n", filePaths) + "\n";
+        final String sourceCodeChecksum = this.hashProvider.derive(hashesAndFiles.getBytes());
 
+        return sourceCodeChecksum;
+     }
 }
