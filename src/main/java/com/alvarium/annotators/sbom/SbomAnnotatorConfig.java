@@ -11,29 +11,27 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  *******************************************************************************/
-package com.alvarium.contracts;
 
-import com.google.gson.annotations.SerializedName;
+package com.alvarium.annotators.sbom;
 
-public enum AnnotationType {
-  @SerializedName(value = "tpm")
-  TPM,
-  @SerializedName(value = "mock")
-  MOCK,
-  @SerializedName(value = "tls")
-  TLS,
-  @SerializedName(value = "pki")
-  PKI,
-  @SerializedName(value = "pki-http")
-  PKIHttp,
-  @SerializedName(value = "source-code")
-  SourceCode,
-  @SerializedName(value = "checksum")
-  CHECKSUM,
-  @SerializedName(value = "vulnerability")
-  VULNERABILITY,
-  @SerializedName(value = "src")
-  SOURCE,
-  @SerializedName(value = "sbom")
-  SBOM;
+import com.alvarium.annotators.AnnotatorConfig;
+import com.alvarium.contracts.AnnotationType;
+
+public class SbomAnnotatorConfig extends AnnotatorConfig {
+  private final SbomType type;
+  private final String version;
+
+  SbomAnnotatorConfig(SbomType type, String version) {
+    super(AnnotationType.SBOM);
+    this.type = type;
+    this.version = version;
+  }
+
+  public SbomType getSbomType() {
+    return this.type;
+  }
+
+  public String getSbomVersion() {
+    return this.version;
+  }
 }
