@@ -1,6 +1,6 @@
 
 /*******************************************************************************
- * Copyright 2023 Dell Inc.
+ * Copyright 2024 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -20,6 +20,7 @@ import java.lang.reflect.Type;
 
 import com.alvarium.annotators.AnnotatorConfig;
 import com.alvarium.annotators.MockAnnotatorConfig;
+import com.alvarium.annotators.sbom.SbomAnnotatorConfig;
 import com.alvarium.annotators.vulnerability.VulnerabilityAnnotatorConfig;
 import com.alvarium.contracts.AnnotationType;
 import com.google.gson.Gson;
@@ -54,6 +55,12 @@ public class AnnotatorConfigConverter implements JsonDeserializer<AnnotatorConfi
                     VulnerabilityAnnotatorConfig.class
                 );
                 return vulnCfg;
+            case SBOM:
+                SbomAnnotatorConfig sbomCfg = gson.fromJson(
+                    obj, 
+                    SbomAnnotatorConfig.class
+                );
+                return sbomCfg;
             default: 
                 return gson.fromJson(json, AnnotatorConfig.class);
         }

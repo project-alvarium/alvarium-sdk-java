@@ -1,0 +1,1615 @@
+{
+  "packages": [
+    {
+      "name": "com.google.code.findbugs.jsr305",
+      "SPDXID": "SPDXRef-Package-AC5E137A2F9F3C66235FAF549B1FA21E4D730682AF23F9DE60FA25EBBA61D9C5",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "3.0.2",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "example.package.name",
+      "SPDXID": "SPDXRef-Package-46871D05E82A5D48731C29F14F4832897AACDC85DF0163E2785AC0F0442C781E",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "0.10.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.pravega/pravega-shared-authplugin@0.10.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.grpc.grpc-core",
+      "SPDXID": "SPDXRef-Package-CE40D3BFBA4BCCC0EE1F1337B3B97FA81BA835624280E40F9C2EAD871E6FA031",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.36.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.grpc/grpc-core@1.36.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.grpc.grpc-protobuf-lite",
+      "SPDXID": "SPDXRef-Package-9D597FE7961469B4C6424A4056FE36CD570B65F715F2C03C37A11204061F4836",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.36.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.grpc/grpc-protobuf-lite@1.36.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.hamcrest.hamcrest-core",
+      "SPDXID": "SPDXRef-Package-C4B71B84E040240C8D909A275C612D9062279F55E209EA3E2D9F1750D268DF0F",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.3",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.hamcrest/hamcrest-core@1.3"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "commons-io.commons-io",
+      "SPDXID": "SPDXRef-Package-87896FD4127692670DCCB556F10FDB434A6231CA07BD08C2ED76014B585B6BA3",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.11.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/commons-io/commons-io@2.11.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.fasterxml.jackson.dataformat.jackson-dataformat-xml",
+      "SPDXID": "SPDXRef-Package-07A3046FABFBF4CC6ECBB5FD650E0C03B295724D7F2C347E9509C5D8C286711C",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.15.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-xml@2.15.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.google.guava.listenablefuture",
+      "SPDXID": "SPDXRef-Package-BD91CFC4C2D44C78AC9C12F359C8E523949E561C343EA301D2D77274C963381E",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "9999.0-empty-to-avoid-conflict-with-guava",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.google.guava/listenablefuture@9999.0-empty-to-avoid-conflict-with-guava"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.yaml.snakeyaml",
+      "SPDXID": "SPDXRef-Package-D9964DE8764D345772A02EDDEA520ABCF1B6C612D0E2AB06F5818AC4D0CCAC3F",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.yaml/snakeyaml@2.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.eclipse.paho.org.eclipse.paho.client.mqttv3",
+      "SPDXID": "SPDXRef-Package-0DFF7B1C08F186D009FC34E2631FD90193D4546085828B9BBF625719218E9F3F",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.2.5",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.eclipse.paho/org.eclipse.paho.client.mqttv3@1.2.5"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.apache.httpcomponents.httpcore",
+      "SPDXID": "SPDXRef-Package-D67F715DF5B77605C0591AB8C4BD3FF9558F8E55E0E220F8B9B511159AC21E0C",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.4.13",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.apache.httpcomponents/httpcore@4.4.13"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.opencensus.opencensus-api",
+      "SPDXID": "SPDXRef-Package-B3E281A255D84471106D8D009290F9C851D9B2E3B50A4F2FFC2AE9957769324D",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "0.28.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.opencensus/opencensus-api@0.28.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.alvarium.sdk.alvarium-sdk",
+      "SPDXID": "SPDXRef-Package-50C08A3A4206735A754ADD64D2366964AD70DEED7DA9EFFC1F989E1A2E3684B7",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.0-SNAPSHOT",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.alvarium.sdk/alvarium-sdk@1.0-SNAPSHOT"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.apache.logging.log4j.log4j-api",
+      "SPDXID": "SPDXRef-Package-F33160979AF3548C42DD073CACA165A6BD9AC76D7456F5ABF0B1569007A8EE5C",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.21.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.apache.logging.log4j/log4j-api@2.21.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.google.guava.failureaccess",
+      "SPDXID": "SPDXRef-Package-5007E8EC7C2A397BEFD7191DDB84696DF19E90FB249FB284136C2B1F6178A764",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.0.1",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.google.guava/failureaccess@1.0.1"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.codehaus.mojo.animal-sniffer-annotations",
+      "SPDXID": "SPDXRef-Package-F2DFF9CB7194A0527B21410F8F5E7D699FB6BF3D75073A2BA65510244AF88939",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.19",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.codehaus.mojo/animal-sniffer-annotations@1.19"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.fasterxml.jackson.core.jackson-core",
+      "SPDXID": "SPDXRef-Package-C6FE3532BCD657D3D3C135FE1F641D4FAD211F5505CD4818241B38DDD731A767",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.15.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.15.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.netty.netty-codec",
+      "SPDXID": "SPDXRef-Package-6D23F2A3B318C456123833FC300C013C0291A18F6DC9A305EBB89F9D78FF465A",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.1.65.Final",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.netty/netty-codec@4.1.65.Final"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.grpc.grpc-stub",
+      "SPDXID": "SPDXRef-Package-8F2EB5C1DE635A8BD133EEFB5F0E0AD85947FC08BEC605EAA1E882CA9DDF4027",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.36.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.grpc/grpc-stub@1.36.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.fasterxml.jackson.core.jackson-annotations",
+      "SPDXID": "SPDXRef-Package-BA9EF78DFBE14810132794BB0A4221E2B826110EB105BC889616E545AA7D211E",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.16.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.16.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.pravega.pravega-shared-controller-api",
+      "SPDXID": "SPDXRef-Package-D297AEFF66B23E4150CC4CCCE2829F2B59FAC9CAE7AD41E0B8B8359D9F44EC49",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "0.10.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.pravega/pravega-shared-controller-api@0.10.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.perfmark.perfmark-api",
+      "SPDXID": "SPDXRef-Package-D33CFE45B215D7AA0FF9E433850DD6765A96350B76CF551DE913E5E625DCBF4B",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "0.23.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.perfmark/perfmark-api@0.23.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.google.j2objc.j2objc-annotations",
+      "SPDXID": "SPDXRef-Package-86677EC52D50C451A2677ECAD8B796F3380BCEEDC54DCEA092D9FAA3AC54DCC6",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.3",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.google.j2objc/j2objc-annotations@1.3"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.grpc.grpc-context",
+      "SPDXID": "SPDXRef-Package-133100EC39C254E5657D4B32B4809E46896AE7ADC55CDBD52201EA44B39FCD7D",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.36.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.grpc/grpc-context@1.36.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "commons-codec.commons-codec",
+      "SPDXID": "SPDXRef-Package-0D90FBEF1B712872B0952140CF5A140E07F1F6BBB2F7334514019C0616F1DD56",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.11",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/commons-codec/commons-codec@1.11"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.spdx.java-spdx-library",
+      "SPDXID": "SPDXRef-Package-F46DC4A89972B3D8FE164AC988CFB4ED97CECE8587F00A68B3301AD6548B363F",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.1.10",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.spdx/java-spdx-library@1.1.10"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "de.huxhorn.sulky.de.huxhorn.sulky.ulid",
+      "SPDXID": "SPDXRef-Package-42C595748F13425A7CD0FE62BBEC82A752D84308470FBEBDD50E5761A3FB1BC5",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "8.2.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/de.huxhorn.sulky/de.huxhorn.sulky.ulid@8.2.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.netty.netty-tcnative-boringssl-static",
+      "SPDXID": "SPDXRef-Package-303E05253DB4E5F1D6E6168C234DF09B191FB3FA83A6A8ED170DB14EC94DA87A",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.0.39.Final",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.netty/netty-tcnative-boringssl-static@2.0.39.Final"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.grpc.grpc-protobuf",
+      "SPDXID": "SPDXRef-Package-DF41CF08AE14FA171FD26E4F0A7CD20F0B9BE181D629843176D02966B7E1175D",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.36.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.grpc/grpc-protobuf@1.36.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.google.android.annotations",
+      "SPDXID": "SPDXRef-Package-E5F669E4B2099FCED4202138270071B6B1435E46AF0CE28E0D60F0BF99BE4BF7",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.1.1.4",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.google.android/annotations@4.1.1.4"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.jsoup.jsoup",
+      "SPDXID": "SPDXRef-Package-E19CD79FE129B34FACED0E0D58DA7156E3489CFF94F3DACC2016D74AD766AA16",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.15.3",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.jsoup/jsoup@1.15.3"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.checkerframework.checker-qual",
+      "SPDXID": "SPDXRef-Package-65D64934CDFEF8F67F618431702D9692038E0C5164272E650DCDA918F5064CD5",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.10.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.checkerframework/checker-qual@2.10.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.google.auth.google-auth-library-credentials",
+      "SPDXID": "SPDXRef-Package-92DF8F2FDA8E7370CD54DDAC353C0EC6CDFF320EE268515A875D99FBBE370B0C",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "0.22.2",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.google.auth/google-auth-library-credentials@0.22.2"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.netty.netty-transport",
+      "SPDXID": "SPDXRef-Package-0EBA1E13272F9E39A01E8F15CBF5A291E039BAEA76501BAF5D1624C978624376",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.1.65.Final",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.netty/netty-transport@4.1.65.Final"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.netty.netty-handler",
+      "SPDXID": "SPDXRef-Package-F55DE27259DC85303AAD6AAFCC7084E7D9975893EA17E88CD2338401F3213554",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.1.65.Final",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.netty/netty-handler@4.1.65.Final"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.google.api.grpc.proto-google-common-protos",
+      "SPDXID": "SPDXRef-Package-BF414299A2E5DE3A05E01B89E9002C7CAB83AE2634FC6CAC29C6BEE38E76A685",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.0.1",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.google.api.grpc/proto-google-common-protos@2.0.1"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.netty.netty-codec-http2",
+      "SPDXID": "SPDXRef-Package-182AC2C73B8C91AA3C5D08B73035A62E4F35D126FDFCCF596015C4E45DA38300",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.1.52.Final",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.netty/netty-codec-http2@4.1.52.Final"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.grpc.grpc-netty",
+      "SPDXID": "SPDXRef-Package-F9E2963EEA5E3937D2C23D8948E9365F55D96DB7F2D39D6549AD645A129EC78E",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.36.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.grpc/grpc-netty@1.36.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.google.guava.guava",
+      "SPDXID": "SPDXRef-Package-57FFFEAA27F947DD0306E0352C4ACD16983CE7535B7534A7BC2415D9B2E6EEDC",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "28.2-jre",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.google.guava/guava@28.2-jre"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.google.crypto.tink.tink",
+      "SPDXID": "SPDXRef-Package-609AE3B34135A404A17D7540D2F628A97CB45DB862C1BA55E8B3FC2AF405A944",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.6.1",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.google.crypto.tink/tink@1.6.1"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.spdx.spdx-jackson-store",
+      "SPDXID": "SPDXRef-Package-4917A4BDD6714B3F75C9BAB8CCFAF8098AD5012BC5043E25CF22C91C51DC8F0E",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.1.9.1",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.spdx/spdx-jackson-store@1.1.9.1"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.pravega.pravega-common",
+      "SPDXID": "SPDXRef-Package-35A99B68EA202EDF50DB1F2F5008B813A58B572EBAAEF497C6751CA158420BF5",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "0.10.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.pravega/pravega-common@0.10.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.pravega.pravega-shared-security",
+      "SPDXID": "SPDXRef-Package-57E79F90852ACDF2C74F6955542B92262C9895B9128D5390A6FB93625F222602",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "0.10.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.pravega/pravega-shared-security@0.10.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.codehaus.woodstox.stax2-api",
+      "SPDXID": "SPDXRef-Package-A42536A57164FE85E2A71BF712674F0DA6345381B40CF93C3D94B95BA8BF4E9A",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.2.1",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.codehaus.woodstox/stax2-api@4.2.1"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.fasterxml.jackson.core.jackson-databind",
+      "SPDXID": "SPDXRef-Package-FD6763C35E370DE571958AB3D2C472C96BCDAE9AF857BA6426E99B5DB0A84CD8",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.16.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.netty.netty-resolver",
+      "SPDXID": "SPDXRef-Package-5C33FC886886B3F1A9437AB52A2B7223C8ED6952C63CB9E572347371F1191D20",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.1.65.Final",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.netty/netty-resolver@4.1.65.Final"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.apache.httpcomponents.httpclient",
+      "SPDXID": "SPDXRef-Package-2BFE540C3B3DCBF119BCB47E5D15F109D9D726F46BFEA05BBF2CB768E5D80C68",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.5.13",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.apache.httpcomponents/httpclient@4.5.13"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.netty.netty-handler-proxy",
+      "SPDXID": "SPDXRef-Package-94F8FE71DD1AE4B1AED3D3AD7FD220447A89EEA86C28A0BAF94A6ED5B417A69C",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.1.52.Final",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.netty/netty-handler-proxy@4.1.52.Final"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.fasterxml.woodstox.woodstox-core",
+      "SPDXID": "SPDXRef-Package-F36DAC031DC412B59B29321D66E6BBE6E7581A63543BEBC261292429F38E6E3E",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "6.5.1",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.fasterxml.woodstox/woodstox-core@6.5.1"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.apache.logging.log4j.log4j-core",
+      "SPDXID": "SPDXRef-Package-28E94F840509139990790DE7DBFD1A760CE970BA1A74A6709EFB4E7AE72CF656",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.21.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.apache.logging.log4j/log4j-core@2.21.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.pravega.pravega-client",
+      "SPDXID": "SPDXRef-Package-98CDC5183D3A33B3C70711E3D8F5384299E2DA91F46850547FE2BF478D68D14D",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "0.10.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.pravega/pravega-client@0.10.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.fasterxml.jackson.dataformat.jackson-dataformat-yaml",
+      "SPDXID": "SPDXRef-Package-B0335B3E57AF258A7738AC9FC2901A03C934B13896D15A852881AFF6B9A1F043",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.15.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.15.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.netty.netty-codec-http",
+      "SPDXID": "SPDXRef-Package-A45F71C8E015F2D32E03AF60D172276B5FEA0DB990748039CE3FEE8DA6CF6BD5",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.1.52.Final",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.netty/netty-codec-http@4.1.52.Final"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.apache.commons.commons-lang3",
+      "SPDXID": "SPDXRef-Package-FF23F0443FE0B78FB7A5F66D3190EE7BA74401529BD95F1EBC2112D7B49C084C",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "3.7",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.apache.commons/commons-lang3@3.7"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "junit.junit",
+      "SPDXID": "SPDXRef-Package-FB8BF57D8EC8B164BC4B1571C7324A64809A5AB3A82040492710FEC977855FF7",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.11",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/junit/junit@4.11"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.netty.netty-buffer",
+      "SPDXID": "SPDXRef-Package-58E27A489AA416452F202BF1559DFC9FA6214EF413E28DABC51699EEDCC897D2",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.1.65.Final",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.netty/netty-buffer@4.1.65.Final"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.slf4j.slf4j-api",
+      "SPDXID": "SPDXRef-Package-22FF97C7937A1AB312E75DED1271182B414982E892ED22455964FA108218FB36",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.7.25",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.slf4j/slf4j-api@1.7.25"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.pravega.pravega-shared-protocol",
+      "SPDXID": "SPDXRef-Package-8634BE2D7E1290C2DDD870097B6F53DFACD11DB404474D0D2DEAAF94C26598D5",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "0.10.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.pravega/pravega-shared-protocol@0.10.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.google.code.gson.gson",
+      "SPDXID": "SPDXRef-Package-92B5FED5A6B0378DD20AD94AD36D1CC4E32590C4275E0091964483EDEC34906A",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.8.8",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.google.code.gson/gson@2.8.8"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.json.json",
+      "SPDXID": "SPDXRef-Package-12AD95A2A7B8540F605CE5AC5806217FA427768AF92616160B077D430F5694D6",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "20231013",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.json/json@20231013"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.google.errorprone.error_prone_annotations",
+      "SPDXID": "SPDXRef-Package-7EFEDE13EF63C3203218645FA1D9BB96F491358A6E149CEE3F0E8AE2677E27AA",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "2.3.4",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.google.errorprone/error_prone_annotations@2.3.4"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.grpc.grpc-auth",
+      "SPDXID": "SPDXRef-Package-44984C9AF0479786AB2067284856C7EBBAA928889752423733CBE03C7FFC55D8",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.36.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.grpc/grpc-auth@1.36.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "org.bouncycastle.bcprov-ext-jdk15on",
+      "SPDXID": "SPDXRef-Package-D6ABB30E3D9917BDE86D51C4E1CF16CAAC806E6040595A3B2B9D7C105476CA1E",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.69",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/org.bouncycastle/bcprov-ext-jdk15on@1.69"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.netty.netty-codec-socks",
+      "SPDXID": "SPDXRef-Package-74BA21636163E32D8AEB8EE6B2AEB5C02666AEEA7DC529320D15F0D24388CC82",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.1.52.Final",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.netty/netty-codec-socks@4.1.52.Final"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.grpc.grpc-api",
+      "SPDXID": "SPDXRef-Package-96A2192EEC1E2C5273C2B725AB5B961D16D94E3063F26F25A8A933BB998B101E",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.36.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.grpc/grpc-api@1.36.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "io.netty.netty-common",
+      "SPDXID": "SPDXRef-Package-1FC35B4C3CA9A0B79BDF26198CDB74CDDFC5110D07EA6687F5933F2740AADF49",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "4.1.65.Final",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/io.netty/netty-common@4.1.65.Final"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "commons-logging.commons-logging",
+      "SPDXID": "SPDXRef-Package-AFFE72CE7DE0094385E74A74110C52C3D3D0468227ABC70064F43BDECE5752B8",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "1.2",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/commons-logging/commons-logging@1.2"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.google.protobuf.protobuf-java",
+      "SPDXID": "SPDXRef-Package-DE82F5AFC05B6E960A0E0BFF2023BD123E5E9CE1A43A9D7BF68DB09F14DFAF2D",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "3.14.0",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:maven/com.google.protobuf/protobuf-java@3.14.0"
+        }
+      ],
+      "supplier": "NOASSERTION"
+    },
+    {
+      "name": "com.github.project-alvarium/alvarium-sdk-go",
+      "SPDXID": "SPDXRef-RootPackage",
+      "downloadLocation": "NOASSERTION",
+      "packageVerificationCode": {
+        "packageVerificationCodeValue": "7ad1e625678ee0f53a1c865250c3c4f327abb7a9"
+      },
+      "filesAnalyzed": true,
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoFromFiles": [
+        "NOASSERTION"
+      ],
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "bar",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:swid/supp/foobar.com/com.github.project-alvarium%2Falvarium-sdk-go@bar?tag_id=683ec4c8-7bea-4698-803c-49eaf9b45f09"
+        }
+      ],
+      "supplier": "Organization: supp"
+    }
+  ],
+  "externalDocumentRefs": [],
+  "relationships": [
+    {
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-RootPackage",
+      "spdxElementId": "SPDXRef-DOCUMENT"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-DE82F5AFC05B6E960A0E0BFF2023BD123E5E9CE1A43A9D7BF68DB09F14DFAF2D",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-AFFE72CE7DE0094385E74A74110C52C3D3D0468227ABC70064F43BDECE5752B8",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-74BA21636163E32D8AEB8EE6B2AEB5C02666AEEA7DC529320D15F0D24388CC82",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-44984C9AF0479786AB2067284856C7EBBAA928889752423733CBE03C7FFC55D8",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-8634BE2D7E1290C2DDD870097B6F53DFACD11DB404474D0D2DEAAF94C26598D5",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-B0335B3E57AF258A7738AC9FC2901A03C934B13896D15A852881AFF6B9A1F043",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-A42536A57164FE85E2A71BF712674F0DA6345381B40CF93C3D94B95BA8BF4E9A",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-65D64934CDFEF8F67F618431702D9692038E0C5164272E650DCDA918F5064CD5",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-8F2EB5C1DE635A8BD133EEFB5F0E0AD85947FC08BEC605EAA1E882CA9DDF4027",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-12AD95A2A7B8540F605CE5AC5806217FA427768AF92616160B077D430F5694D6",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-FB8BF57D8EC8B164BC4B1571C7324A64809A5AB3A82040492710FEC977855FF7",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-28E94F840509139990790DE7DBFD1A760CE970BA1A74A6709EFB4E7AE72CF656",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-FD6763C35E370DE571958AB3D2C472C96BCDAE9AF857BA6426E99B5DB0A84CD8",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-F9E2963EEA5E3937D2C23D8948E9365F55D96DB7F2D39D6549AD645A129EC78E",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-F55DE27259DC85303AAD6AAFCC7084E7D9975893EA17E88CD2338401F3213554",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-42C595748F13425A7CD0FE62BBEC82A752D84308470FBEBDD50E5761A3FB1BC5",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-6D23F2A3B318C456123833FC300C013C0291A18F6DC9A305EBB89F9D78FF465A",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-57E79F90852ACDF2C74F6955542B92262C9895B9128D5390A6FB93625F222602",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-182AC2C73B8C91AA3C5D08B73035A62E4F35D126FDFCCF596015C4E45DA38300",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-0EBA1E13272F9E39A01E8F15CBF5A291E039BAEA76501BAF5D1624C978624376",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-303E05253DB4E5F1D6E6168C234DF09B191FB3FA83A6A8ED170DB14EC94DA87A",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-D33CFE45B215D7AA0FF9E433850DD6765A96350B76CF551DE913E5E625DCBF4B",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-5007E8EC7C2A397BEFD7191DDB84696DF19E90FB249FB284136C2B1F6178A764",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-B3E281A255D84471106D8D009290F9C851D9B2E3B50A4F2FFC2AE9957769324D",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-C4B71B84E040240C8D909A275C612D9062279F55E209EA3E2D9F1750D268DF0F",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-9D597FE7961469B4C6424A4056FE36CD570B65F715F2C03C37A11204061F4836",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-92B5FED5A6B0378DD20AD94AD36D1CC4E32590C4275E0091964483EDEC34906A",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-FF23F0443FE0B78FB7A5F66D3190EE7BA74401529BD95F1EBC2112D7B49C084C",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-F36DAC031DC412B59B29321D66E6BBE6E7581A63543BEBC261292429F38E6E3E",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-609AE3B34135A404A17D7540D2F628A97CB45DB862C1BA55E8B3FC2AF405A944",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-BF414299A2E5DE3A05E01B89E9002C7CAB83AE2634FC6CAC29C6BEE38E76A685",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-133100EC39C254E5657D4B32B4809E46896AE7ADC55CDBD52201EA44B39FCD7D",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-F2DFF9CB7194A0527B21410F8F5E7D699FB6BF3D75073A2BA65510244AF88939",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-D67F715DF5B77605C0591AB8C4BD3FF9558F8E55E0E220F8B9B511159AC21E0C",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-0DFF7B1C08F186D009FC34E2631FD90193D4546085828B9BBF625719218E9F3F",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-2BFE540C3B3DCBF119BCB47E5D15F109D9D726F46BFEA05BBF2CB768E5D80C68",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-57FFFEAA27F947DD0306E0352C4ACD16983CE7535B7534A7BC2415D9B2E6EEDC",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-DF41CF08AE14FA171FD26E4F0A7CD20F0B9BE181D629843176D02966B7E1175D",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-D297AEFF66B23E4150CC4CCCE2829F2B59FAC9CAE7AD41E0B8B8359D9F44EC49",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-F33160979AF3548C42DD073CACA165A6BD9AC76D7456F5ABF0B1569007A8EE5C",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-BD91CFC4C2D44C78AC9C12F359C8E523949E561C343EA301D2D77274C963381E",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-07A3046FABFBF4CC6ECBB5FD650E0C03B295724D7F2C347E9509C5D8C286711C",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-87896FD4127692670DCCB556F10FDB434A6231CA07BD08C2ED76014B585B6BA3",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-D6ABB30E3D9917BDE86D51C4E1CF16CAAC806E6040595A3B2B9D7C105476CA1E",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-22FF97C7937A1AB312E75DED1271182B414982E892ED22455964FA108218FB36",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-98CDC5183D3A33B3C70711E3D8F5384299E2DA91F46850547FE2BF478D68D14D",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-35A99B68EA202EDF50DB1F2F5008B813A58B572EBAAEF497C6751CA158420BF5",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-92DF8F2FDA8E7370CD54DDAC353C0EC6CDFF320EE268515A875D99FBBE370B0C",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-F46DC4A89972B3D8FE164AC988CFB4ED97CECE8587F00A68B3301AD6548B363F",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-BA9EF78DFBE14810132794BB0A4221E2B826110EB105BC889616E545AA7D211E",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-46871D05E82A5D48731C29F14F4832897AACDC85DF0163E2785AC0F0442C781E",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-7EFEDE13EF63C3203218645FA1D9BB96F491358A6E149CEE3F0E8AE2677E27AA",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-A45F71C8E015F2D32E03AF60D172276B5FEA0DB990748039CE3FEE8DA6CF6BD5",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-94F8FE71DD1AE4B1AED3D3AD7FD220447A89EEA86C28A0BAF94A6ED5B417A69C",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-4917A4BDD6714B3F75C9BAB8CCFAF8098AD5012BC5043E25CF22C91C51DC8F0E",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-E5F669E4B2099FCED4202138270071B6B1435E46AF0CE28E0D60F0BF99BE4BF7",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-86677EC52D50C451A2677ECAD8B796F3380BCEEDC54DCEA092D9FAA3AC54DCC6",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-50C08A3A4206735A754ADD64D2366964AD70DEED7DA9EFFC1F989E1A2E3684B7",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-D9964DE8764D345772A02EDDEA520ABCF1B6C612D0E2AB06F5818AC4D0CCAC3F",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-AC5E137A2F9F3C66235FAF549B1FA21E4D730682AF23F9DE60FA25EBBA61D9C5",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-1FC35B4C3CA9A0B79BDF26198CDB74CDDFC5110D07EA6687F5933F2740AADF49",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-96A2192EEC1E2C5273C2B725AB5B961D16D94E3063F26F25A8A933BB998B101E",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-58E27A489AA416452F202BF1559DFC9FA6214EF413E28DABC51699EEDCC897D2",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-5C33FC886886B3F1A9437AB52A2B7223C8ED6952C63CB9E572347371F1191D20",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-E19CD79FE129B34FACED0E0D58DA7156E3489CFF94F3DACC2016D74AD766AA16",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-0D90FBEF1B712872B0952140CF5A140E07F1F6BBB2F7334514019C0616F1DD56",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-C6FE3532BCD657D3D3C135FE1F641D4FAD211F5505CD4818241B38DDD731A767",
+      "spdxElementId": "SPDXRef-RootPackage"
+    },
+    {
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-CE40D3BFBA4BCCC0EE1F1337B3B97FA81BA835624280E40F9C2EAD871E6FA031",
+      "spdxElementId": "SPDXRef-RootPackage"
+    }
+  ],
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "com.github.project-alvarium/alvarium-sdk-go bar",
+  "documentNamespace": "http://foobar.com/com.github.project-alvarium%2Falvarium-sdk-go/bar/IcAqZJzQ6UOI5z5pFzns6Q",
+  "creationInfo": {
+    "created": "2024-03-28T12:14:40Z",
+    "creators": [
+      "Organization: supp",
+      "Tool: Microsoft.SBOMTool-2.2.3"
+    ]
+  },
+  "documentDescribes": [
+    "SPDXRef-RootPackage"
+  ]
+}
