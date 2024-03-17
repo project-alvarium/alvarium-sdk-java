@@ -35,12 +35,13 @@ public class Annotation implements Serializable {
   private final HashType hash;
   private final String host;
   private final String tag;
+  private final AnnotationLayer layer;
   private final AnnotationType kind;
   private String signature;
   private final Boolean isSatisfied;
   private final Instant timestamp;
 
-  public Annotation(String key, HashType hash, String host, String tag, AnnotationType kind, String signature,
+  public Annotation(String key, HashType hash, String host, String tag, AnnotationLayer layer, AnnotationType kind, String signature,
       Boolean isSatisfied, Instant timestamp) {
     ULID ulid = new ULID();
     this.id = ulid.nextULID(); 
@@ -48,6 +49,7 @@ public class Annotation implements Serializable {
     this.hash = hash;
     this.host = host;
     this.tag = tag;
+    this.layer = layer;
     this.kind = kind;
     this.signature = signature;
     this.isSatisfied = isSatisfied;
@@ -80,6 +82,10 @@ public class Annotation implements Serializable {
 
     public String getTag() {
       return this.tag;
+    }
+
+    public AnnotationLayer getLayer() {
+      return this.layer;
     }
 
     public AnnotationType getKind() {

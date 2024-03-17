@@ -21,6 +21,7 @@ import java.time.Instant;
 import org.apache.logging.log4j.Logger;
 
 import com.alvarium.contracts.Annotation;
+import com.alvarium.contracts.AnnotationLayer;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
@@ -60,6 +61,7 @@ class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
         hash, 
         host, 
         tag,
+        AnnotationLayer.PKI,
         kind, 
         null, 
         isSatisfied, 

@@ -25,6 +25,7 @@ import java.time.Instant;
 import org.apache.logging.log4j.Logger;
 
 import com.alvarium.contracts.Annotation;
+import com.alvarium.contracts.AnnotationLayer;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashProvider;
 import com.alvarium.hash.HashProviderFactory;
@@ -82,6 +83,7 @@ public class ChecksumAnnotator extends AbstractAnnotator implements Annotator {
             this.hash, 
             host,
             tag,
+            AnnotationLayer.CHECKSUM,
             this.kind, 
             null, 
             isSatisfied, 

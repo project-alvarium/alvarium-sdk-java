@@ -43,7 +43,7 @@ public class AnnotationTest {
 
   @Test
   public void toJsonShouldReturnTheRightRepresentation() {
-    Annotation annotation = new Annotation("key", HashType.MD5Hash, "host", "tag", AnnotationType.TPM,
+    Annotation annotation = new Annotation("key", HashType.MD5Hash, "host", "tag", AnnotationLayer.TPM, AnnotationType.TPM,
         "signature", true, testTimestamp);
     String result = annotation.toJson();
     System.out.println(result);

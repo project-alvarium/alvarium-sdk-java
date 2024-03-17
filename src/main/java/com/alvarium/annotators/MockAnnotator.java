@@ -19,6 +19,7 @@ import java.net.UnknownHostException;
 import java.time.Instant;
 
 import com.alvarium.contracts.Annotation;
+import com.alvarium.contracts.AnnotationLayer;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashProviderFactory;
 import com.alvarium.hash.HashType;
@@ -50,7 +51,7 @@ class MockAnnotator implements Annotator {
       final String tag = System.getenv(AbstractAnnotator.TAG_ENV_KEY) == null ? "" : System.getenv(AbstractAnnotator.TAG_ENV_KEY);
       final String sig = signature.getPublicKey().getType().toString();
 
-      final Annotation annotation = new Annotation(key, hash, host, tag, kind, sig, cfg.getShouldSatisfy(), Instant.now());
+      final Annotation annotation = new Annotation(key, hash, host, tag, AnnotationLayer.MOCK, kind, sig, cfg.getShouldSatisfy(), Instant.now());
       return annotation;
     } catch (HashTypeException e) {
       throw new AnnotatorException("failed to hash data", e);

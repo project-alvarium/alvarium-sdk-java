@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 import java.time.Instant;
 
 import com.alvarium.contracts.Annotation;
+import com.alvarium.contracts.AnnotationLayer;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
@@ -68,7 +69,7 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
         SSLSocket.class));
 
     // create an annotation without signature
-    final Annotation annotation = new Annotation(key, hash, host, tag, kind, null, isSatisfied, 
+    final Annotation annotation = new Annotation(key, hash, host, tag, AnnotationLayer.TLS, kind, null, isSatisfied, 
         Instant.now());
 
     // sign annotation
