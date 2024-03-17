@@ -53,6 +53,7 @@ public class ChecksumAnnotator extends AbstractAnnotator implements Annotator {
         
         this.initHashProvider(this.hash);
         final String key = this.hashProvider.derive(data);
+        final String tag = System.getenv(TAG_ENV_KEY) == null ? "" : System.getenv(TAG_ENV_KEY);
 
         final ChecksumAnnotatorProps props = ctx.getProperty(
             AnnotationType.CHECKSUM.name(), 
@@ -79,7 +80,8 @@ public class ChecksumAnnotator extends AbstractAnnotator implements Annotator {
         final Annotation annotation = new Annotation(
             key, 
             this.hash, 
-            host, 
+            host,
+            tag,
             this.kind, 
             null, 
             isSatisfied, 

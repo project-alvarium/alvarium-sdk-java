@@ -40,6 +40,7 @@ class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
 
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
     final String key = super.deriveHash(hash, data);
+    final String tag = System.getenv(TAG_ENV_KEY) == null ? "" : System.getenv(TAG_ENV_KEY);
 
     final Signable signable = Signable.fromJson(new String(data));
 
@@ -58,6 +59,7 @@ class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
         key, 
         hash, 
         host, 
+        tag,
         kind, 
         null, 
         isSatisfied, 

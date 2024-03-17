@@ -47,6 +47,7 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
     
     final String key = super.deriveHash(hash, data);
+    final String tag = System.getenv(TAG_ENV_KEY) == null ? "" : System.getenv(TAG_ENV_KEY);
 
     String host = "";
     boolean isSatisfied;
@@ -65,6 +66,7 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
           key,
           hash,
           host,
+          tag,
           kind,
           null,
           isSatisfied,

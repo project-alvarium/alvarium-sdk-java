@@ -47,9 +47,10 @@ class MockAnnotator implements Annotator {
     try {
       final String key = hashFactory.getProvider(hash).derive(data);
       final String host = InetAddress.getLocalHost().getHostName();
+      final String tag = System.getenv(AbstractAnnotator.TAG_ENV_KEY) == null ? "" : System.getenv(AbstractAnnotator.TAG_ENV_KEY);
       final String sig = signature.getPublicKey().getType().toString();
 
-      final Annotation annotation = new Annotation(key, hash, host, kind, sig, cfg.getShouldSatisfy(), Instant.now());
+      final Annotation annotation = new Annotation(key, hash, host, tag, kind, sig, cfg.getShouldSatisfy(), Instant.now());
       return annotation;
     } catch (HashTypeException e) {
       throw new AnnotatorException("failed to hash data", e);

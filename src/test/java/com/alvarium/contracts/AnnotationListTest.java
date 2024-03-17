@@ -33,6 +33,7 @@ public class AnnotationListTest {
       "key", 
       HashType.NoHash,
       "host", 
+      "tag",
       AnnotationType.MOCK, 
       "signature", 
       true, 

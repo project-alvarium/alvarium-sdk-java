@@ -46,6 +46,7 @@ public class PublishWrapperTest {
       "key", 
       HashType.MD5Hash, 
       "host", 
+      "tag",
       AnnotationType.TPM, 
       "signature", 
       true, 
