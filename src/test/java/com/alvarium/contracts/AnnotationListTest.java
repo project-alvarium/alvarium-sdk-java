@@ -51,6 +51,7 @@ public class AnnotationListTest {
     "\"hash\":\"md5\"," +
     "\"host\":\"host\"," + 
     "\"kind\":\"tpm\"," + 
+    "\"tag\":\"9c0f17daa5cfefb0302d6f8650899b0863120e4c\"," + 
     "\"layer\":\"app\"," + 
     "\"signature\":\"signature\"," +
     "\"isSatisfied\":true," +
