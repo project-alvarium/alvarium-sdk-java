@@ -55,7 +55,7 @@ public class AnnotatorFactory {
         return new SourceAnnotator(hash, signature, logger, layer);
       case SBOM:
         final SbomAnnotatorConfig sbomCfg = SbomAnnotatorConfig.class.cast(cfg);
-        return new SbomAnnotator(sbomCfg, hash, signature, logger);
+        return new SbomAnnotator(sbomCfg, hash, signature, logger, layer);
       default:
         throw new AnnotatorException("Annotator type is not supported");
     }
