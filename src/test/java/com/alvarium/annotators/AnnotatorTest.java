@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 import com.alvarium.SdkInfo;
 import com.alvarium.contracts.Annotation;
-import com.alvarium.contracts.AnnotationLayer;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashType;
 import com.alvarium.serializers.AnnotatorConfigConverter;
@@ -75,7 +75,7 @@ public class AnnotatorTest {
     }
     
     final AnnotatorConfig[] annotators = {satisfiedAnnotatorInfo, unsatisfiedAnnotatorInfo};
-    final SdkInfo config = new SdkInfo(annotators, hash, signature, null);
+    final SdkInfo config = new SdkInfo(annotators, hash, signature, null, LayerType.Application);
 
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
@@ -109,7 +109,7 @@ public class AnnotatorTest {
     final AnnotatorConfig annotatorInfo = gson.fromJson(mockConfig, AnnotatorConfig.class);
 
     final AnnotatorConfig[] annotators = {annotatorInfo};
-    final SdkInfo noHashConfig = new SdkInfo(annotators, noHash, signature, null);
+    final SdkInfo noHashConfig = new SdkInfo(annotators, noHash, signature, null, LayerType.Application);
 
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
@@ -140,7 +140,7 @@ public class AnnotatorTest {
     final AnnotatorConfig annotatorInfo = gson.fromJson(mockConfig, AnnotatorConfig.class);
 
     final AnnotatorConfig[] annotators = {annotatorInfo};
-    final SdkInfo noHashConfig = new SdkInfo(annotators, noHash, signature, null);
+    final SdkInfo noHashConfig = new SdkInfo(annotators, noHash, signature, null, LayerType.Application);
 
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
@@ -153,6 +153,6 @@ public class AnnotatorTest {
 
     final Annotation noHashAnnotation = noHashAnnotator.execute(ctx, data);
 
-    assert AnnotationLayer.MOCK.equals(noHashAnnotation.getLayer());
+    assert LayerType.Application.equals(noHashAnnotation.getLayer());
   }
 }

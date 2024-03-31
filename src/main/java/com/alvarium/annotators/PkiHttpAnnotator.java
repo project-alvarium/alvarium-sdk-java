@@ -25,8 +25,8 @@ import java.nio.file.Path;
 import com.alvarium.annotators.http.ParseResult;
 import com.alvarium.annotators.http.ParseResultException;
 import com.alvarium.contracts.Annotation;
-import com.alvarium.contracts.AnnotationLayer;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.KeyInfo;
 import com.alvarium.sign.SignatureInfo;
@@ -40,12 +40,14 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
   private final HashType hash;
   private final SignatureInfo signature;
   private final AnnotationType kind;
+  private final LayerType layer;
 
-  protected PkiHttpAnnotator(HashType hash, SignatureInfo signature, Logger logger) {
+  protected PkiHttpAnnotator(HashType hash, SignatureInfo signature, Logger logger, LayerType layer) {
     super(logger);
     this.hash = hash;
     this.signature = signature;
     this.kind = AnnotationType.PKIHttp;
+    this.layer = layer;
   }
 
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
@@ -99,7 +101,7 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
         hash,
         host,
         tag,
-        AnnotationLayer.PKIHttp,
+        layer,
         kind,
         null,
         isSatisfied,

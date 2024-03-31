@@ -34,7 +34,7 @@ public class AnnotationListTest {
       HashType.NoHash,
       "host", 
       "tag",
-      AnnotationLayer.MOCK,
+      LayerType.Application,
       AnnotationType.MOCK, 
       "signature", 
       true, 
@@ -52,6 +52,7 @@ public class AnnotationListTest {
     "\"hash\":\"md5\"," +
     "\"host\":\"host\"," + 
     "\"kind\":\"tpm\"," + 
+    "\"layer\":\"app\"," + 
     "\"signature\":\"signature\"," +
     "\"isSatisfied\":true," +
     "\"timestamp\":\"2021-10-13T07:55:33.585017-07:00\"}";

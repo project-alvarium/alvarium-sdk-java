@@ -32,8 +32,8 @@ import java.util.Locale;
 import org.apache.logging.log4j.Logger;
 
 import com.alvarium.contracts.Annotation;
-import com.alvarium.contracts.AnnotationLayer;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashProvider;
 import com.alvarium.hash.HashProviderFactory;
 import com.alvarium.hash.HashType;
@@ -46,14 +46,16 @@ class SourceCodeAnnotator extends AbstractAnnotator implements Annotator {
     private final HashType hash;
     private final AnnotationType kind;
     private final SignatureInfo signature;
+    private final LayerType layer;
 
     private HashProvider hashProvider;
 
-    protected SourceCodeAnnotator(HashType hash, SignatureInfo signature, Logger logger) {
+    protected SourceCodeAnnotator(HashType hash, SignatureInfo signature, Logger logger, LayerType layer) {
         super(logger);
         this.hash = hash;
         this.kind = AnnotationType.SourceCode;
         this.signature = signature;
+        this.layer = layer;
     }
 
     // File (git working directory) is to be passed in the ctx bag
@@ -86,7 +88,7 @@ class SourceCodeAnnotator extends AbstractAnnotator implements Annotator {
                 hash,
                 host,
                 tag,
-                AnnotationLayer.SourceCode,
+                layer,
                 kind,
                 null,
                 isSatisfied,

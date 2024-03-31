@@ -20,9 +20,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.alvarium.contracts.Annotation;
-import com.alvarium.contracts.AnnotationLayer;
 import com.alvarium.contracts.AnnotationList;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashType;
 
 import org.junit.Test;
@@ -48,7 +48,7 @@ public class PublishWrapperTest {
       HashType.MD5Hash, 
       "host", 
       "tag",
-      AnnotationLayer.TPM,
+      LayerType.Application,
       AnnotationType.TPM, 
       "signature", 
       true, 

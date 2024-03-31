@@ -25,8 +25,8 @@ import java.time.Instant;
 import org.apache.logging.log4j.Logger;
 
 import com.alvarium.contracts.Annotation;
-import com.alvarium.contracts.AnnotationLayer;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
@@ -35,14 +35,16 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
   private final HashType hash;
   private final AnnotationType kind;
   private final SignatureInfo signature;
+  private final LayerType layer;
   private final String directTpmPath = "/dev/tpm0";
   private final String tpmKernelManagedPath = "/dev/tpmrm0";
 
-  protected TpmAnnotator(HashType hash, SignatureInfo signature, Logger logger) {
+  protected TpmAnnotator(HashType hash, SignatureInfo signature, Logger logger, LayerType layer) {
     super(logger);
     this.hash = hash;
     this.signature = signature;
     this.kind = AnnotationType.TPM;
+    this.layer = layer;
   }
 
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
@@ -68,7 +70,7 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
           hash,
           host,
           tag,
-          AnnotationLayer.TPM,
+          layer,
           kind,
           null,
           isSatisfied,

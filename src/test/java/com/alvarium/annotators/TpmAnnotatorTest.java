@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 import com.alvarium.SdkInfo;
 import com.alvarium.contracts.Annotation;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashType;
 import com.alvarium.serializers.AnnotatorConfigConverter;
@@ -61,7 +62,7 @@ public class TpmAnnotatorTest {
                 AnnotatorConfig.class
     );       
     final AnnotatorConfig[] annotators = {annotatorInfo};  
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null);
+    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null, LayerType.Application);
     Annotator tpm = factory.getAnnotator(annotatorInfo, config, logger);
     
     PropertyBag ctx = new ImmutablePropertyBag(new HashMap<String, Object>());

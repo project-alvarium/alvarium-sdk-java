@@ -15,8 +15,14 @@ package com.alvarium.contracts;
 
 import com.google.gson.annotations.SerializedName;
 
-public enum AnnotationLayer {
-    @SerializedName("app") TPM, MOCK, TLS, PKI, PKIHttp, SOURCE,
-    @SerializedName("cicd") SourceCode, CHECKSUM, VULNERABILITY
+public enum LayerType {
+    @SerializedName("app") 
+    Application,
+    @SerializedName("cicd") 
+    CiCd,
+    @SerializedName("os") 
+    Os,
+    @SerializedName("host") 
+    Host;
 }
 
