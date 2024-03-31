@@ -37,7 +37,6 @@ import com.alvarium.utils.Encoder;
 abstract class AbstractAnnotator {
 
   protected  Logger logger;
-  public static final String TAG_ENV_KEY = "TAG";
 
   AbstractAnnotator(Logger logger) {
     this.logger = logger;

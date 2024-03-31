@@ -48,7 +48,6 @@ class SourceAnnotator extends AbstractAnnotator implements Annotator {
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
     // hash incoming data
     final String key = super.deriveHash(this.hash, data);
-    final String tag = System.getenv(TAG_ENV_KEY) == null ? "" : System.getenv(TAG_ENV_KEY);
 
     // get hostname if available
     String host = "";
@@ -63,7 +62,7 @@ class SourceAnnotator extends AbstractAnnotator implements Annotator {
     isSatisfied = true;
 
     // create an annotation without signature
-    final Annotation annotation = new Annotation(key, this.hash, host, tag, layer, this.kind, null, isSatisfied,
+    final Annotation annotation = new Annotation(key, this.hash, host, layer, this.kind, null, isSatisfied,
         Instant.now());
     
     final String signature = super.signAnnotation(signatureInfo.getPrivateKey(), annotation);

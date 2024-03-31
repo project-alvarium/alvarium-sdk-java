@@ -52,7 +52,6 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
 
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
     final String key = super.deriveHash(hash, data);
-    final String tag = System.getenv(TAG_ENV_KEY) == null ? "" : System.getenv(TAG_ENV_KEY);
 
     HttpUriRequest request;
     try {
@@ -100,7 +99,6 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
         key,
         hash,
         host,
-        tag,
         layer,
         kind,
         null,

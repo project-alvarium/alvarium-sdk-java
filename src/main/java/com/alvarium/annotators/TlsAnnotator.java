@@ -56,7 +56,6 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
     // hash incoming data
     final String key = super.deriveHash(hash, data);
-    final String tag = System.getenv(TAG_ENV_KEY) == null ? "" : System.getenv(TAG_ENV_KEY);
 
     // get host name
     String host = "";
@@ -71,7 +70,7 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
         SSLSocket.class));
 
     // create an annotation without signature
-    final Annotation annotation = new Annotation(key, hash, host, tag, layer, kind, null, isSatisfied, 
+    final Annotation annotation = new Annotation(key, hash, host, layer, kind, null, isSatisfied, 
         Instant.now());
 
     // sign annotation
