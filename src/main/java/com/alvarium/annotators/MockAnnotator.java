@@ -20,6 +20,7 @@ import java.time.Instant;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashProviderFactory;
 import com.alvarium.hash.HashType;
 import com.alvarium.hash.HashTypeException;
@@ -34,12 +35,14 @@ class MockAnnotator implements Annotator {
   private final HashType hash;
   private final AnnotationType kind;
   private final SignatureInfo signature;
+  private final LayerType layer;
 
-  protected MockAnnotator(MockAnnotatorConfig cfg, HashType hash, SignatureInfo signature) {
+  protected MockAnnotator(MockAnnotatorConfig cfg, HashType hash, SignatureInfo signature, LayerType layer) {
     this.cfg = cfg;
     this.hash = hash;
     this.kind = AnnotationType.MOCK;
     this.signature = signature;
+    this.layer = layer;
   }
 
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
@@ -49,7 +52,7 @@ class MockAnnotator implements Annotator {
       final String host = InetAddress.getLocalHost().getHostName();
       final String sig = signature.getPublicKey().getType().toString();
 
-      final Annotation annotation = new Annotation(key, hash, host, kind, sig, cfg.getShouldSatisfy(), Instant.now());
+      final Annotation annotation = new Annotation(key, hash, host, layer, kind, sig, cfg.getShouldSatisfy(), Instant.now());
       return annotation;
     } catch (HashTypeException e) {
       throw new AnnotatorException("failed to hash data", e);

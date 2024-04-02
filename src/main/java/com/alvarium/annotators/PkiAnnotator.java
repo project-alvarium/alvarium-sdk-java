@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
@@ -30,12 +31,14 @@ class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
   private final HashType hash;
   private final SignatureInfo signature;
   private final AnnotationType kind;
+  private final LayerType layer;
 
-  protected PkiAnnotator(HashType hash, SignatureInfo signature, Logger logger) {
+  protected PkiAnnotator(HashType hash, SignatureInfo signature, Logger logger, LayerType layer) {
     super(logger);
     this.hash = hash;
     this.signature = signature;
     this.kind = AnnotationType.PKI;
+    this.layer = layer;
   }
 
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
@@ -58,6 +61,7 @@ class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
         key, 
         hash, 
         host, 
+        layer,
         kind, 
         null, 
         isSatisfied, 

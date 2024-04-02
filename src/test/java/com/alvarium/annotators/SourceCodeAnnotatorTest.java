@@ -32,6 +32,7 @@ import org.junit.rules.TemporaryFolder;
 import com.alvarium.SdkInfo;
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashProvider;
 import com.alvarium.hash.HashProviderFactory;
@@ -72,7 +73,7 @@ public class SourceCodeAnnotatorTest {
                             AnnotatorConfig.class
                 );                 
                 final AnnotatorConfig[] annotators = {annotatorInfo};  
-                final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null);
+                final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.MD5Hash), sign, null, LayerType.Application);
                         // init logger
                 final Logger logger = LogManager.getRootLogger();
                 Configurator.setRootLevel(Level.DEBUG);

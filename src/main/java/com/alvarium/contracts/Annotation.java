@@ -34,18 +34,27 @@ public class Annotation implements Serializable {
   private final String key;
   private final HashType hash;
   private final String host;
+  private final String tag;
+  private final LayerType layer;
   private final AnnotationType kind;
   private String signature;
   private final Boolean isSatisfied;
   private final Instant timestamp;
+  // TagEnvKey is an environment key used to associate annotations with specific metadata,
+  // aiding in the linkage of scores across different layers of the stack. For instance, in the "app" layer,
+  // it is utilized to retrieve the commit SHA of the workload where the application is running,
+  // which is instrumental in tracing the impact on the current layer's score from the lower layers.
+  public static final String TAG_ENV_KEY = "TAG";
 
-  public Annotation(String key, HashType hash, String host, AnnotationType kind, String signature,
+  public Annotation(String key, HashType hash, String host, LayerType layer, AnnotationType kind, String signature,
       Boolean isSatisfied, Instant timestamp) {
     ULID ulid = new ULID();
     this.id = ulid.nextULID(); 
     this.key = key;
     this.hash = hash;
     this.host = host;
+    this.tag = getTagValue(layer);
+    this.layer = layer;
     this.kind = kind;
     this.signature = signature;
     this.isSatisfied = isSatisfied;
@@ -74,6 +83,14 @@ public class Annotation implements Serializable {
     
     public String getHost() {
       return this.host;
+    }
+
+    public String getTag() {
+      return this.tag;
+    }
+
+    public LayerType getLayer() {
+      return this.layer;
     }
 
     public AnnotationType getKind() {
@@ -111,5 +128,15 @@ public class Annotation implements Serializable {
       Gson gson = new GsonBuilder().registerTypeAdapter(Instant.class, new InstantConverter())
           .create();
       return gson.fromJson(json, Annotation.class);
+    }
+
+    private String getTagValue(LayerType layer) {
+      switch(layer){
+        case Application:
+          return System.getenv(TAG_ENV_KEY) == null ? "" : System.getenv(TAG_ENV_KEY);
+        default:
+          break;
+      }
+      return "";
     }
 }

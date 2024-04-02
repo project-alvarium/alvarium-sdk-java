@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 import com.alvarium.SdkInfo;
 import com.alvarium.contracts.Annotation;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashType;
 import com.alvarium.serializers.AnnotatorConfigConverter;
@@ -57,7 +58,7 @@ public class SourceAnnotatorTest {
     ); 
     System.out.println("hello " + annotatorInfo.getKind());
     final AnnotatorConfig[] annotators = {annotatorInfo};  
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
+    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
 
             // init logger
     final Logger logger = LogManager.getRootLogger();

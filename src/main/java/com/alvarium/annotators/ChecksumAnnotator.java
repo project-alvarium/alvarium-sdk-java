@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashProvider;
 import com.alvarium.hash.HashProviderFactory;
 import com.alvarium.hash.HashType;
@@ -38,14 +39,16 @@ public class ChecksumAnnotator extends AbstractAnnotator implements Annotator {
     final private HashType hash;
     final private SignatureInfo signature;
     private final AnnotationType kind;
+    private final LayerType layer;
 
     private HashProvider hashProvider;
 
-    protected ChecksumAnnotator(HashType hash, SignatureInfo signature, Logger logger) {
+    protected ChecksumAnnotator(HashType hash, SignatureInfo signature, Logger logger, LayerType layer) {
         super(logger);
         this.hash = hash;
         this.signature = signature;
         this.kind = AnnotationType.CHECKSUM;
+        this.layer = layer;
     }
     
     @Override
@@ -79,7 +82,8 @@ public class ChecksumAnnotator extends AbstractAnnotator implements Annotator {
         final Annotation annotation = new Annotation(
             key, 
             this.hash, 
-            host, 
+            host,
+            layer,
             this.kind, 
             null, 
             isSatisfied, 

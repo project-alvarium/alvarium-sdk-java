@@ -1,4 +1,5 @@
 {
+  "layer": "app",
   "annotators": [
     {
       "kind": "tpm"

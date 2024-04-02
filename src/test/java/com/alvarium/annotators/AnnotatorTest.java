@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 import com.alvarium.SdkInfo;
 import com.alvarium.contracts.Annotation;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashType;
 import com.alvarium.serializers.AnnotatorConfigConverter;
@@ -36,7 +37,6 @@ import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.Test;
 
 public class AnnotatorTest {
-
 
   @Test
   public void mockAnnotatorShouldReturnSatisfiedAnnotation() throws AnnotatorException {
@@ -75,7 +75,7 @@ public class AnnotatorTest {
     }
     
     final AnnotatorConfig[] annotators = {satisfiedAnnotatorInfo, unsatisfiedAnnotatorInfo};
-    final SdkInfo config = new SdkInfo(annotators, hash, signature, null);
+    final SdkInfo config = new SdkInfo(annotators, hash, signature, null, LayerType.Application);
 
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
@@ -93,4 +93,66 @@ public class AnnotatorTest {
     assert satisfiedAnnotation.getIsSatisfied();
     assert !unsatisfiedAnnotation.getIsSatisfied();
   }  
+
+  @Test
+  public void mockAnnotatorShouldReturnTag() throws AnnotatorException {
+    final KeyInfo keyInfo = new KeyInfo("path", SignType.none);
+    final SignatureInfo signature = new SignatureInfo(keyInfo, keyInfo);
+    final HashInfo noHash = new HashInfo(HashType.NoHash);
+
+    final Gson gson = new GsonBuilder()
+      .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+      .create();
+
+    final String mockConfig = "{\"kind\": \"mock\"}";
+
+    final AnnotatorConfig annotatorInfo = gson.fromJson(mockConfig, AnnotatorConfig.class);
+
+    final AnnotatorConfig[] annotators = {annotatorInfo};
+    final SdkInfo noHashConfig = new SdkInfo(annotators, noHash, signature, null, LayerType.Application);
+
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
+
+    final AnnotatorFactory factory = new AnnotatorFactory();
+    final Annotator noHashAnnotator = factory.getAnnotator(annotatorInfo, noHashConfig, logger);
+
+    final byte[] data = "test data".getBytes();
+    final PropertyBag ctx = new ImmutablePropertyBag(new HashMap<>());
+
+    final Annotation noHashAnnotation = noHashAnnotator.execute(ctx, data);
+
+    assert "".equals(noHashAnnotation.getTag());
+  }
+
+  @Test
+  public void mockAnnotatorShouldReturnLayer() throws AnnotatorException {
+    final KeyInfo keyInfo = new KeyInfo("path", SignType.none);
+    final SignatureInfo signature = new SignatureInfo(keyInfo, keyInfo);
+    final HashInfo noHash = new HashInfo(HashType.NoHash);
+
+    final Gson gson = new GsonBuilder()
+      .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+      .create();
+
+    final String mockConfig = "{\"kind\": \"mock\"}";
+
+    final AnnotatorConfig annotatorInfo = gson.fromJson(mockConfig, AnnotatorConfig.class);
+
+    final AnnotatorConfig[] annotators = {annotatorInfo};
+    final SdkInfo noHashConfig = new SdkInfo(annotators, noHash, signature, null, LayerType.Application);
+
+    final Logger logger = LogManager.getRootLogger();
+    Configurator.setRootLevel(Level.DEBUG);
+
+    final AnnotatorFactory factory = new AnnotatorFactory();
+    final Annotator noHashAnnotator = factory.getAnnotator(annotatorInfo, noHashConfig, logger);
+
+    final byte[] data = "test data".getBytes();
+    final PropertyBag ctx = new ImmutablePropertyBag(new HashMap<>());
+
+    final Annotation noHashAnnotation = noHashAnnotator.execute(ctx, data);
+
+    assert LayerType.Application.equals(noHashAnnotation.getLayer());
+  }
 }

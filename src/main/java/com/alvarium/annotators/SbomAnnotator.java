@@ -25,6 +25,7 @@ import com.alvarium.annotators.sbom.SbomProvider;
 import com.alvarium.annotators.sbom.SbomProviderFactory;
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
@@ -35,13 +36,15 @@ public class SbomAnnotator extends AbstractAnnotator implements Annotator {
   final HashType hash;
   final SignatureInfo signature;
   final AnnotationType kind;
+  final LayerType layer;
 
-  protected SbomAnnotator(SbomAnnotatorConfig cfg, HashType hash, SignatureInfo signature, Logger logger) {
+  protected SbomAnnotator(SbomAnnotatorConfig cfg, HashType hash, SignatureInfo signature, Logger logger, LayerType layer) {
     super(logger);
     this.cfg = cfg;
     this.hash = hash;
     this.signature = signature;
     this.kind = AnnotationType.SBOM;
+    this.layer = layer;
   }
   
   @Override 
@@ -73,6 +76,7 @@ public class SbomAnnotator extends AbstractAnnotator implements Annotator {
         key, 
         hash, 
         host, 
+        layer,
         kind, 
         null, 
         isSatisfied, 

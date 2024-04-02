@@ -24,6 +24,7 @@ import java.time.Instant;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
@@ -32,12 +33,14 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
   private final HashType hash;
   private final AnnotationType kind;
   private final SignatureInfo signatureInfo;
+  private final LayerType layer;
   
-  protected TlsAnnotator(HashType hash, SignatureInfo signatureInfo, Logger logger) {
+  protected TlsAnnotator(HashType hash, SignatureInfo signatureInfo, Logger logger, LayerType layer) {
     super(logger);
     this.hash = hash;
     this.kind = AnnotationType.TLS;
     this.signatureInfo = signatureInfo;
+    this.layer = layer;
   }
 
   private Boolean verifyHandshake(SSLSocket socket) {
@@ -67,7 +70,7 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
         SSLSocket.class));
 
     // create an annotation without signature
-    final Annotation annotation = new Annotation(key, hash, host, kind, null, isSatisfied, 
+    final Annotation annotation = new Annotation(key, hash, host, layer, kind, null, isSatisfied, 
         Instant.now());
 
     // sign annotation

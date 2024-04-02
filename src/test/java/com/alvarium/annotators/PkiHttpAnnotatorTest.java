@@ -26,6 +26,7 @@ import com.alvarium.annotators.http.RequestHandlerException;
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.contracts.DerivedComponent;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashType;
 import com.alvarium.serializers.AnnotatorConfigConverter;
@@ -96,7 +97,7 @@ public class PkiHttpAnnotatorTest {
 
     final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
     final AnnotatorConfig[] annotators = {annotatorInfo};  
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
+    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
     final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config, logger);
     final Annotation annotation = annotator.execute(ctx, data);
     assertTrue("isSatisfied should be true", annotation.getIsSatisfied());
@@ -128,7 +129,7 @@ public class PkiHttpAnnotatorTest {
 
     final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
     final AnnotatorConfig[] annotators = {annotatorInfo};  
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
+    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
     final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config, logger);
     annotator.execute(ctx, data);
   }
@@ -157,7 +158,7 @@ public class PkiHttpAnnotatorTest {
 
     final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
     final AnnotatorConfig[] annotators = {annotatorInfo};  
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
+    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
     final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config, logger);
     Annotation annotation = annotator.execute(ctx, data);
     assertFalse("isSatisfied should be false", annotation.getIsSatisfied());
@@ -185,7 +186,7 @@ public class PkiHttpAnnotatorTest {
     
     final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
     final AnnotatorConfig[] annotators = {annotatorInfo};  
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
+    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
     final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config, logger);
     final Annotation annotation = annotator.execute(ctx, data);
     assertFalse("isSatisfied should be false", annotation.getIsSatisfied());
@@ -213,7 +214,7 @@ public class PkiHttpAnnotatorTest {
 
     final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
     final AnnotatorConfig[] annotators = {annotatorInfo};  
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null);
+    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
     final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config, logger);
     final Annotation annotation = annotator.execute(ctx, data);
     assertFalse("isSatisfied should be false", annotation.getIsSatisfied());

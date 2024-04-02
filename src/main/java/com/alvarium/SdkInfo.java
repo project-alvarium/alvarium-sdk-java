@@ -17,6 +17,7 @@ package com.alvarium;
 import java.io.Serializable;
 
 import com.alvarium.annotators.AnnotatorConfig;
+import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashInfo;
 import com.alvarium.serializers.AnnotatorConfigConverter;
 import com.alvarium.serializers.StreamInfoConverter;
@@ -33,13 +34,15 @@ public class SdkInfo implements Serializable {
   private final HashInfo hash;
   private final SignatureInfo signature;
   private final StreamInfo stream;
+  private final LayerType layer;
 
   public SdkInfo(AnnotatorConfig[] annotators, HashInfo hash, SignatureInfo signature,
-      StreamInfo stream) {
+      StreamInfo stream, LayerType layer) {
     this.annotators = annotators;
     this.hash = hash;
     this.signature = signature;
     this.stream = stream;
+    this.layer = layer;
   }
 
   public AnnotatorConfig[] getAnnotators() {
@@ -56,6 +59,10 @@ public class SdkInfo implements Serializable {
 
   public StreamInfo getStream() {
     return this.stream;
+  }
+
+  public LayerType getLayer(){
+    return this.layer;
   }
 
   public String toJson() {
