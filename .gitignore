@@ -2,6 +2,7 @@
 .idea/
 .vscode/
 alvarium-sdk-java.iml
+sbom-tool
 
 # Compiled class file
 *.class
