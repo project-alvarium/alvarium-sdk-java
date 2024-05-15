@@ -70,7 +70,7 @@ public class SourceAnnotatorTest {
     final byte[] data = "test data".getBytes();
     final PropertyBag ctx = new ImmutablePropertyBag(new HashMap<String, Object>());
 
-    final Annotation annotation = annotator.execute(ctx, data);
+    final Annotation annotation = annotator.execute(ctx, data, "");
     System.out.println(annotation.toJson());
   }
 

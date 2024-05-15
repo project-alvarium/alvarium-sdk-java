@@ -14,18 +14,17 @@
  *******************************************************************************/
 package com.alvarium.annotators;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.time.Instant;
-
-import org.apache.logging.log4j.Logger;
-
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
+import org.apache.logging.log4j.Logger;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.time.ZonedDateTime;
 
 class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
   private final HashType hash;
@@ -63,7 +62,7 @@ class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
         kind, 
         null, 
         isSatisfied, 
-        Instant.now());
+        ZonedDateTime.now());
 
     final String annotationSignature = super.signAnnotation(signature.getPrivateKey(), annotation);
     annotation.setSignature(annotationSignature);

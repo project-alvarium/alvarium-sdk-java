@@ -1,6 +1,5 @@
-
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
+ * Copyright 2023 Dell Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -14,24 +13,22 @@
  *******************************************************************************/
 package com.alvarium.serializers;
 
+import com.alvarium.contracts.Annotation;
+import com.google.gson.*;
+
 import java.lang.reflect.Type;
 
-import com.alvarium.contracts.Annotation;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+public class AnnotationConverter implements JsonSerializer<Annotation> {
 
+    @Override
+    public JsonElement serialize(Annotation src, Type typeOfSrc, JsonSerializationContext context) {
+        var json = new JsonObject();
 
-public class AnnotationConverter implements JsonSerializer<Annotation>, JsonDeserializer<Annotation> {
+        json.add("id", new JsonPrimitive(src.getId()));
+        json.add("type", new JsonPrimitive(src.getKind().name()));
+        json.add("tag", new JsonPrimitive(src.getTag()));
+        json.add("isSatisfied", new JsonPrimitive(src.getIsSatisfied()));
 
-  public JsonElement serialize(Annotation src, Type typeOfSrc, JsonSerializationContext context) {
-    return JsonParser.parseString(src.toJson()); 
-  }
-
-  public Annotation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
-    return Annotation.fromJson(json.toString());
-  }
+        return json;
+    }
 }

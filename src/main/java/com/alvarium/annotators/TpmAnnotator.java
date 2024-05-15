@@ -29,6 +29,7 @@ import java.io.RandomAccessFile;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 
 class TpmAnnotator extends AbstractAnnotator implements Annotator {
   private final HashType hash;
@@ -68,7 +69,7 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
           kind,
           null,
           isSatisfied,
-          Instant.now());
+          ZonedDateTime.now());
     
     final String annotationSignature = super.signAnnotation(signature.getPrivateKey(), annotation);
     annotation.setSignature(annotationSignature);

@@ -68,7 +68,7 @@ public class TpmAnnotatorTest {
     PropertyBag ctx = new ImmutablePropertyBag(new HashMap<String, Object>());
     
     byte[] data = {0x1, 0x2};
-    Annotation annotation = tpm.execute(ctx, data);
+    Annotation annotation = tpm.execute(ctx, data, "");
     System.out.println(annotation.toJson());
   }
   

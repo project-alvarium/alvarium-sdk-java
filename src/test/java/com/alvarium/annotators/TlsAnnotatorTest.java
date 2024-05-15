@@ -80,7 +80,7 @@ public class TlsAnnotatorTest {
     map.put(AnnotationType.TLS.name(), socket);
     final PropertyBag bag = new ImmutablePropertyBag(map);
 
-    final Annotation annotation = annotator.execute(bag, data);
+    final Annotation annotation = annotator.execute(bag, data, "");
     System.out.println(annotation.toJson());
   }  
 }

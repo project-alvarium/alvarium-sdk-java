@@ -21,6 +21,7 @@ import javax.net.ssl.SSLSocket;
 import org.apache.logging.log4j.Logger;
 
 import java.time.Instant;
+import java.time.ZonedDateTime;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
@@ -68,7 +69,7 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
 
     // create an annotation without signature
     final Annotation annotation = new Annotation(key, hash, host, layer, kind, null, isSatisfied, 
-        Instant.now());
+        ZonedDateTime.now());
 
     // sign annotation
     final String signature = super.signAnnotation(signatureInfo.getPrivateKey(),

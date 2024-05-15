@@ -21,6 +21,7 @@ import java.net.UnknownHostException;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.nio.file.Path;
+import java.time.ZonedDateTime;
 
 import com.alvarium.annotators.http.ParseResult;
 import com.alvarium.annotators.http.ParseResultException;
@@ -101,7 +102,7 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
         kind,
         null,
         isSatisfied,
-        Instant.now());
+        ZonedDateTime.now());
 
     final String annotationSignature = super.signAnnotation(sig.getPrivateKey(), annotation);
     annotation.setSignature(annotationSignature);

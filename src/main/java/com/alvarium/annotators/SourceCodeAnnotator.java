@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.Collator;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -88,7 +89,7 @@ class SourceCodeAnnotator extends AbstractAnnotator implements Annotator {
                 kind,
                 null,
                 isSatisfied,
-                Instant.now());
+                ZonedDateTime.now());
 
         final String annotationSignature = super.signAnnotation(signature.getPrivateKey(), annotation);
         annotation.setSignature(annotationSignature);

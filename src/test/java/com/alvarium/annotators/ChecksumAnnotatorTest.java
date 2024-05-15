@@ -102,14 +102,14 @@ public class ChecksumAnnotatorTest {
             );
             
             byte[] data = "pipeline1/1".getBytes();
-            Annotation annotation = annotator.execute(ctx, data);
+            Annotation annotation = annotator.execute(ctx, data, "");
             System.out.println(annotation.toJson());
             assert annotation.getIsSatisfied();
 
             // change artifact checksum
             Files.write(checksumFile.toPath(), "bar".getBytes()); 
             
-            annotation = annotator.execute(ctx, data);
+            annotation = annotator.execute(ctx, data, "");
             System.out.println(annotation.toJson());
             assert !annotation.getIsSatisfied();
 

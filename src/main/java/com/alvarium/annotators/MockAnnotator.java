@@ -17,6 +17,7 @@ package com.alvarium.annotators;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
@@ -50,7 +51,7 @@ class MockAnnotator implements Annotator {
       final String host = InetAddress.getLocalHost().getHostName();
       final String sig = signature.getPublicKey().getType().toString();
 
-      final Annotation annotation = new Annotation(key, hash, host, layer, kind, sig, cfg.getShouldSatisfy(), Instant.now());
+      final Annotation annotation = new Annotation(key, hash, host, layer, kind, sig, cfg.getShouldSatisfy(), ZonedDateTime.now());
       return annotation;
     } catch (UnknownHostException e) {
       throw new AnnotatorException("Could not get hostname", e);

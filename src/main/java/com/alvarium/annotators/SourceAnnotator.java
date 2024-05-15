@@ -17,6 +17,7 @@ package com.alvarium.annotators;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 
 import org.apache.logging.log4j.Logger;
 
@@ -60,7 +61,7 @@ class SourceAnnotator extends AbstractAnnotator implements Annotator {
 
     // create an annotation without signature
     final Annotation annotation = new Annotation(key, this.hash, host, layer, this.kind, null, isSatisfied,
-        Instant.now());
+        ZonedDateTime.now());
     
     final String signature = super.signAnnotation(signatureInfo.getPrivateKey(), annotation);
     annotation.setSignature(signature);

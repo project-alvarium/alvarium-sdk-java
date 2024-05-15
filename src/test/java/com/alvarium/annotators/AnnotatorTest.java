@@ -87,8 +87,8 @@ public class AnnotatorTest {
     final byte[] data = "test data".getBytes();
     final PropertyBag ctx = new ImmutablePropertyBag(new HashMap<>());
 
-    final Annotation satisfiedAnnotation = satisfiedAnnotator.execute(ctx, data);
-    final Annotation unsatisfiedAnnotation = unsatisfiedAnnotator.execute(ctx, data);
+    final Annotation satisfiedAnnotation = satisfiedAnnotator.execute(ctx, data, "");
+    final Annotation unsatisfiedAnnotation = unsatisfiedAnnotator.execute(ctx, data, "");
 
     assert satisfiedAnnotation.getIsSatisfied();
     assert !unsatisfiedAnnotation.getIsSatisfied();
@@ -120,7 +120,7 @@ public class AnnotatorTest {
     final byte[] data = "test data".getBytes();
     final PropertyBag ctx = new ImmutablePropertyBag(new HashMap<>());
 
-    final Annotation noHashAnnotation = noHashAnnotator.execute(ctx, data);
+    final Annotation noHashAnnotation = noHashAnnotator.execute(ctx, data, "");
 
     assert "".equals(noHashAnnotation.getTag());
   }
@@ -151,7 +151,7 @@ public class AnnotatorTest {
     final byte[] data = "test data".getBytes();
     final PropertyBag ctx = new ImmutablePropertyBag(new HashMap<>());
 
-    final Annotation noHashAnnotation = noHashAnnotator.execute(ctx, data);
+    final Annotation noHashAnnotation = noHashAnnotator.execute(ctx, data, "");
 
     assert LayerType.Application.equals(noHashAnnotation.getLayer());
   }

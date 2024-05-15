@@ -110,14 +110,14 @@ public class SourceCodeAnnotatorTest {
 
                 byte[] data = "pipeline1/1".getBytes();
 
-                Annotation annotation = annotator.execute(ctx, data);
+                Annotation annotation = annotator.execute(ctx, data, "");
                 System.out.println(annotation.toJson());
                 assert annotation.getIsSatisfied();
 
                 // tamper with existing file in source code
                 Files.write(f1.toPath(), "tampered".getBytes()); 
                 
-                annotation = annotator.execute(ctx, data);
+                annotation = annotator.execute(ctx, data, "");
                 System.out.println(annotation.toJson());
 
                 assert !annotation.getIsSatisfied();
