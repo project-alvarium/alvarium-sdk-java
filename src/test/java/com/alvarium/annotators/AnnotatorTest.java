@@ -43,22 +43,19 @@ public class AnnotatorTest {
     final KeyInfo keyInfo = new KeyInfo("path", SignType.none);
     final SignatureInfo signature = new SignatureInfo(keyInfo, keyInfo);
     final HashInfo hash = new HashInfo(HashType.NoHash);
-    
+
     final Gson gson = new GsonBuilder()
-      .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
-      .create();
-    
+        .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+        .create();
+
     final String satisfiedMockConfig = "{\"kind\": \"mock\",\n\"shouldSatisfy\":true}";
     final String unsatisfiedMockConfig = "{\"kind\": \"mock\",\n\"shouldSatisfy\":false}";
-    
-    
+
     final String badConfig1 = "{\"kind\": \"invalid\",\n\"shouldSatisfy\":true}";
     final String badConfig2 = "{\"invalid\": \"mock\",\n\"shouldSatisfy\":true}";
 
-    
     final AnnotatorConfig satisfiedAnnotatorInfo = gson.fromJson(satisfiedMockConfig, AnnotatorConfig.class);
     final AnnotatorConfig unsatisfiedAnnotatorInfo = gson.fromJson(unsatisfiedMockConfig, AnnotatorConfig.class);
-
 
     try {
       gson.fromJson(badConfig1, AnnotatorConfig.class);
@@ -73,8 +70,8 @@ public class AnnotatorTest {
     } catch (IllegalArgumentException e) {
       assert true;
     }
-    
-    final AnnotatorConfig[] annotators = {satisfiedAnnotatorInfo, unsatisfiedAnnotatorInfo};
+
+    final AnnotatorConfig[] annotators = { satisfiedAnnotatorInfo, unsatisfiedAnnotatorInfo };
     final SdkInfo config = new SdkInfo(annotators, hash, signature, null, LayerType.Application);
 
     final Logger logger = LogManager.getRootLogger();
@@ -92,7 +89,7 @@ public class AnnotatorTest {
 
     assert satisfiedAnnotation.getIsSatisfied();
     assert !unsatisfiedAnnotation.getIsSatisfied();
-  }  
+  }
 
   @Test
   public void mockAnnotatorShouldReturnTag() throws AnnotatorException {
@@ -101,14 +98,14 @@ public class AnnotatorTest {
     final HashInfo noHash = new HashInfo(HashType.NoHash);
 
     final Gson gson = new GsonBuilder()
-      .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
-      .create();
+        .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+        .create();
 
     final String mockConfig = "{\"kind\": \"mock\"}";
 
     final AnnotatorConfig annotatorInfo = gson.fromJson(mockConfig, AnnotatorConfig.class);
 
-    final AnnotatorConfig[] annotators = {annotatorInfo};
+    final AnnotatorConfig[] annotators = { annotatorInfo };
     final SdkInfo noHashConfig = new SdkInfo(annotators, noHash, signature, null, LayerType.Application);
 
     final Logger logger = LogManager.getRootLogger();
@@ -122,7 +119,7 @@ public class AnnotatorTest {
 
     final Annotation noHashAnnotation = noHashAnnotator.execute(ctx, data);
 
-    assert "".equals(noHashAnnotation.getTag());
+    assert noHashAnnotation.getTag() != null;
   }
 
   @Test
@@ -132,14 +129,14 @@ public class AnnotatorTest {
     final HashInfo noHash = new HashInfo(HashType.NoHash);
 
     final Gson gson = new GsonBuilder()
-      .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
-      .create();
+        .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+        .create();
 
     final String mockConfig = "{\"kind\": \"mock\"}";
 
     final AnnotatorConfig annotatorInfo = gson.fromJson(mockConfig, AnnotatorConfig.class);
 
-    final AnnotatorConfig[] annotators = {annotatorInfo};
+    final AnnotatorConfig[] annotators = { annotatorInfo };
     final SdkInfo noHashConfig = new SdkInfo(annotators, noHash, signature, null, LayerType.Application);
 
     final Logger logger = LogManager.getRootLogger();

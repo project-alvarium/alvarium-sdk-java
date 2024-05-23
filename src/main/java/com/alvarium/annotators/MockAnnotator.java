@@ -17,6 +17,7 @@ package com.alvarium.annotators;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Instant;
+import java.util.Map;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
@@ -25,6 +26,7 @@ import com.alvarium.hash.HashProviderFactory;
 import com.alvarium.hash.HashType;
 import com.alvarium.hash.HashTypeException;
 import com.alvarium.sign.SignatureInfo;
+import com.alvarium.tag.TagManager;
 import com.alvarium.utils.PropertyBag;
 
 /**
@@ -36,6 +38,7 @@ class MockAnnotator implements Annotator {
   private final AnnotationType kind;
   private final SignatureInfo signature;
   private final LayerType layer;
+  private final TagManager tagManager;
 
   protected MockAnnotator(MockAnnotatorConfig cfg, HashType hash, SignatureInfo signature, LayerType layer) {
     this.cfg = cfg;
@@ -43,6 +46,7 @@ class MockAnnotator implements Annotator {
     this.kind = AnnotationType.MOCK;
     this.signature = signature;
     this.layer = layer;
+    this.tagManager = new TagManager(layer);
   }
 
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
@@ -52,12 +56,18 @@ class MockAnnotator implements Annotator {
       final String host = InetAddress.getLocalHost().getHostName();
       final String sig = signature.getPublicKey().getType().toString();
 
-      final Annotation annotation = new Annotation(key, hash, host, layer, kind, sig, cfg.getShouldSatisfy(), Instant.now());
+      final Annotation annotation = new Annotation(key, hash, host, layer, kind, sig, cfg.getShouldSatisfy(),
+          Instant.now());
+      if (ctx.hasProperty("tagWriterOverrides")) {
+        annotation.setTag(tagManager.getTagValue(ctx.getProperty("tagWriterOverrides", Map.class)));
+      } else {
+        annotation.setTag(tagManager.getTagValue());
+      }
       return annotation;
     } catch (HashTypeException e) {
       throw new AnnotatorException("failed to hash data", e);
     } catch (UnknownHostException e) {
       throw new AnnotatorException("Could not get hostname", e);
     }
-  } 
+  }
 }

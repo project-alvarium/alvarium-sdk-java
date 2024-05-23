@@ -20,6 +20,7 @@ import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.nio.file.Paths;
 import java.time.Instant;
+import java.util.Map;
 import java.nio.file.Path;
 
 import com.alvarium.annotators.http.ParseResult;
@@ -30,6 +31,7 @@ import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.KeyInfo;
 import com.alvarium.sign.SignatureInfo;
+import com.alvarium.tag.TagManager;
 import com.alvarium.sign.SignType;
 import com.alvarium.utils.PropertyBag;
 
@@ -41,6 +43,7 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
   private final SignatureInfo signature;
   private final AnnotationType kind;
   private final LayerType layer;
+  private final TagManager tagManager;
 
   protected PkiHttpAnnotator(HashType hash, SignatureInfo signature, Logger logger, LayerType layer) {
     super(logger);
@@ -48,6 +51,7 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
     this.signature = signature;
     this.kind = AnnotationType.PKIHttp;
     this.layer = layer;
+    this.tagManager = new TagManager(layer);
   }
 
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
@@ -59,7 +63,7 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
     } catch (IllegalArgumentException e) {
       throw new AnnotatorException(String.format("Property %s not found", AnnotationType.PKIHttp.name()));
     }
-    ParseResult parsed; 
+    ParseResult parsed;
     try {
       parsed = new ParseResult(request);
     } catch (URISyntaxException e) {
@@ -86,15 +90,15 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
 
     String host = "";
     boolean isSatisfied;
-    try{
+    try {
       host = InetAddress.getLocalHost().getHostName();
 
       isSatisfied = verifySignature(sig.getPublicKey(), signable);
     } catch (UnknownHostException | AnnotatorException e) {
       isSatisfied = false;
-      this.logger.error("Error during PkiHttpAnnotator execution: ",e);
+      this.logger.error("Error during PkiHttpAnnotator execution: ", e);
     }
- 
+
     final Annotation annotation = new Annotation(
         key,
         hash,
@@ -104,6 +108,12 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
         null,
         isSatisfied,
         Instant.now());
+
+    if (ctx.hasProperty("tagWriterOverrides")) {
+      annotation.setTag(tagManager.getTagValue(ctx.getProperty("tagWriterOverrides", Map.class)));
+    } else {
+      annotation.setTag(tagManager.getTagValue());
+    }
 
     final String annotationSignature = super.signAnnotation(sig.getPrivateKey(), annotation);
     annotation.setSignature(annotationSignature);

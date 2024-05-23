@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +31,7 @@ import com.alvarium.SdkInfo;
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.contracts.LayerType;
+import com.alvarium.tag.TagWriter;
 import com.alvarium.hash.HashInfo;
 import com.alvarium.hash.HashProvider;
 import com.alvarium.hash.HashProviderFactory;
@@ -97,8 +99,15 @@ public class ChecksumAnnotatorTest {
                     checksumFile.toPath().toString()
             );
 
+            Map<LayerType, TagWriter> tagWriterOverrides = new HashMap<>();
+
+            tagWriterOverrides.put(LayerType.Application, () -> {
+                    return "Custom tag value for Application";
+            });
+
             PropertyBag ctx = new ImmutablePropertyBag(
-                    Map.of(AnnotationType.CHECKSUM.name(), props)
+                    Map.of(AnnotationType.CHECKSUM.name(), props,
+                    "tagWriterOverrides", tagWriterOverrides)
             );
             
             byte[] data = "pipeline1/1".getBytes();

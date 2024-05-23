@@ -17,6 +17,7 @@ package com.alvarium.annotators;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Instant;
+import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
@@ -25,6 +26,7 @@ import com.alvarium.contracts.AnnotationType;
 import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
+import com.alvarium.tag.TagManager;
 import com.alvarium.utils.PropertyBag;
 
 class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
@@ -32,6 +34,7 @@ class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
   private final SignatureInfo signature;
   private final AnnotationType kind;
   private final LayerType layer;
+  private final TagManager tagManager;
 
   protected PkiAnnotator(HashType hash, SignatureInfo signature, Logger logger, LayerType layer) {
     super(logger);
@@ -39,6 +42,7 @@ class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
     this.signature = signature;
     this.kind = AnnotationType.PKI;
     this.layer = layer;
+    this.tagManager = new TagManager(layer);
   }
 
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
@@ -54,23 +58,29 @@ class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
       isSatisfied = verifySignature(signature.getPublicKey(), signable);
     } catch (UnknownHostException | AnnotatorException e) {
       isSatisfied = false;
-      this.logger.error("Error during PkiAnnotator execution: ",e);
-    } 
+      this.logger.error("Error during PkiAnnotator execution: ", e);
+    }
 
     final Annotation annotation = new Annotation(
-        key, 
-        hash, 
-        host, 
+        key,
+        hash,
+        host,
         layer,
-        kind, 
-        null, 
-        isSatisfied, 
+        kind,
+        null,
+        isSatisfied,
         Instant.now());
+
+    if (ctx.hasProperty("tagWriterOverrides")) {
+      annotation.setTag(tagManager.getTagValue(ctx.getProperty("tagWriterOverrides", Map.class)));
+    } else {
+      annotation.setTag(tagManager.getTagValue());
+    }
 
     final String annotationSignature = super.signAnnotation(signature.getPrivateKey(), annotation);
     annotation.setSignature(annotationSignature);
     return annotation;
 
   }
-  
+
 }
