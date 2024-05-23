@@ -31,6 +31,10 @@ public class ImmutablePropertyBag implements PropertyBag{
       throw new IllegalArgumentException(String.format("Property %s not found", key));
     }
   }
+
+  public boolean hasProperty(String key) {
+    return bag.containsKey(key);
+  }
   
   public Map<String, Object> toMap() {
     return bag;

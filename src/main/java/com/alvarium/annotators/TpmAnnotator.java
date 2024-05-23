@@ -21,6 +21,7 @@ import java.io.RandomAccessFile;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Instant;
+import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
@@ -29,6 +30,7 @@ import com.alvarium.contracts.AnnotationType;
 import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
+import com.alvarium.tag.TagManager;
 import com.alvarium.utils.PropertyBag;
 
 class TpmAnnotator extends AbstractAnnotator implements Annotator {
@@ -36,6 +38,7 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
   private final AnnotationType kind;
   private final SignatureInfo signature;
   private final LayerType layer;
+  private final TagManager tagManager;
   private final String directTpmPath = "/dev/tpm0";
   private final String tpmKernelManagedPath = "/dev/tpmrm0";
 
@@ -45,43 +48,52 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
     this.signature = signature;
     this.kind = AnnotationType.TPM;
     this.layer = layer;
+    this.tagManager = new TagManager(layer);
   }
 
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
-    
+
     final String key = super.deriveHash(hash, data);
 
     String host = "";
     boolean isSatisfied;
     try {
       host = InetAddress.getLocalHost().getHostName();
-      // Checks whether the TPM driver is accessible through the kernel resource manager, and if that 
+      // Checks whether the TPM driver is accessible through the kernel resource
+      // manager, and if that
       // failes, checks if the TPM driver can be accessed directly
       isSatisfied = checkTpmExists(this.tpmKernelManagedPath) ||
-        checkTpmExists(this.directTpmPath);
+          checkTpmExists(this.directTpmPath);
     } catch (UnknownHostException | AnnotatorException e) {
       isSatisfied = false;
-      this.logger.error("Error during TpmAnnotator execution: ",e);
+      this.logger.error("Error during TpmAnnotator execution: ", e);
     }
 
     final Annotation annotation = new Annotation(
-          key,
-          hash,
-          host,
-          layer,
-          kind,
-          null,
-          isSatisfied,
-          Instant.now());
-    
+        key,
+        hash,
+        host,
+        layer,
+        kind,
+        null,
+        isSatisfied,
+        Instant.now());
+
+    if (ctx.hasProperty("tagWriterOverrides")) {
+      annotation.setTag(tagManager.getTagValue(ctx.getProperty("tagWriterOverrides", Map.class)));
+    } else {
+      annotation.setTag(tagManager.getTagValue());
+    }
+
     final String annotationSignature = super.signAnnotation(signature.getPrivateKey(), annotation);
     annotation.setSignature(annotationSignature);
     return annotation;
   }
 
   /**
-   * Checks whether the TPM driver exists (can be accessed) or not, this check was found on the 
-   * Microsoft TSS.MSR repository found here 
+   * Checks whether the TPM driver exists (can be accessed) or not, this check was
+   * found on the
+   * Microsoft TSS.MSR repository found here
    * https://github.com/microsoft/TSS.MSR/blob/d715b/TSS.Java/src/tss/TpmDeviceLinux.java
    * 
    * @param devName the tpm path
@@ -95,11 +107,11 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
       return false;
     }
     try {
-        devTpm = new RandomAccessFile(devName, "rwd");
-        devTpm.close();
-        return true;
+      devTpm = new RandomAccessFile(devName, "rwd");
+      devTpm.close();
+      return true;
     } catch (FileNotFoundException e) {
-        return false;
+      return false;
     } catch (IOException e) {
       throw new AnnotatorException("Could not close tpm file", e);
     }

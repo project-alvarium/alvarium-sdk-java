@@ -21,12 +21,14 @@ import javax.net.ssl.SSLSocket;
 import org.apache.logging.log4j.Logger;
 
 import java.time.Instant;
+import java.util.Map;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
+import com.alvarium.tag.TagManager;
 import com.alvarium.utils.PropertyBag;
 
 class TlsAnnotator extends AbstractAnnotator implements Annotator {
@@ -34,20 +36,22 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
   private final AnnotationType kind;
   private final SignatureInfo signatureInfo;
   private final LayerType layer;
-  
+  private final TagManager tagManager;
+
   protected TlsAnnotator(HashType hash, SignatureInfo signatureInfo, Logger logger, LayerType layer) {
     super(logger);
     this.hash = hash;
     this.kind = AnnotationType.TLS;
     this.signatureInfo = signatureInfo;
     this.layer = layer;
+    this.tagManager = new TagManager(layer);
   }
 
   private Boolean verifyHandshake(SSLSocket socket) {
     // a call to getSession tries to set up a session if there is no currently valid
     // session, and an implicit handshake is done.
     // If handshaking fails for any reason, the SSLSocket is closed, and no futher
-    // communications can be done. 
+    // communications can be done.
     // from: https://docs.oracle.com/javase/7/docs/api/javax/net/ssl/SSLSocket.html
     socket.getSession();
     return !socket.isClosed();
@@ -62,7 +66,7 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
     try {
       host = InetAddress.getLocalHost().getHostName();
     } catch (UnknownHostException e) {
-      this.logger.error("Error during TlsAnnotator execution: ",e);
+      this.logger.error("Error during TlsAnnotator execution: ", e);
     }
 
     // TLS check handshake
@@ -70,8 +74,14 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
         SSLSocket.class));
 
     // create an annotation without signature
-    final Annotation annotation = new Annotation(key, hash, host, layer, kind, null, isSatisfied, 
+    final Annotation annotation = new Annotation(key, hash, host, layer, kind, null, isSatisfied,
         Instant.now());
+
+    if (ctx.hasProperty("tagWriterOverrides")) {
+      annotation.setTag(tagManager.getTagValue(ctx.getProperty("tagWriterOverrides", Map.class)));
+    } else {
+      annotation.setTag(tagManager.getTagValue());
+    }
 
     // sign annotation
     final String signature = super.signAnnotation(signatureInfo.getPrivateKey(),
