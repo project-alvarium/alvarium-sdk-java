@@ -46,10 +46,11 @@ public class Annotation implements Serializable {
   // which is instrumental in tracing the impact on the current layer's score from the lower layers.
   public static final String TAG_ENV_KEY = "TAG";
 
+  private static final ULID ULID = new ULID();
+
   public Annotation(String key, HashType hash, String host, LayerType layer, AnnotationType kind, String signature,
       Boolean isSatisfied, Instant timestamp) {
-    ULID ulid = new ULID();
-    this.id = ulid.nextULID(); 
+    this.id = ULID.nextULID();
     this.key = key;
     this.hash = hash;
     this.host = host;
