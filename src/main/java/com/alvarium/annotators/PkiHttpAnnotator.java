@@ -50,9 +50,7 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
     this.layer = layer;
   }
 
-  public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
-    final String key = super.deriveHash(hash, data);
-
+  public Annotation execute(PropertyBag ctx, byte[] data, String key) throws AnnotatorException {
     HttpUriRequest request;
     try {
       request = ctx.getProperty(AnnotationType.PKIHttp.name(), HttpUriRequest.class);

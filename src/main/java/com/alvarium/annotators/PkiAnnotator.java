@@ -41,9 +41,7 @@ class PkiAnnotator extends AbstractPkiAnnotator implements Annotator {
     this.layer = layer;
   }
 
-  public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
-    final String key = super.deriveHash(hash, data);
-
+  public Annotation execute(PropertyBag ctx, byte[] data, String key) throws AnnotatorException {
     final Signable signable = Signable.fromJson(new String(data));
 
     String host = "";

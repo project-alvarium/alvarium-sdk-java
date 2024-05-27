@@ -53,10 +53,7 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
     return !socket.isClosed();
   }
 
-  public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
-    // hash incoming data
-    final String key = super.deriveHash(hash, data);
-
+  public Annotation execute(PropertyBag ctx, byte[] data, String key) throws AnnotatorException {
     // get host name
     String host = "";
     try {

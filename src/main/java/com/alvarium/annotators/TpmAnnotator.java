@@ -14,6 +14,14 @@
  *******************************************************************************/
 package com.alvarium.annotators;
 
+import com.alvarium.contracts.Annotation;
+import com.alvarium.contracts.AnnotationType;
+import com.alvarium.contracts.LayerType;
+import com.alvarium.hash.HashType;
+import com.alvarium.sign.SignatureInfo;
+import com.alvarium.utils.PropertyBag;
+import org.apache.logging.log4j.Logger;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,15 +29,6 @@ import java.io.RandomAccessFile;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Instant;
-
-import org.apache.logging.log4j.Logger;
-
-import com.alvarium.contracts.Annotation;
-import com.alvarium.contracts.AnnotationType;
-import com.alvarium.contracts.LayerType;
-import com.alvarium.hash.HashType;
-import com.alvarium.sign.SignatureInfo;
-import com.alvarium.utils.PropertyBag;
 
 class TpmAnnotator extends AbstractAnnotator implements Annotator {
   private final HashType hash;
@@ -47,10 +46,7 @@ class TpmAnnotator extends AbstractAnnotator implements Annotator {
     this.layer = layer;
   }
 
-  public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
-    
-    final String key = super.deriveHash(hash, data);
-
+  public Annotation execute(PropertyBag ctx, byte[] data, String key) throws AnnotatorException {
     String host = "";
     boolean isSatisfied;
     try {

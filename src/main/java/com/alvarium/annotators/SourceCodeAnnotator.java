@@ -61,10 +61,8 @@ class SourceCodeAnnotator extends AbstractAnnotator implements Annotator {
     // File (git working directory) is to be passed in the ctx bag
     // expects commitHash and directory from ctx
     @Override
-    public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
+    public Annotation execute(PropertyBag ctx, byte[] data, String key) throws AnnotatorException {
         this.initHashProvider(this.hash);
-        final String key = this.hashProvider.derive(data);
-
         final SourceCodeAnnotatorProps props = ctx.getProperty(
             AnnotationType.SourceCode.name(),
             SourceCodeAnnotatorProps.class

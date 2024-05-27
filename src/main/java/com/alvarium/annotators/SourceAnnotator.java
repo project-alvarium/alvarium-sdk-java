@@ -45,10 +45,7 @@ class SourceAnnotator extends AbstractAnnotator implements Annotator {
     this.layer = layer;
   }  
 
-  public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
-    // hash incoming data
-    final String key = super.deriveHash(this.hash, data);
-
+  public Annotation execute(PropertyBag ctx, byte[] data, String key) throws AnnotatorException {
     // get hostname if available
     String host = "";
     boolean isSatisfied;

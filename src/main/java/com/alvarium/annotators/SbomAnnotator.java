@@ -48,9 +48,7 @@ public class SbomAnnotator extends AbstractAnnotator implements Annotator {
   }
   
   @Override 
-  public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
-    final String key = deriveHash(this.hash, data);
-
+  public Annotation execute(PropertyBag ctx, byte[] data, String key) throws AnnotatorException {
     String host = "";
     try{
       host = InetAddress.getLocalHost().getHostName();
@@ -66,8 +64,6 @@ public class SbomAnnotator extends AbstractAnnotator implements Annotator {
       boolean exists = sbom.exists(filePath);
       boolean matchesBuild = sbom.matchesBuild(filePath, ".");
       isSatisfied = isValid && exists && matchesBuild;
-    } catch (SbomException e) {
-      this.logger.error("Error during SbomAnnotator execution: ", e);
     } catch (Exception e) {
       this.logger.error("Error during SbomAnnotator execution: ", e);
     }

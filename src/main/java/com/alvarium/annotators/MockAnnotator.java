@@ -45,17 +45,13 @@ class MockAnnotator implements Annotator {
     this.layer = layer;
   }
 
-  public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
-    final HashProviderFactory hashFactory = new HashProviderFactory();
+  public Annotation execute(PropertyBag ctx, byte[] data, String key) throws AnnotatorException {
     try {
-      final String key = hashFactory.getProvider(hash).derive(data);
       final String host = InetAddress.getLocalHost().getHostName();
       final String sig = signature.getPublicKey().getType().toString();
 
       final Annotation annotation = new Annotation(key, hash, host, layer, kind, sig, cfg.getShouldSatisfy(), Instant.now());
       return annotation;
-    } catch (HashTypeException e) {
-      throw new AnnotatorException("failed to hash data", e);
     } catch (UnknownHostException e) {
       throw new AnnotatorException("Could not get hostname", e);
     }
