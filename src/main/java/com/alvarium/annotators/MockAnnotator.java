@@ -16,15 +16,12 @@ package com.alvarium.annotators;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.time.Instant;
 import java.time.ZonedDateTime;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.contracts.LayerType;
-import com.alvarium.hash.HashProviderFactory;
 import com.alvarium.hash.HashType;
-import com.alvarium.hash.HashTypeException;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
 
@@ -56,5 +53,5 @@ class MockAnnotator implements Annotator {
     } catch (UnknownHostException e) {
       throw new AnnotatorException("Could not get hostname", e);
     }
-  } 
+  }
 }

@@ -16,7 +16,7 @@ package com.alvarium.contracts;
 
 
 import com.alvarium.hash.HashType;
-import com.alvarium.serializers.AlvariumPersistence;
+import com.alvarium.serializers.PeristenceFunctions;
 import de.huxhorn.sulky.ulid.ULID;
 
 import java.io.Serializable;
@@ -114,7 +114,7 @@ public class Annotation implements Serializable {
      * @return json string representation
      */
     public String toJson() {
-        return AlvariumPersistence.GSON.toJson(this, Annotation.class);
+        return PeristenceFunctions.serializeAnnotation(this);
     }
 
     /**
@@ -124,7 +124,7 @@ public class Annotation implements Serializable {
      * @return Annotation Object
      */
     public static Annotation fromJson(String json) {
-        return AlvariumPersistence.GSON.fromJson(json, Annotation.class);
+        return PeristenceFunctions.deserializeAnnotation(json);
     }
 
     private String getTagValue(LayerType layer) {

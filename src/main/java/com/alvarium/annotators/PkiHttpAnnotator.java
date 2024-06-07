@@ -19,7 +19,6 @@ import java.net.InetAddress;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.nio.file.Paths;
-import java.time.Instant;
 import java.nio.file.Path;
 import java.time.ZonedDateTime;
 
@@ -58,7 +57,7 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
     } catch (IllegalArgumentException e) {
       throw new AnnotatorException(String.format("Property %s not found", AnnotationType.PKIHttp.name()));
     }
-    ParseResult parsed; 
+    ParseResult parsed;
     try {
       parsed = new ParseResult(request);
     } catch (URISyntaxException e) {
@@ -85,15 +84,15 @@ class PkiHttpAnnotator extends AbstractPkiAnnotator implements Annotator {
 
     String host = "";
     boolean isSatisfied;
-    try{
+    try {
       host = InetAddress.getLocalHost().getHostName();
 
       isSatisfied = verifySignature(sig.getPublicKey(), signable);
     } catch (UnknownHostException | AnnotatorException e) {
       isSatisfied = false;
-      this.logger.error("Error during PkiHttpAnnotator execution: ",e);
+      this.logger.error("Error during PkiHttpAnnotator execution: ", e);
     }
- 
+
     final Annotation annotation = new Annotation(
         key,
         hash,
