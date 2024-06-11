@@ -14,7 +14,7 @@
  *******************************************************************************/
 package com.alvarium;
 
-import com.alvarium.serializers.PeristenceFunctions;
+import com.alvarium.serializers.Serialization;
 
 import java.io.Serializable;
 
@@ -52,6 +52,6 @@ public class PublishWrapper implements Serializable {
    * @return String representation of the PublishWrapper JSON
    */
   public String toJson() {
-    return PeristenceFunctions.serializeWrapper(this);
+    return Serialization.toJson(this);
   }
 }

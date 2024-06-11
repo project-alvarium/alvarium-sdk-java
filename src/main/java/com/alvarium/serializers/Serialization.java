@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
 
 import java.time.ZonedDateTime;
 
-public class PeristenceFunctions {
+public class Serialization {
 
 
   private static final Gson GSON = new GsonBuilder()
@@ -17,15 +17,15 @@ public class PeristenceFunctions {
       .disableHtmlEscaping()
       .create();
 
-  public static String serializeWrapper(PublishWrapper wrapper) {
+  public static String toJson(PublishWrapper wrapper) {
     return GSON.toJson(wrapper);
   }
 
-  public static String serializeAnnotation(Annotation annotation) {
+  public static String toJson(Annotation annotation) {
     return GSON.toJson(annotation);
   }
 
-  public static Annotation deserializeAnnotation(String jsonAnnotation) {
+  public static Annotation annotationFromJson(String jsonAnnotation) {
     return GSON.fromJson(jsonAnnotation, Annotation.class);
   }
 

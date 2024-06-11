@@ -20,20 +20,20 @@ import java.lang.reflect.Type;
 
 public class AnnotationConverter implements JsonSerializer<Annotation> {
 
-    @Override
-    public JsonElement serialize(Annotation src, Type typeOfSrc, JsonSerializationContext context) {
-        var json = new JsonObject();
+  @Override
+  public JsonElement serialize(Annotation src, Type typeOfSrc, JsonSerializationContext context) {
+    var json = new JsonObject();
 
-        json.add("id", new JsonPrimitive(src.getId()));
-        json.add("type", new JsonPrimitive(src.getKind().name()));
-        json.add("tag", new JsonPrimitive(src.getTag()));
-        json.add("hash", new JsonPrimitive(src.getHash().name()));
-        json.add("host", new JsonPrimitive(src.getHost()));
-        json.add("layer", new JsonPrimitive(src.getLayer().name()));
-        json.add("signature", new JsonPrimitive(src.getSignature()));
-        json.add("timestamp", context.serialize(src.getTimestamp()));
-        json.add("isSatisfied", new JsonPrimitive(src.getIsSatisfied()));
+    json.add("id", new JsonPrimitive(src.getId()));
+    json.add("type", new JsonPrimitive(src.getKind().name()));
+    json.add("tag", new JsonPrimitive(src.getTag()));
+    json.add("hash", new JsonPrimitive(src.getHash().name()));
+    json.add("host", new JsonPrimitive(src.getHost()));
+    json.add("layer", new JsonPrimitive(src.getLayer().name()));
+    json.add("signature", src.getSignature() == null ? null : new JsonPrimitive(src.getSignature()));
+    json.add("timestamp", context.serialize(src.getTimestamp()));
+    json.add("isSatisfied", new JsonPrimitive(src.getIsSatisfied()));
 
-        return json;
-    }
+    return json;
+  }
 }
