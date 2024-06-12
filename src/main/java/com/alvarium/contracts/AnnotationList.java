@@ -14,11 +14,9 @@
  *******************************************************************************/
 package com.alvarium.contracts;
 
-import java.util.List;
+import com.alvarium.serializers.Serialization;
 
-import com.alvarium.serializers.AnnotationConverter;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import java.util.List;
 
 
 /**
@@ -30,7 +28,7 @@ public class AnnotationList {
   public AnnotationList(Annotation[] annotations) {
     this.items = List.of(annotations);
   }
-  
+
   public AnnotationList(List<Annotation> annotations) {
     this.items = annotations;
   }
@@ -40,18 +38,10 @@ public class AnnotationList {
   }
 
   public String toJson() {
-    Gson gson = new GsonBuilder()
-        .registerTypeAdapter(Annotation.class, new AnnotationConverter())
-        .create();
-
-    return gson.toJson(this);
+    return Serialization.toJson(this);
   }
 
   public static AnnotationList fromJson(String json) {
-    Gson gson = new GsonBuilder()
-        .registerTypeAdapter(Annotation.class, new AnnotationConverter())
-        .create();
-    
-    return gson.fromJson(json, AnnotationList.class);
+    return Serialization.annotationListFromJson(json);
   }
 }
