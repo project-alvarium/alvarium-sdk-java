@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
+import com.alvarium.hash.HashTypeException;
 import com.alvarium.utils.PropertyBag;
 import com.alvarium.annotators.Annotator;
 import com.alvarium.annotators.AnnotatorException;
@@ -56,7 +57,7 @@ class MockSdk implements Sdk {
   }
   public void close() {
     System.out.println("Connections closed");
-  } 
+  }
 }
 public class SdkTest {
   private final String testJson;
@@ -71,7 +72,7 @@ public class SdkTest {
     final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
 
     // init annotators
-    final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length]; 
+    final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length];
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
 
     // init logger
@@ -87,7 +88,7 @@ public class SdkTest {
   }
 
   @Test
-  public void createShouldReturnSameData() throws AnnotatorException, StreamException {
+  public void createShouldReturnSameData() throws AnnotatorException, StreamException, HashTypeException {
     final Sdk sdk = new MockSdk();
     byte[] oldData = {0xA, 0x1};
     byte[] newData = {0x1, 0xA};
@@ -97,7 +98,7 @@ public class SdkTest {
   }
 
   @Test
-  public void defaultSdkShouldCreateAnnotations() throws AnnotatorException, StreamException {
+  public void defaultSdkShouldCreateAnnotations() throws AnnotatorException, StreamException, HashTypeException {
     final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
 
     // init annotators
@@ -109,7 +110,7 @@ public class SdkTest {
     Configurator.setRootLevel(Level.DEBUG);
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger); 
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger);
     }
 
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
@@ -122,19 +123,19 @@ public class SdkTest {
 
   @Test
   public void defaultSdkShouldCreateTransitionAnnotations() throws AnnotatorException,
-      StreamException {
+      StreamException, HashTypeException {
     final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
 
     // init annotators
     final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length];
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
-    
+
     // init logger
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger); 
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger);
     }
 
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
@@ -146,7 +147,7 @@ public class SdkTest {
   }
 
   @Test
-  public void defaultSdkShouldMutateData() throws AnnotatorException, StreamException {
+  public void defaultSdkShouldMutateData() throws AnnotatorException, StreamException, HashTypeException {
     final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
 
     // init annotators
@@ -158,7 +159,7 @@ public class SdkTest {
     Configurator.setRootLevel(Level.DEBUG);
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger); 
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger);
     }
 
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
@@ -173,7 +174,7 @@ public class SdkTest {
 
   @Test
   public void defaultSdkShouldCreatePublishedAnnotations() throws AnnotatorException,
-      StreamException {
+      StreamException, HashTypeException {
     final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
 
     // init annotators
@@ -185,7 +186,7 @@ public class SdkTest {
     Configurator.setRootLevel(Level.DEBUG);
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger); 
+      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger);
     }
 
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);

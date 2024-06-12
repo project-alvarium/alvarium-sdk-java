@@ -15,12 +15,12 @@ package com.alvarium.annotators;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 
+import com.alvarium.annotators.sbom.SbomException;
 import org.apache.logging.log4j.Logger;
 
 import com.alvarium.annotators.sbom.SbomAnnotatorConfig;
-import com.alvarium.annotators.sbom.SbomException;
 import com.alvarium.annotators.sbom.SbomProvider;
 import com.alvarium.annotators.sbom.SbomProviderFactory;
 import com.alvarium.contracts.Annotation;
@@ -46,18 +46,16 @@ public class SbomAnnotator extends AbstractAnnotator implements Annotator {
     this.kind = AnnotationType.SBOM;
     this.layer = layer;
   }
-  
-  @Override 
-  public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
-    final String key = deriveHash(this.hash, data);
 
+  @Override
+  public Annotation execute(PropertyBag ctx, byte[] data, String key) throws AnnotatorException {
     String host = "";
-    try{
+    try {
       host = InetAddress.getLocalHost().getHostName();
     } catch (UnknownHostException e) {
-      this.logger.error("Error during SbomAnnotator execution: ",e);
+      this.logger.error("Error during SbomAnnotator execution: ", e);
     }
-    
+
     boolean isSatisfied = false;
     try {
       final SbomProvider sbom = new SbomProviderFactory().getProvider(this.cfg, this.logger);
@@ -71,24 +69,24 @@ public class SbomAnnotator extends AbstractAnnotator implements Annotator {
     } catch (Exception e) {
       this.logger.error("Error during SbomAnnotator execution: ", e);
     }
-    
+
     final Annotation annotation = new Annotation(
-        key, 
-        hash, 
-        host, 
+        key,
+        hash,
+        host,
         layer,
-        kind, 
-        null, 
-        isSatisfied, 
-        Instant.now()
+        kind,
+        null,
+        isSatisfied,
+        ZonedDateTime.now()
     );
 
     final String annotationSignature = super.signAnnotation(
-        this.signature.getPrivateKey(), 
+        this.signature.getPrivateKey(),
         annotation
     );
 
     annotation.setSignature(annotationSignature);
-    return annotation;	
+    return annotation;
   }
 }

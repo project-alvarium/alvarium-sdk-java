@@ -27,5 +27,5 @@ public interface Annotator {
    * @return Annotation object
    * @throws AnnotatorException
    */
-  public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException;  
+  public Annotation execute(PropertyBag ctx, byte[] data, String key) throws AnnotatorException;
 }

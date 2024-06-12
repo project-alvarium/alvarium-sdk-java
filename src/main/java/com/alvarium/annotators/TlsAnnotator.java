@@ -20,7 +20,7 @@ import javax.net.ssl.SSLSocket;
 
 import org.apache.logging.log4j.Logger;
 
-import java.time.Instant;
+import java.time.ZonedDateTime;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
@@ -34,7 +34,7 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
   private final AnnotationType kind;
   private final SignatureInfo signatureInfo;
   private final LayerType layer;
-  
+
   protected TlsAnnotator(HashType hash, SignatureInfo signatureInfo, Logger logger, LayerType layer) {
     super(logger);
     this.hash = hash;
@@ -53,16 +53,13 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
     return !socket.isClosed();
   }
 
-  public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
-    // hash incoming data
-    final String key = super.deriveHash(hash, data);
-
+  public Annotation execute(PropertyBag ctx, byte[] data, String key) throws AnnotatorException {
     // get host name
     String host = "";
     try {
       host = InetAddress.getLocalHost().getHostName();
     } catch (UnknownHostException e) {
-      this.logger.error("Error during TlsAnnotator execution: ",e);
+      this.logger.error("Error during TlsAnnotator execution: ", e);
     }
 
     // TLS check handshake
@@ -70,8 +67,8 @@ class TlsAnnotator extends AbstractAnnotator implements Annotator {
         SSLSocket.class));
 
     // create an annotation without signature
-    final Annotation annotation = new Annotation(key, hash, host, layer, kind, null, isSatisfied, 
-        Instant.now());
+    final Annotation annotation = new Annotation(key, hash, host, layer, kind, null, isSatisfied,
+        ZonedDateTime.now());
 
     // sign annotation
     final String signature = super.signAnnotation(signatureInfo.getPrivateKey(),

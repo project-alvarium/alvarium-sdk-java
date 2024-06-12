@@ -69,7 +69,7 @@ public class PkiAnnotatorTest {
     final AnnotatorConfig[] annotators = {pkiCfg};  
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
     final Annotator annotator = annotatorFactory.getAnnotator(pkiCfg, config, logger);
-    final Annotation annotation = annotator.execute(ctx, data);
+    final Annotation annotation = annotator.execute(ctx, data, "");
     assertTrue("isSatisfied should be true", annotation.getIsSatisfied());
   }
 
@@ -99,7 +99,7 @@ public class PkiAnnotatorTest {
     final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
     final Annotator annotator = annotatorFactory.getAnnotator(pkiCfg, config, logger);
 
-    final Annotation annotation = annotator.execute(ctx, data);
+    final Annotation annotation = annotator.execute(ctx, data, "");
     assertFalse("isSatisfied should be false", annotation.getIsSatisfied());
   }
 

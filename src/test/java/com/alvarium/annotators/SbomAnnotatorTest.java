@@ -52,7 +52,7 @@ public class SbomAnnotatorTest {
         "./src/test/java/com/alvarium/annotators/sbom/spdx-valid.json"
     );
     final PropertyBag ctx = new ImmutablePropertyBag(map);
-    final Annotation annotation = annotator.execute(ctx, data);      
+    final Annotation annotation = annotator.execute(ctx, data, "");      
     assert annotation.getIsSatisfied();
   }
 
@@ -67,7 +67,7 @@ public class SbomAnnotatorTest {
         "./src/test/java/com/alvarium/annotators/sbom/spdx-valid.json"
     );
     final PropertyBag ctx = new ImmutablePropertyBag(map);
-    final Annotation annotation = annotator.execute(ctx, data);      
+    final Annotation annotation = annotator.execute(ctx, data, "");      
     assert !annotation.getIsSatisfied();
   }
 

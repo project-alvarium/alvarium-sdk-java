@@ -15,6 +15,7 @@
 package com.alvarium;
 
 import com.alvarium.annotators.AnnotatorException;
+import com.alvarium.hash.HashTypeException;
 import com.alvarium.streams.StreamException;
 import com.alvarium.utils.PropertyBag;
 
@@ -33,8 +34,8 @@ public interface Sdk {
    * @throws AnnotatorException
    * @throws StreamException
    */
-  public void create(PropertyBag properties, byte[] data) 
-      throws AnnotatorException, StreamException;
+  public void create(PropertyBag properties, byte[] data)
+      throws AnnotatorException, StreamException, HashTypeException;
 
   /**
    * Annotates incoming data based on the list of annotators that was provided to the sdk and 
@@ -43,7 +44,7 @@ public interface Sdk {
    * @throws AnnotatorException
    * @throws StreamException
    */
-  public void create(byte[] data) throws AnnotatorException, StreamException;
+  public void create(byte[] data) throws AnnotatorException, StreamException, HashTypeException;
 
   /**
    * Used when the recieved piece of data is originated by a separate application.
@@ -57,8 +58,8 @@ public interface Sdk {
    * @throws AnnotatorException
    * @throws StreamException
    */
-  public void transit(PropertyBag properties, byte[] data) 
-      throws AnnotatorException, StreamException;
+  public void transit(PropertyBag properties, byte[] data)
+      throws AnnotatorException, StreamException, HashTypeException;
 
   /**
    * Used when the recieved piece of data is originated by a separate application.
@@ -67,7 +68,7 @@ public interface Sdk {
    * @throws AnnotatorException
    * @throws StreamException
    */
-  public void transit(byte[] data) throws AnnotatorException, StreamException;
+  public void transit(byte[] data) throws AnnotatorException, StreamException, HashTypeException;
   /**
    * Handles annotations related to any type of data modification.
    * @param properties : A property bag that may be used by specific (or custom) annotators to pass
@@ -80,14 +81,14 @@ public interface Sdk {
    * @throws AnnotatorException
    * @throws StreamException
    */
-  public void mutate(PropertyBag properties, byte[] oldData, byte[] newData) throws 
-      AnnotatorException, StreamException;
+  public void mutate(PropertyBag properties, byte[] oldData, byte[] newData) throws
+      AnnotatorException, StreamException, HashTypeException;
 
   /**
    * Handles annotations related to any type of data modification.
    * @throws StreamException
    */
-  public void mutate(byte[] oldData, byte[] newData) throws AnnotatorException, StreamException;
+  public void mutate(byte[] oldData, byte[] newData) throws AnnotatorException, StreamException, HashTypeException;
 
   /**
    * Publish is proposed to provide extensibility for annotators that may need
@@ -104,8 +105,8 @@ public interface Sdk {
    * @throws AnnotatorException
    * @throws StreamException
    */
-  public void publish(PropertyBag properties, byte[] data) 
-      throws AnnotatorException, StreamException;
+  public void publish(PropertyBag properties, byte[] data)
+      throws AnnotatorException, StreamException, HashTypeException;
 
   /**
    * Publish is proposed to provide extensibility for annotators that may need
@@ -116,7 +117,7 @@ public interface Sdk {
    * @throws AnnotatorException
    * @throws StreamException
    */
-  public void publish(byte[] data) throws AnnotatorException, StreamException;
+  public void publish(byte[] data) throws AnnotatorException, StreamException, HashTypeException;
 
   /**
    * Closes any open connections 

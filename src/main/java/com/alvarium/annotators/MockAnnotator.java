@@ -16,14 +16,12 @@ package com.alvarium.annotators;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 
 import com.alvarium.contracts.Annotation;
 import com.alvarium.contracts.AnnotationType;
 import com.alvarium.contracts.LayerType;
-import com.alvarium.hash.HashProviderFactory;
 import com.alvarium.hash.HashType;
-import com.alvarium.hash.HashTypeException;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
 
@@ -45,19 +43,15 @@ class MockAnnotator implements Annotator {
     this.layer = layer;
   }
 
-  public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
-    final HashProviderFactory hashFactory = new HashProviderFactory();
+  public Annotation execute(PropertyBag ctx, byte[] data, String key) throws AnnotatorException {
     try {
-      final String key = hashFactory.getProvider(hash).derive(data);
       final String host = InetAddress.getLocalHost().getHostName();
       final String sig = signature.getPublicKey().getType().toString();
 
-      final Annotation annotation = new Annotation(key, hash, host, layer, kind, sig, cfg.getShouldSatisfy(), Instant.now());
+      final Annotation annotation = new Annotation(key, hash, host, layer, kind, sig, cfg.getShouldSatisfy(), ZonedDateTime.now());
       return annotation;
-    } catch (HashTypeException e) {
-      throw new AnnotatorException("failed to hash data", e);
     } catch (UnknownHostException e) {
       throw new AnnotatorException("Could not get hostname", e);
     }
-  } 
+  }
 }

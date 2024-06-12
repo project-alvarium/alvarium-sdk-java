@@ -15,6 +15,7 @@
 package com.alvarium;
 
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +52,7 @@ public class PublishWrapperTest {
       AnnotationType.TPM, 
       "signature", 
       true, 
-      Instant.now()
+      ZonedDateTime.now()
     );
     final List<Annotation> annotations = List.of(annotation, annotation);
     final PublishWrapper wrapper = new PublishWrapper(
