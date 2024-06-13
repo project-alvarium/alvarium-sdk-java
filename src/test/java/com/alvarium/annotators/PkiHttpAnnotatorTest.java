@@ -1,24 +1,25 @@
-
 /*******************************************************************************
- * Copyright 2023 Dell Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- *******************************************************************************/
-
+* Copyright 2024 Dell Inc.
+*
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+* in compliance with the License. You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software distributed under the License
+* is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+* or implied. See the License for the specific language governing permissions and limitations under
+* the License.
+*******************************************************************************/
 package com.alvarium.annotators;
 
-import java.util.HashMap;
-import java.util.Date;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.util.Date;
+import java.util.HashMap;
 
 import com.alvarium.SdkInfo;
 import com.alvarium.annotators.http.Ed2551RequestHandler;
@@ -48,15 +49,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 public class PkiHttpAnnotatorTest {
   final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
-  final KeyInfo pubKey = new KeyInfo("./src/test/java/com/alvarium/annotators/public.key",
-      SignType.Ed25519);
-  final KeyInfo privKey = new KeyInfo("./src/test/java/com/alvarium/annotators/private.key",
-      SignType.Ed25519);
+  final KeyInfo pubKey =
+      new KeyInfo("./src/test/java/com/alvarium/annotators/public.key", SignType.Ed25519);
+  final KeyInfo privKey =
+      new KeyInfo("./src/test/java/com/alvarium/annotators/private.key", SignType.Ed25519);
   final SignatureInfo sigInfo = new SignatureInfo(pubKey, privKey);
   final byte[] data = String.format("{key: \"test\"}").getBytes();
 
@@ -66,22 +64,24 @@ public class PkiHttpAnnotatorTest {
     request.setHeader("Date", date.toString());
     request.setHeader("Content-Type", "application/json");
     request.setHeader("Content-Length", "18");
-    String[] fields = { DerivedComponent.METHOD.getValue(),
-        DerivedComponent.PATH.getValue(),
-        DerivedComponent.AUTHORITY.getValue(),
-        "Content-Type", "Content-Length" };
+    String[] fields = {
+      DerivedComponent.METHOD.getValue(),
+      DerivedComponent.PATH.getValue(),
+      DerivedComponent.AUTHORITY.getValue(),
+      "Content-Type",
+      "Content-Length"
+    };
     Ed2551RequestHandler requestHandler = new Ed2551RequestHandler(request);
     requestHandler.addSignatureHeaders(date, fields, sigInfo);
     return request;
   }
 
-  @Rule
-  public ExpectedException exceptionRule = ExpectedException.none();
+  @Rule public ExpectedException exceptionRule = ExpectedException.none();
 
   @Test
   // Tests the Signature signed by the assembler
   public void testAnnotationOK() throws AnnotatorException, RequestHandlerException {
-            // init logger
+    // init logger
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
     HttpPost request = getRequest(sigInfo);
@@ -96,8 +96,14 @@ public class PkiHttpAnnotatorTest {
     final PropertyBag ctx = new ImmutablePropertyBag(map);
 
     final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
-    final AnnotatorConfig[] annotators = {annotatorInfo};  
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
+    final AnnotatorConfig[] annotators = {annotatorInfo};
+    final SdkInfo config =
+        new SdkInfo(
+            annotators,
+            new HashInfo(HashType.SHA256Hash),
+            sigInfo,
+            null,
+            LayerType.Application);
     final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config, logger);
     final Annotation annotation = annotator.execute(ctx, data);
     assertTrue("isSatisfied should be true", annotation.getIsSatisfied());
@@ -105,10 +111,11 @@ public class PkiHttpAnnotatorTest {
 
   @Test
   public void testInvalidKeyType() throws AnnotatorException, RequestHandlerException {
-    final String signatureInput = "\"@method\" \"@path\" \"@authority\" \"Content-Type\" " + 
-    "\"Content-Length\";created=1646146637;keyid=\"public.key\";alg=\"invalid\"";
+    final String signatureInput =
+        "\"@method\" \"@path\" \"@authority\" \"Content-Type\" "
+          + "\"Content-Length\";created=1646146637;keyid=\"public.key\";alg=\"invalid\"";
 
-            // init logger
+    // init logger
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
     HttpPost request = getRequest(sigInfo);
@@ -116,7 +123,6 @@ public class PkiHttpAnnotatorTest {
       request.setEntity(new StringEntity("{key: \"test\"}"));
     } catch (UnsupportedEncodingException e) {
       throw new AnnotatorException("Unsupported Character Encoding", e);
-
     }
     request.setHeader("Signature-Input", signatureInput);
 
@@ -128,17 +134,24 @@ public class PkiHttpAnnotatorTest {
     exceptionRule.expectMessage("Invalid key type invalid");
 
     final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
-    final AnnotatorConfig[] annotators = {annotatorInfo};  
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
+    final AnnotatorConfig[] annotators = {annotatorInfo};
+    final SdkInfo config =
+        new SdkInfo(
+            annotators,
+            new HashInfo(HashType.SHA256Hash),
+            sigInfo,
+            null,
+            LayerType.Application);
     final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config, logger);
     annotator.execute(ctx, data);
   }
 
   @Test
   public void testKeyNotFound() throws AnnotatorException, RequestHandlerException {
-    final String signatureInput = "\"@method\" \"@path\" \"@authority\" \"Content-Type\" " + 
-    "\"Content-Length\";created=1646146637;keyid=\"invalid\";alg=\"ed25519\"";
-            // init logger
+    final String signatureInput =
+        "\"@method\" \"@path\" \"@authority\" \"Content-Type\" "
+            + "\"Content-Length\";created=1646146637;keyid=\"invalid\";alg=\"ed25519\"";
+    // init logger
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
 
@@ -147,7 +160,6 @@ public class PkiHttpAnnotatorTest {
       request.setEntity(new StringEntity("{key: \"test\"}"));
     } catch (UnsupportedEncodingException e) {
       throw new AnnotatorException("Unsupported Character Encoding", e);
-
     }
     request.setHeader("Signature-Input", signatureInput);
 
@@ -155,10 +167,15 @@ public class PkiHttpAnnotatorTest {
     map.put(AnnotationType.PKIHttp.name(), request);
     final PropertyBag ctx = new ImmutablePropertyBag(map);
 
-
     final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
-    final AnnotatorConfig[] annotators = {annotatorInfo};  
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
+    final AnnotatorConfig[] annotators = {annotatorInfo};
+    final SdkInfo config =
+        new SdkInfo(
+            annotators,
+            new HashInfo(HashType.SHA256Hash),
+            sigInfo,
+            null,
+            LayerType.Application);
     final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config, logger);
     Annotation annotation = annotator.execute(ctx, data);
     assertFalse("isSatisfied should be false", annotation.getIsSatisfied());
@@ -167,7 +184,7 @@ public class PkiHttpAnnotatorTest {
   @Test
   public void testEmptySignature() throws AnnotatorException, RequestHandlerException {
     final String signature = "";
-            // init logger
+    // init logger
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
 
@@ -176,17 +193,22 @@ public class PkiHttpAnnotatorTest {
       request.setEntity(new StringEntity("{key: \"test\"}"));
     } catch (UnsupportedEncodingException e) {
       throw new AnnotatorException("Unsupported Character Encoding", e);
-
     }
     request.setHeader("Signature", signature);
 
     HashMap<String, Object> map = new HashMap<>();
     map.put(AnnotationType.PKIHttp.name(), request);
     final PropertyBag ctx = new ImmutablePropertyBag(map);
-    
+
     final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
-    final AnnotatorConfig[] annotators = {annotatorInfo};  
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
+    final AnnotatorConfig[] annotators = {annotatorInfo};
+    final SdkInfo config =
+        new SdkInfo(
+            annotators,
+            new HashInfo(HashType.SHA256Hash),
+            sigInfo,
+            null,
+            LayerType.Application);
     final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config, logger);
     final Annotation annotation = annotator.execute(ctx, data);
     assertFalse("isSatisfied should be false", annotation.getIsSatisfied());
@@ -197,14 +219,13 @@ public class PkiHttpAnnotatorTest {
     final String signature = "invalid";
 
     HttpPost request = getRequest(sigInfo);
-            // init logger
+    // init logger
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
     try {
       request.setEntity(new StringEntity("{key: \"test\"}"));
     } catch (UnsupportedEncodingException e) {
       throw new AnnotatorException("Unsupported Character Encoding", e);
-
     }
     request.setHeader("Signature", signature);
 
@@ -213,21 +234,25 @@ public class PkiHttpAnnotatorTest {
     final PropertyBag ctx = new ImmutablePropertyBag(map);
 
     final AnnotatorConfig annotatorInfo = this.getAnnotatorCfg();
-    final AnnotatorConfig[] annotators = {annotatorInfo};  
-    final SdkInfo config = new SdkInfo(annotators, new HashInfo(HashType.SHA256Hash), sigInfo, null, LayerType.Application);
+    final AnnotatorConfig[] annotators = {annotatorInfo};
+    final SdkInfo config =
+        new SdkInfo(
+            annotators,
+            new HashInfo(HashType.SHA256Hash),
+            sigInfo,
+            null,
+            LayerType.Application);
     final Annotator annotator = annotatorFactory.getAnnotator(annotatorInfo, config, logger);
     final Annotation annotation = annotator.execute(ctx, data);
     assertFalse("isSatisfied should be false", annotation.getIsSatisfied());
   }
 
   public AnnotatorConfig getAnnotatorCfg() {
-    final Gson gson = new GsonBuilder()
-      .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
-      .create();        
+    final Gson gson =
+        new GsonBuilder()
+            .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+            .create();
     final String json = "{\"kind\": \"pki-http\"}";
-    return gson.fromJson(
-                json, 
-                AnnotatorConfig.class
-    ); 
+    return gson.fromJson(json, AnnotatorConfig.class);
   }
 }

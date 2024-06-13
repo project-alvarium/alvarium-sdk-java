@@ -1,17 +1,16 @@
-
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- *******************************************************************************/
+* Copyright 2024 Dell Inc.
+*
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+* in compliance with the License. You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software distributed under the License
+* is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+* or implied. See the License for the specific language governing permissions and limitations under
+* the License.
+*******************************************************************************/
 package com.alvarium;
 
 import java.io.IOException;
@@ -20,12 +19,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
-import com.alvarium.utils.PropertyBag;
 import com.alvarium.annotators.Annotator;
 import com.alvarium.annotators.AnnotatorException;
 import com.alvarium.annotators.AnnotatorFactory;
 import com.alvarium.streams.StreamException;
 import com.alvarium.utils.ImmutablePropertyBag;
+import com.alvarium.utils.PropertyBag;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -35,29 +34,38 @@ import org.junit.Test;
 
 class MockSdk implements Sdk {
   public void create(PropertyBag properties, byte[] data) {}
+
   public void create(byte[] data) {
     final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
     this.create(properties, data);
   }
+
   public void mutate(PropertyBag properties, byte[] oldData, byte[] newData) {}
+
   public void mutate(byte[] oldData, byte[] newData) {
     final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
     this.mutate(properties, oldData, newData);
   }
+
   public void transit(PropertyBag properties, byte[] data) {}
+
   public void transit(byte[] data) {
     final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
     this.transit(properties, data);
   }
+
   public void publish(PropertyBag properties, byte[] data) {}
+
   public void publish(byte[] data) {
     final PropertyBag properties = new ImmutablePropertyBag(new HashMap<String, Object>());
     this.publish(properties, data);
   }
+
   public void close() {
     System.out.println("Connections closed");
-  } 
+  }
 }
+
 public class SdkTest {
   private final String testJson;
 
@@ -71,7 +79,7 @@ public class SdkTest {
     final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
 
     // init annotators
-    final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length]; 
+    final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length];
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
 
     // init logger
@@ -79,7 +87,8 @@ public class SdkTest {
     Configurator.setRootLevel(Level.DEBUG);
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger);
+      annotators[i] =
+          annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger);
     }
 
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
@@ -109,7 +118,8 @@ public class SdkTest {
     Configurator.setRootLevel(Level.DEBUG);
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger); 
+      annotators[i] =
+          annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger);
     }
 
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
@@ -121,20 +131,21 @@ public class SdkTest {
   }
 
   @Test
-  public void defaultSdkShouldCreateTransitionAnnotations() throws AnnotatorException,
-      StreamException {
+  public void defaultSdkShouldCreateTransitionAnnotations()
+      throws AnnotatorException, StreamException {
     final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
 
     // init annotators
     final Annotator[] annotators = new Annotator[sdkInfo.getAnnotators().length];
     final AnnotatorFactory annotatorFactory = new AnnotatorFactory();
-    
+
     // init logger
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger); 
+      annotators[i] =
+          annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger);
     }
 
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
@@ -158,11 +169,11 @@ public class SdkTest {
     Configurator.setRootLevel(Level.DEBUG);
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger); 
+      annotators[i] =
+          annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger);
     }
 
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);
-
 
     final byte[] oldData = "old data".getBytes();
     final byte[] newData = "new data".getBytes();
@@ -172,8 +183,8 @@ public class SdkTest {
   }
 
   @Test
-  public void defaultSdkShouldCreatePublishedAnnotations() throws AnnotatorException,
-      StreamException {
+  public void defaultSdkShouldCreatePublishedAnnotations()
+      throws AnnotatorException, StreamException {
     final SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
 
     // init annotators
@@ -185,7 +196,8 @@ public class SdkTest {
     Configurator.setRootLevel(Level.DEBUG);
 
     for (int i = 0; i < annotators.length; i++) {
-      annotators[i] = annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger); 
+      annotators[i] =
+          annotatorFactory.getAnnotator(sdkInfo.getAnnotators()[i], sdkInfo, logger);
     }
 
     final Sdk sdk = new DefaultSdk(annotators, sdkInfo, logger);

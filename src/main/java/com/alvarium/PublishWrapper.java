@@ -1,17 +1,16 @@
-
 /*******************************************************************************
- * Copyright 2021 Dell Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- *******************************************************************************/
+* Copyright 2024 Dell Inc.
+*
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+* in compliance with the License. You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software distributed under the License
+* is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+* or implied. See the License for the specific language governing permissions and limitations under
+* the License.
+*******************************************************************************/
 package com.alvarium;
 
 import java.io.Serializable;
@@ -51,30 +50,34 @@ public class PublishWrapper implements Serializable {
   }
 
   /**
-   * The content field in the returned JSON will be Base64 string encoded 
+   * The content field in the returned JSON will be Base64 string encoded
    * @return String representation of the PublishWrapper JSON
    */
   public String toJson() {
-    Gson gson = new GsonBuilder()
-        .registerTypeAdapter(Annotation.class, new AnnotationConverter())
-        .disableHtmlEscaping()
-        .create();
-    
+    Gson gson =
+        new GsonBuilder()
+            .registerTypeAdapter(Annotation.class, new AnnotationConverter())
+            .disableHtmlEscaping()
+            .create();
+
     // Change the content field to a base64 encoded string before serializing to json
     final JsonElement decodedContent = gson.toJsonTree(this.content);
     final String encodedContent;
-    
-    // `toString()` will work if the content is a primitive type, but will add additional 
-    // quotes (e.g. "foo" will be "\"foo\"") but `getAsString()` will produce correct behavior but
+
+    // `toString()` will work if the content is a primitive type, but will add additional
+    // quotes (e.g. "foo" will be "\"foo\"") but `getAsString()` will produce correct behavior
+    // but
     // using `getAsString()` on a non-primitive type will throw an exception.
     // This condition ensures that the correct method is called on the correct type
     if (decodedContent.isJsonPrimitive()) {
-      encodedContent = Base64.getEncoder().encodeToString(decodedContent.getAsString().getBytes());
+      encodedContent =
+          Base64.getEncoder().encodeToString(decodedContent.getAsString().getBytes());
     } else {
-      encodedContent = Base64.getEncoder().encodeToString(decodedContent.toString().getBytes());
+      encodedContent =
+          Base64.getEncoder().encodeToString(decodedContent.toString().getBytes());
     }
 
-    // new publish wrapper returned as JSON string with encoded content 
+    // new publish wrapper returned as JSON string with encoded content
     // to prevent setting the object content value
     final PublishWrapper wrapper = new PublishWrapper(action, messageType, encodedContent);
     return gson.toJson(wrapper);

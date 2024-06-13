@@ -1,17 +1,16 @@
-
 /*******************************************************************************
- * Copyright 2023 Dell Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- *******************************************************************************/
+* Copyright 2024 Dell Inc.
+*
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+* in compliance with the License. You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software distributed under the License
+* is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+* or implied. See the License for the specific language governing permissions and limitations under
+* the License.
+*******************************************************************************/
 package com.alvarium.annotators;
 
 import java.util.HashMap;
@@ -43,22 +42,22 @@ public class AnnotatorTest {
     final KeyInfo keyInfo = new KeyInfo("path", SignType.none);
     final SignatureInfo signature = new SignatureInfo(keyInfo, keyInfo);
     final HashInfo hash = new HashInfo(HashType.NoHash);
-    
-    final Gson gson = new GsonBuilder()
-      .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
-      .create();
-    
+
+    final Gson gson =
+        new GsonBuilder()
+            .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+            .create();
+
     final String satisfiedMockConfig = "{\"kind\": \"mock\",\n\"shouldSatisfy\":true}";
     final String unsatisfiedMockConfig = "{\"kind\": \"mock\",\n\"shouldSatisfy\":false}";
-    
-    
+
     final String badConfig1 = "{\"kind\": \"invalid\",\n\"shouldSatisfy\":true}";
     final String badConfig2 = "{\"invalid\": \"mock\",\n\"shouldSatisfy\":true}";
 
-    
-    final AnnotatorConfig satisfiedAnnotatorInfo = gson.fromJson(satisfiedMockConfig, AnnotatorConfig.class);
-    final AnnotatorConfig unsatisfiedAnnotatorInfo = gson.fromJson(unsatisfiedMockConfig, AnnotatorConfig.class);
-
+    final AnnotatorConfig satisfiedAnnotatorInfo =
+        gson.fromJson(satisfiedMockConfig, AnnotatorConfig.class);
+    final AnnotatorConfig unsatisfiedAnnotatorInfo =
+        gson.fromJson(unsatisfiedMockConfig, AnnotatorConfig.class);
 
     try {
       gson.fromJson(badConfig1, AnnotatorConfig.class);
@@ -73,16 +72,19 @@ public class AnnotatorTest {
     } catch (IllegalArgumentException e) {
       assert true;
     }
-    
+
     final AnnotatorConfig[] annotators = {satisfiedAnnotatorInfo, unsatisfiedAnnotatorInfo};
-    final SdkInfo config = new SdkInfo(annotators, hash, signature, null, LayerType.Application);
+    final SdkInfo config =
+        new SdkInfo(annotators, hash, signature, null, LayerType.Application);
 
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
 
     final AnnotatorFactory factory = new AnnotatorFactory();
-    final Annotator satisfiedAnnotator = factory.getAnnotator(satisfiedAnnotatorInfo, config, logger);
-    final Annotator unsatisfiedAnnotator = factory.getAnnotator(unsatisfiedAnnotatorInfo, config, logger);
+    final Annotator satisfiedAnnotator =
+        factory.getAnnotator(satisfiedAnnotatorInfo, config, logger);
+    final Annotator unsatisfiedAnnotator =
+        factory.getAnnotator(unsatisfiedAnnotatorInfo, config, logger);
 
     final byte[] data = "test data".getBytes();
     final PropertyBag ctx = new ImmutablePropertyBag(new HashMap<>());
@@ -92,7 +94,7 @@ public class AnnotatorTest {
 
     assert satisfiedAnnotation.getIsSatisfied();
     assert !unsatisfiedAnnotation.getIsSatisfied();
-  }  
+  }
 
   @Test
   public void mockAnnotatorShouldReturnTag() throws AnnotatorException {
@@ -100,16 +102,18 @@ public class AnnotatorTest {
     final SignatureInfo signature = new SignatureInfo(keyInfo, keyInfo);
     final HashInfo noHash = new HashInfo(HashType.NoHash);
 
-    final Gson gson = new GsonBuilder()
-      .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
-      .create();
+    final Gson gson =
+        new GsonBuilder()
+            .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+            .create();
 
     final String mockConfig = "{\"kind\": \"mock\"}";
 
     final AnnotatorConfig annotatorInfo = gson.fromJson(mockConfig, AnnotatorConfig.class);
 
     final AnnotatorConfig[] annotators = {annotatorInfo};
-    final SdkInfo noHashConfig = new SdkInfo(annotators, noHash, signature, null, LayerType.Application);
+    final SdkInfo noHashConfig =
+        new SdkInfo(annotators, noHash, signature, null, LayerType.Application);
 
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);
@@ -131,16 +135,18 @@ public class AnnotatorTest {
     final SignatureInfo signature = new SignatureInfo(keyInfo, keyInfo);
     final HashInfo noHash = new HashInfo(HashType.NoHash);
 
-    final Gson gson = new GsonBuilder()
-      .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
-      .create();
+    final Gson gson =
+        new GsonBuilder()
+            .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+            .create();
 
     final String mockConfig = "{\"kind\": \"mock\"}";
 
     final AnnotatorConfig annotatorInfo = gson.fromJson(mockConfig, AnnotatorConfig.class);
 
     final AnnotatorConfig[] annotators = {annotatorInfo};
-    final SdkInfo noHashConfig = new SdkInfo(annotators, noHash, signature, null, LayerType.Application);
+    final SdkInfo noHashConfig =
+        new SdkInfo(annotators, noHash, signature, null, LayerType.Application);
 
     final Logger logger = LogManager.getRootLogger();
     Configurator.setRootLevel(Level.DEBUG);

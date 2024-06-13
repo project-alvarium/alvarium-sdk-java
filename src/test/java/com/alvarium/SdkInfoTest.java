@@ -1,19 +1,17 @@
-
 /*******************************************************************************
- * Copyright 2023 Dell Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- *******************************************************************************/
+* Copyright 2024 Dell Inc.
+*
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+* in compliance with the License. You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software distributed under the License
+* is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+* or implied. See the License for the specific language governing permissions and limitations under
+* the License.
+*******************************************************************************/
 package com.alvarium;
-
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -38,7 +36,7 @@ public class SdkInfoTest {
   }
 
   @Test
-  public void fromJsonShouldReturnSdkInfo(){
+  public void fromJsonShouldReturnSdkInfo() {
     SdkInfo sdkInfo = SdkInfo.fromJson(this.testJson);
 
     assert sdkInfo.getAnnotators().length == 3;
@@ -46,28 +44,28 @@ public class SdkInfoTest {
     assert sdkInfo.getAnnotators()[0].getKind() == AnnotationType.TPM;
 
     assert sdkInfo.getAnnotators()[1].getKind() == AnnotationType.MOCK;
-    assert MockAnnotatorConfig.class.cast(sdkInfo.getAnnotators()[1]).getShouldSatisfy() == false;
-
+    assert MockAnnotatorConfig.class.cast(sdkInfo.getAnnotators()[1]).getShouldSatisfy()
+        == false;
 
     assert sdkInfo.getAnnotators()[2].getKind() == AnnotationType.VULNERABILITY;
-    assert VulnerabilityAnnotatorConfig.class.cast(sdkInfo.getAnnotators()[2])
-      .getProvider()
-      .uri()
-      .equals("https://example.com:80");
+    assert VulnerabilityAnnotatorConfig.class
+        .cast(sdkInfo.getAnnotators()[2])
+        .getProvider()
+        .uri()
+        .equals("https://example.com:80");
 
-    assert VulnerabilityAnnotatorConfig.class.cast(sdkInfo.getAnnotators()[2])
-      .getQueryBatchPath()
-      .equals("https://example.com:80/v1/querybatch");
+    assert VulnerabilityAnnotatorConfig.class
+        .cast(sdkInfo.getAnnotators()[2])
+        .getQueryBatchPath()
+        .equals("https://example.com:80/v1/querybatch");
 
-    assert VulnerabilityAnnotatorConfig.class.cast(sdkInfo.getAnnotators()[2])
-      .getQueryPath()
-      .equals("https://example.com:80/v1/query");
+    assert VulnerabilityAnnotatorConfig.class
+        .cast(sdkInfo.getAnnotators()[2])
+        .getQueryPath()
+        .equals("https://example.com:80/v1/query");
 
-
-    
     assert sdkInfo.getHash().getType() == HashType.SHA256Hash;
     assert sdkInfo.getSignature().getPrivateKey().getType() == SignType.Ed25519;
     assert sdkInfo.getStream().getConfig().getClass() == MqttConfig.class;
-
-  } 
+  }
 }

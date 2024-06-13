@@ -1,17 +1,16 @@
-
 /*******************************************************************************
- * Copyright 2023 Dell Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- *******************************************************************************/
+* Copyright 2024 Dell Inc.
+*
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+* in compliance with the License. You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software distributed under the License
+* is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+* or implied. See the License for the specific language governing permissions and limitations under
+* the License.
+*******************************************************************************/
 package com.alvarium.annotators;
 
 import java.net.InetAddress;
@@ -37,7 +36,8 @@ class MockAnnotator implements Annotator {
   private final SignatureInfo signature;
   private final LayerType layer;
 
-  protected MockAnnotator(MockAnnotatorConfig cfg, HashType hash, SignatureInfo signature, LayerType layer) {
+  protected MockAnnotator(
+      MockAnnotatorConfig cfg, HashType hash, SignatureInfo signature, LayerType layer) {
     this.cfg = cfg;
     this.hash = hash;
     this.kind = AnnotationType.MOCK;
@@ -52,12 +52,21 @@ class MockAnnotator implements Annotator {
       final String host = InetAddress.getLocalHost().getHostName();
       final String sig = signature.getPublicKey().getType().toString();
 
-      final Annotation annotation = new Annotation(key, hash, host, layer, kind, sig, cfg.getShouldSatisfy(), Instant.now());
+      final Annotation annotation =
+          new Annotation(
+              key,
+              hash,
+              host,
+              layer,
+              kind,
+              sig,
+              cfg.getShouldSatisfy(),
+              Instant.now());
       return annotation;
     } catch (HashTypeException e) {
       throw new AnnotatorException("failed to hash data", e);
     } catch (UnknownHostException e) {
       throw new AnnotatorException("Could not get hostname", e);
     }
-  } 
+  }
 }
