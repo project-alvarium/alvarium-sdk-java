@@ -1,17 +1,16 @@
-
 /*******************************************************************************
- * Copyright 2023 Dell Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- *******************************************************************************/
+* Copyright 2024 Dell Inc.
+*
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+* in compliance with the License. You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software distributed under the License
+* is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+* or implied. See the License for the specific language governing permissions and limitations under
+* the License.
+*******************************************************************************/
 package com.alvarium;
 
 import java.io.Serializable;
@@ -36,8 +35,12 @@ public class SdkInfo implements Serializable {
   private final StreamInfo stream;
   private final LayerType layer;
 
-  public SdkInfo(AnnotatorConfig[] annotators, HashInfo hash, SignatureInfo signature,
-      StreamInfo stream, LayerType layer) {
+  public SdkInfo(
+      AnnotatorConfig[] annotators,
+      HashInfo hash,
+      SignatureInfo signature,
+      StreamInfo stream,
+      LayerType layer) {
     this.annotators = annotators;
     this.hash = hash;
     this.signature = signature;
@@ -61,23 +64,25 @@ public class SdkInfo implements Serializable {
     return this.stream;
   }
 
-  public LayerType getLayer(){
+  public LayerType getLayer() {
     return this.layer;
   }
 
   public String toJson() {
-    Gson gson = new GsonBuilder()
-        .registerTypeAdapter(StreamInfo.class, new StreamInfoConverter())
-        .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
-        .create();
+    Gson gson =
+        new GsonBuilder()
+            .registerTypeAdapter(StreamInfo.class, new StreamInfoConverter())
+            .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+            .create();
     return gson.toJson(this);
   }
 
   public static SdkInfo fromJson(String json) {
-    Gson gson = new GsonBuilder()
-        .registerTypeAdapter(StreamInfo.class, new StreamInfoConverter())
-        .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
-        .create();
+    Gson gson =
+        new GsonBuilder()
+            .registerTypeAdapter(StreamInfo.class, new StreamInfoConverter())
+            .registerTypeAdapter(AnnotatorConfig.class, new AnnotatorConfigConverter())
+            .create();
     return gson.fromJson(json, SdkInfo.class);
   }
 }
