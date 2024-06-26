@@ -76,10 +76,12 @@ class SourceCodeAnnotator extends AbstractAnnotator implements Annotator {
             host = InetAddress.getLocalHost().getHostName();
             final String checksum = this.readChecksum(props.getChecksumPath());
             final String generatedChecksum = this.generateChecksum(props.getSourceCodePath());
-            isSatisfied = generatedChecksum.equals(checksum);
+            isSatisfied = generatedChecksum.equalsIgnoreCase(checksum);
         } catch (UnknownHostException | AnnotatorException e) {
             isSatisfied = false;
-            this.logger.error("Error during SourceCodeAnnotator execution: ",e);
+            this.logger.error("Error during SourceCodeAnnotator execution: ", e);
+        } catch (Exception e) {
+            throw new AnnotatorException("Source code annotator failed", e);
         }
 
         final Annotation annotation = new Annotation(
@@ -100,7 +102,7 @@ class SourceCodeAnnotator extends AbstractAnnotator implements Annotator {
     private String readChecksum(String path) throws AnnotatorException {
         try {
             final Path p = Paths.get(path);
-            return Files.readString(p);
+            return Files.readString(p).trim();
         } catch (IOException e) {
             throw new AnnotatorException("Failed to read file, could not validate checksum", e);
         } catch (SecurityException e) {
@@ -209,7 +211,19 @@ class SourceCodeAnnotator extends AbstractAnnotator implements Annotator {
     private String generateChecksum(String path) throws AnnotatorException {
         List<String> filePaths = getAllFiles(path);
         for(int i = 0 ; i<filePaths.size();i++){
-            String hashThenPath = readAndHashFile(filePaths.get(i)) + "  " + filePaths.get(i);
+            String filePath = filePaths.get(i);
+
+            // Hash should be lower case to conform with md5sum
+            // This is important because in this step, these hashes are the input into another hash generation
+            // so case sensitivity is important to avoid inconsistent results
+            String hash = readAndHashFile(filePath).toLowerCase(); 
+
+            // Absolute/canonical file paths replaced with relative paths to
+            // make the hashing process portable and not coupled with a 
+            // specific structure for the filesystem
+            String relativeFilePath = filePath.replace(path, ".");
+
+            String hashThenPath = hash + "  " + relativeFilePath;
             filePaths.set(i, hashThenPath);
         }
         Collections.sort(filePaths, Collator.getInstance(Locale.US));

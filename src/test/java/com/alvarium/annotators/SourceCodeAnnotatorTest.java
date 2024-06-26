@@ -17,6 +17,11 @@ package com.alvarium.annotators;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.logging.log4j.Level;
@@ -92,10 +97,20 @@ public class SourceCodeAnnotatorTest {
                 final File checksumFile = dir.newFile("checksum");
     
                 final HashProvider hash = new HashProviderFactory().getProvider(config.getHash().getType());
-                String hashAndPath = hash.derive(Files.readAllBytes(f1.toPath())) + "  " + f1.toPath().toString() + "\n";
-                hashAndPath = hashAndPath + hash.derive(Files.readAllBytes(f2.toPath())) + "  " + f2.toPath().toString() + "\n";
-                final String checksum = hash.derive(hashAndPath.getBytes());
-    
+                
+                List<String> hashesAndPaths = new ArrayList<>();
+                byte[] f1Content = Files.readAllBytes(f1.toPath()) ;
+                String f1RelativePath = f1.getPath().replace(sourceCodeDir.getPath(), ".");
+                byte[] f2Content = Files.readAllBytes(f2.toPath());
+                String f2RelativePath = f2.getPath().replace(sourceCodeDir.getPath(), ".");
+
+                hashesAndPaths.add(hash.derive(f1Content).toLowerCase() + "  " + f1RelativePath);
+                hashesAndPaths.add(hash.derive(f2Content).toLowerCase() + "  " + f2RelativePath);
+
+                Collections.sort(hashesAndPaths, Collator.getInstance(Locale.US));
+
+                String hashesAndFiles = String.join("\n", hashesAndPaths) + "\n";
+                final String checksum = hash.derive(hashesAndFiles.getBytes()).toLowerCase();
                 Files.write(checksumFile.toPath(), checksum.getBytes());
     
                 final SourceCodeAnnotatorProps props = 
