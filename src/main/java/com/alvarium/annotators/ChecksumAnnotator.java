@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Instant;
+import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
@@ -33,6 +34,7 @@ import com.alvarium.hash.HashType;
 import com.alvarium.hash.HashTypeException;
 import com.alvarium.sign.SignatureInfo;
 import com.alvarium.utils.PropertyBag;
+import com.alvarium.tag.TagManager;
 
 public class ChecksumAnnotator extends AbstractAnnotator implements Annotator {
 
@@ -40,6 +42,7 @@ public class ChecksumAnnotator extends AbstractAnnotator implements Annotator {
     final private SignatureInfo signature;
     private final AnnotationType kind;
     private final LayerType layer;
+    private final TagManager tagManager;
 
     private HashProvider hashProvider;
 
@@ -49,6 +52,7 @@ public class ChecksumAnnotator extends AbstractAnnotator implements Annotator {
         this.signature = signature;
         this.kind = AnnotationType.CHECKSUM;
         this.layer = layer;
+        this.tagManager = new TagManager(layer);
     }
     
     @Override
@@ -89,6 +93,13 @@ public class ChecksumAnnotator extends AbstractAnnotator implements Annotator {
             isSatisfied, 
             Instant.now()
         );
+    
+        if (ctx.hasProperty("tagWriterOverrides")){
+            annotation.setTag(tagManager.getTagValue(ctx.getProperty("tagWriterOverrides", Map.class)));
+        }
+        else {
+            annotation.setTag(tagManager.getTagValue());
+        }
 
         final String annotationSignature = super.signAnnotation(
             this.signature.getPrivateKey(), 

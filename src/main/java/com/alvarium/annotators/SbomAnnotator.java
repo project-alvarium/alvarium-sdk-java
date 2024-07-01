@@ -16,6 +16,7 @@ package com.alvarium.annotators;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Instant;
+import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
@@ -28,36 +29,40 @@ import com.alvarium.contracts.AnnotationType;
 import com.alvarium.contracts.LayerType;
 import com.alvarium.hash.HashType;
 import com.alvarium.sign.SignatureInfo;
+import com.alvarium.tag.TagManager;
 import com.alvarium.utils.PropertyBag;
 
 public class SbomAnnotator extends AbstractAnnotator implements Annotator {
-  final SbomAnnotatorConfig cfg;
+  private final SbomAnnotatorConfig cfg;
 
-  final HashType hash;
-  final SignatureInfo signature;
-  final AnnotationType kind;
-  final LayerType layer;
+  private final HashType hash;
+  private final SignatureInfo signature;
+  private final AnnotationType kind;
+  private final LayerType layer;
+  private final TagManager tagManager;
 
-  protected SbomAnnotator(SbomAnnotatorConfig cfg, HashType hash, SignatureInfo signature, Logger logger, LayerType layer) {
+  protected SbomAnnotator(SbomAnnotatorConfig cfg, HashType hash, SignatureInfo signature, Logger logger,
+      LayerType layer) {
     super(logger);
     this.cfg = cfg;
     this.hash = hash;
     this.signature = signature;
     this.kind = AnnotationType.SBOM;
     this.layer = layer;
+    this.tagManager = new TagManager(layer);
   }
-  
-  @Override 
+
+  @Override
   public Annotation execute(PropertyBag ctx, byte[] data) throws AnnotatorException {
     final String key = deriveHash(this.hash, data);
 
     String host = "";
-    try{
+    try {
       host = InetAddress.getLocalHost().getHostName();
     } catch (UnknownHostException e) {
-      this.logger.error("Error during SbomAnnotator execution: ",e);
+      this.logger.error("Error during SbomAnnotator execution: ", e);
     }
-    
+
     boolean isSatisfied = false;
     try {
       final SbomProvider sbom = new SbomProviderFactory().getProvider(this.cfg, this.logger);
@@ -71,24 +76,28 @@ public class SbomAnnotator extends AbstractAnnotator implements Annotator {
     } catch (Exception e) {
       this.logger.error("Error during SbomAnnotator execution: ", e);
     }
-    
+
     final Annotation annotation = new Annotation(
-        key, 
-        hash, 
-        host, 
+        key,
+        hash,
+        host,
         layer,
-        kind, 
-        null, 
-        isSatisfied, 
-        Instant.now()
-    );
+        kind,
+        null,
+        isSatisfied,
+        Instant.now());
+
+    if (ctx.hasProperty("tagWriterOverrides")) {
+      annotation.setTag(tagManager.getTagValue(ctx.getProperty("tagWriterOverrides", Map.class)));
+    } else {
+      annotation.setTag(tagManager.getTagValue());
+    }
 
     final String annotationSignature = super.signAnnotation(
-        this.signature.getPrivateKey(), 
-        annotation
-    );
+        this.signature.getPrivateKey(),
+        annotation);
 
     annotation.setSignature(annotationSignature);
-    return annotation;	
+    return annotation;
   }
 }
