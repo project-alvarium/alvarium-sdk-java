@@ -14,7 +14,7 @@ pipeline {
                 // $PWD is the workspace dir (the cloned repo), this will generate 
                 // an md5sum (checksum) for the repo and write it to `sc_checksum` in
                 // the dir created above
-                sh ''' find . -type f -exec md5sum {} + | LC_ALL=C sort | md5sum |\
+                sh ''' find . -type f -exec sha256sum {} + | LC_ALL=C sort | sha256sum |\
                         cut -d" " -f1 \
                         > $JENKINS_HOME/jobs/$JOB_NAME/$BUILD_NUMBER/sc_checksum
                 '''
